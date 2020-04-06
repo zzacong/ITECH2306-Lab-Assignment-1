@@ -3,12 +3,14 @@ package operation;
 import java.text.NumberFormat;
 import java.util.Scanner;
 
+import domain.Hospital;
 import domain.OtherProperty;
 import domain.Property;
 import domain.Residential;
 
 /**
  * @author Takeogh
+ * @author Zac
  *
  */
 public class CalculatePropertyTypeRates extends FunctionalDialog {
@@ -158,6 +160,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 			case(VACANT_LAND):
 				break;
 			case(HOSPITAL):
+				property = new Hospital();
 				break;
 			case(INDUSTRIAL):
 				break;

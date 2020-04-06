@@ -4,7 +4,7 @@ package domain;
  * @author Takeogh
  *
  */
-public class Residential extends Property{
+public class Residential extends Property {
 
 	private String propertyType;
 	private String architecturalStyle;
