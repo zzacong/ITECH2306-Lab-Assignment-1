@@ -25,6 +25,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 							 OTHER = 7,
 							 END = 0;
 	private static final int MAX_PROPERTY_TYPES = 7;
+	private static final int MIN_PROPERTY_TYPES = 0;
 	private static final String PROPERTY_TYPE_PROMPT = "What type of property are we dealing with? \n" +
 														RESIDENTIAL + ". Residential \n" +
 														COMMERCIAL + ". Commercial \n" +
@@ -44,6 +45,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 							 MEDIUM = 2,
 							 LARGE = 3;
 	private static final int MAX_COMMUNITY_CATEGORIES = 3;
+	private static final int MIN_COMMUNITY_CATEGORIES = 1;
 	private static final String COMMUNITY_CATEGORY_PROMPT = "What type of category is the school or community building? \n" +
 															SMALL + ". Small (1-20 members) \n" +
 															MEDIUM +". Medium (21-100) \n" +
@@ -62,7 +64,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 		switch (i)
 		{
 		case 0:
-			propertyType = obtainIntInput(MAX_PROPERTY_TYPES, PROPERTY_TYPE_PROMPT);
+			propertyType = obtainIntInput(MIN_PROPERTY_TYPES, MAX_PROPERTY_TYPES, PROPERTY_TYPE_PROMPT);
 			if (propertyType == END)
 				setStillRunning(false);
 			break;
@@ -71,7 +73,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 			break;
 		case 2:
 			if (propertyType == SCHOOL_COMMUNITY)
-				communityCategory = obtainIntInput(MAX_COMMUNITY_CATEGORIES, COMMUNITY_CATEGORY_PROMPT);
+				communityCategory = obtainIntInput(MIN_COMMUNITY_CATEGORIES, MAX_COMMUNITY_CATEGORIES, COMMUNITY_CATEGORY_PROMPT);
 			break;
 		case 3:
 			charityStatus = obtainBooleanInput(CHARITY_STATUS_PROMPT);
@@ -80,7 +82,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 	}
 	
 	// These next input and validation methods could perhaps be tidied up/refactored
-	private int obtainIntInput(int max, String prompt) {
+	private int obtainIntInput(int min, int max, String prompt) {
 		System.out.println(prompt);
 		return validateInt(0, max);
 	}
