@@ -1,16 +1,93 @@
 package domain;
 
 /**
- * @author Takeogh
+ * @author Zac
  *
  */
-public class SchoolCommunity {
+public class SchoolCommunity extends Property {
 
 	private String classification;
 	private String category;
+	private static final String SMALL = "Small", 
+								MEDIUM = "Medium",
+								LARGE = "Large";
+	private static final double CIV_RATE = 0.0025;
+	private static final int INDUSTRIAL_WASTE_DISPOSAL_UNITS = 2;
+	private static final double INDUSTRIAL_WASTE_DISPOSAL_FEES = 500.00;
+	private static final double FIRE_SERVICES_BASE = 200;
+	private static final double FIRE_SERVICES_PERCENT = 0.00006;
+	private static final double TRAFFIC_MANAGEMENT_BASE = 200.00;
+	private static final double TRAFFIC_MANAGEMENT_EXTRA_SMALL = 60.00;
+	private static final double TRAFFIC_MANAGEMENT_EXTRA_MEDIUM = 80.00;
+	private static final double TRAFFIC_MANAGEMENT_EXTRA_LARGE = 100.00;
+	private double trafficManagementFeesExtra;
+	private ServiceType industrialWasteDisposal;
+	private ServiceType fireServicesLevy;
+	private ServiceType trafficManagementLevy;
 	
-	public SchoolCommunity() {
-		System.out.println("Not implemented yet");
+	public SchoolCommunity(int categoryIndex) {
+		// We are explicit about our defaults for Strings
+		this.setClassification("Private");
+		this.setCategory(categoryIndex);
+		setCapitalImprovedRate(CIV_RATE);
 	}
 
+	public String getClassification() {
+		return classification;
+	}
+
+	public void setClassification(String classification) {
+		this.classification = classification;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(int categoryIndex) {
+		switch (categoryIndex)
+		{
+		case 1:
+			this.category = SMALL;
+			trafficManagementFeesExtra = TRAFFIC_MANAGEMENT_EXTRA_SMALL;
+			break;
+		case 2:
+			this.category = MEDIUM;
+			trafficManagementFeesExtra = TRAFFIC_MANAGEMENT_EXTRA_MEDIUM;
+			break;
+		case 3:
+			this.category = LARGE;
+			trafficManagementFeesExtra = TRAFFIC_MANAGEMENT_EXTRA_LARGE;
+			break;
+		}
+	}
+
+	@Override
+	public void setUpExtraServices() {
+		industrialWasteDisposal = new UnitAndRateService("Industrial Waste Disposal", 
+														  INDUSTRIAL_WASTE_DISPOSAL_UNITS, 
+														  INDUSTRIAL_WASTE_DISPOSAL_FEES);
+		fireServicesLevy = new BaseAndPercentageOfValueService("Fire Levy", FIRE_SERVICES_BASE, 
+																FIRE_SERVICES_PERCENT, 
+																getCapitalImprovedRate());
+		trafficManagementLevy = new BaseAndExtraService("Traffic Management Levy", 
+														 TRAFFIC_MANAGEMENT_BASE, 
+														 trafficManagementFeesExtra);
+	}
+
+	@Override
+	public double calculateExtraServices() {
+		return industrialWasteDisposal.calculateChargeForServiceType() + 
+			   fireServicesLevy.calculateChargeForServiceType() + 
+			   trafficManagementLevy.calculateChargeForServiceType();
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "SchoolCommunity [\n" + 
+								   industrialWasteDisposal.toString() + "\n" + 
+								   fireServicesLevy.toString() + "\n" + 
+								   trafficManagementLevy.toString() + "]\n";
+	}
+	
 }

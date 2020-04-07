@@ -7,6 +7,7 @@ import domain.Hospital;
 import domain.OtherProperty;
 import domain.Property;
 import domain.Residential;
+import domain.SchoolCommunity;
 
 /**
  * @author Takeogh
@@ -165,6 +166,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 			case(INDUSTRIAL):
 				break;
 			case(SCHOOL_COMMUNITY):
+				property = new SchoolCommunity(communityCategory);
 				break;
 			case(OTHER):
 				property = new OtherProperty();

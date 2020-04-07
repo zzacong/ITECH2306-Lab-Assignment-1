@@ -74,5 +74,4 @@ public class Hospital extends Property {
 								   fireServicesLevy.toString() + "]\n";
 	}
 	
-	
 }
