@@ -3,6 +3,7 @@ package operation;
 import java.text.NumberFormat;
 import java.util.Scanner;
 
+import domain.Commercial;
 import domain.Hospital;
 import domain.Industrial;
 import domain.OtherProperty;
@@ -160,6 +161,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 				property = new Residential();
 				break;
 			case(COMMERCIAL):
+				property = new Commercial();
 				break;
 			case(VACANT_LAND):
 				break;
