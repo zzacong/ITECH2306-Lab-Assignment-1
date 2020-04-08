@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.Scanner;
 
 import domain.Hospital;
+import domain.Industrial;
 import domain.OtherProperty;
 import domain.Property;
 import domain.Residential;
@@ -166,6 +167,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 				property = new Hospital();
 				break;
 			case(INDUSTRIAL):
+				property = new Industrial();
 				break;
 			case(SCHOOL_COMMUNITY):
 				property = new SchoolCommunity(communityCategory);
