@@ -1,8 +1,8 @@
 package domain;
 
 /**
- * @author Takeogh
  * @author Anush
+ * 
  */
 public class Commercial extends Property {
 	private String businessName;

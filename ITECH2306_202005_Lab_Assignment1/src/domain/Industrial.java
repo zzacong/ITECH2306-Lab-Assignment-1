@@ -1,8 +1,9 @@
 package domain;
 
 /**
- * @author Takeogh
  * @author Anush
+ * @author Zac
+ * 
  */
 public class Industrial extends Property {
 
@@ -24,25 +25,17 @@ public class Industrial extends Property {
 		setCapitalImprovedRate(CIV_RATE);
 	}
 	
-	
-
 	public String getHazardStatus() {
 		return hazardStatus;
 	}
-
-
 
 	public void setHazardStatus(String hazardStatus) {
 		this.hazardStatus = hazardStatus;
 	}
 
-
-
 	public String getHeavyVehicleStatus() {
 		return heavyVehicleStatus;
 	}
-
-
 
 	public void setHeavyVehicleStatus(String heavyVehicleStatus) {
 		this.heavyVehicleStatus = heavyVehicleStatus;
@@ -55,9 +48,7 @@ public class Industrial extends Property {
 														  INDUSTRIAL_WASTE_DISPOSAL_FEES);
 		fireServicesLevy = new BaseAndPercentageOfValueService("Fire Levy", FIRE_SERVICES_BASE, 
 					   											FIRE_SERVICES_PERCENT, 
-					   											getCapitalImprovedValue());
-		
-		
+					   											getCapitalImprovedValue());				
 	}
 
 	@Override
@@ -66,18 +57,11 @@ public class Industrial extends Property {
 				fireServicesLevy.calculateChargeForServiceType();
 	}
 
-
-
 	@Override
 	public String toString() {
 		return super.toString() + "Industrial [\n" + 
 								   industrialWasteDisposal.toString() + "\n" +
 								   fireServicesLevy.toString() + "]\n";
 	}
-
-
-	
-	
-
 	
 }

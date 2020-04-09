@@ -1,7 +1,6 @@
 package domain;
 
 /**
- * @author Takeogh
  * @author Zac
  *
  */

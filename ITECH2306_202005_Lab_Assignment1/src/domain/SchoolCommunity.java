@@ -2,6 +2,7 @@ package domain;
 
 /**
  * @author Zac
+ * @author Anush
  *
  */
 public class SchoolCommunity extends Property {

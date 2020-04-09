@@ -14,6 +14,7 @@ import domain.SchoolCommunity;
 /**
  * @author Takeogh
  * @author Zac
+ * @author Anush
  *
  */
 public class CalculatePropertyTypeRates extends FunctionalDialog {
@@ -86,7 +87,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 	// These next input and validation methods could perhaps be tidied up/refactored
 	private int obtainIntInput(int min, int max, String prompt) {
 		System.out.println(prompt);
-		return validateInt(0, max);
+		return validateInt(min, max);
 	}
 
 	private double obtainDoubleInput(double max, String prompt) {
@@ -187,8 +188,6 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 			System.out.println("Details Selected: " + property +  "\n" +
 							   "Total Rate Costs: " +property.calculateRates() + "\n");
 		}
-
-		
 		
 	}
 
