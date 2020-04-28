@@ -15,3 +15,6 @@ V3.2 by Zac
 V4.1 by Zac
 - Implement JUnit test case for SchoolCommunity class
 - Fix setUpExtraServices method for SchoolCommunity class
+
+V4.2 by Zac
+- Remove lines of unused code
