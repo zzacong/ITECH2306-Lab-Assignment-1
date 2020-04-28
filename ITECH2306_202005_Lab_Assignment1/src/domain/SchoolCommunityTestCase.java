@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,22 +16,10 @@ class SchoolCommunityTestCase {
 	
 	private SchoolCommunity schoolCommunity;
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
 	@BeforeEach
 	void setUp() throws Exception {
 		schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
 	}
 
 	@Test
