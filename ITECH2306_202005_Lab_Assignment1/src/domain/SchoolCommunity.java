@@ -76,34 +76,6 @@ public class SchoolCommunity extends Property {
 	public double getTrafficManagementExtra() {
 		return trafficManagementExtra;
 	}
-	
-//	public void setTrafficManagementFeesExtra(double trafficManagementFeesExtra) {
-//		this.trafficManagementFeesExtra = trafficManagementFeesExtra;
-//	}
-//	
-//	public ServiceType getIndustrialWasteDisposal() {
-//		return industrialWasteDisposal;
-//	}
-//
-//	public void setIndustrialWasteDisposal(ServiceType industrialWasteDisposal) {
-//		this.industrialWasteDisposal = industrialWasteDisposal;
-//	}
-//
-//	public ServiceType getFireServicesLevy() {
-//		return fireServicesLevy;
-//	}
-//
-//	public void setFireServicesLevy(ServiceType fireServicesLevy) {
-//		this.fireServicesLevy = fireServicesLevy;
-//	}
-//
-//	public ServiceType getTrafficManagementLevy() {
-//		return trafficManagementLevy;
-//	}
-//
-//	public void setTrafficManagementLevy(ServiceType trafficManagementLevy) {
-//		this.trafficManagementLevy = trafficManagementLevy;
-//	}
 
 	@Override
 	public void setUpExtraServices() {
