@@ -54,7 +54,7 @@ public class VacantLand extends Property{
 	
 	@Override
 	public String toString() {
-		return super.toString() + "OtherProperty [\n" +
+		return super.toString() + "VacantLand [\n" +
 								  fireServicesLevy.toString() + "]\n ";	
 	}
 	
