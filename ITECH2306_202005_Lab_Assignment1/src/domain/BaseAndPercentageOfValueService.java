@@ -18,7 +18,6 @@ public class BaseAndPercentageOfValueService extends ServiceType{
 
 	@Override
 	protected double calculateChargeForServiceType() {
-		// TODO Auto-generated method stub
 		return this.getBase() + (this.getPercentage() * this.getValue());
 	}
 	

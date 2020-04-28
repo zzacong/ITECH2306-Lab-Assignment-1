@@ -21,7 +21,7 @@ public class SchoolCommunity extends Property {
 	private static final double TRAFFIC_MANAGEMENT_EXTRA_SMALL = 60.00;
 	private static final double TRAFFIC_MANAGEMENT_EXTRA_MEDIUM = 80.00;
 	private static final double TRAFFIC_MANAGEMENT_EXTRA_LARGE = 100.00;
-	private double trafficManagementFeesExtra;
+	private double trafficManagementExtra;
 	private ServiceType industrialWasteDisposal;
 	private ServiceType fireServicesLevy;
 	private ServiceType trafficManagementLevy;
@@ -30,6 +30,12 @@ public class SchoolCommunity extends Property {
 		// We are explicit about our defaults for Strings
 		this.setClassification("Private");
 		this.setCategory(categoryIndex);
+		setCapitalImprovedRate(CIV_RATE);
+	}
+	
+	public SchoolCommunity() {
+		// We are explicit about our defaults for Strings
+		this.setClassification("Private");
 		setCapitalImprovedRate(CIV_RATE);
 	}
 
@@ -50,18 +56,54 @@ public class SchoolCommunity extends Property {
 		{
 		case 1:
 			this.category = SMALL;
-			trafficManagementFeesExtra = TRAFFIC_MANAGEMENT_EXTRA_SMALL;
+			trafficManagementExtra = TRAFFIC_MANAGEMENT_EXTRA_SMALL;
 			break;
 		case 2:
 			this.category = MEDIUM;
-			trafficManagementFeesExtra = TRAFFIC_MANAGEMENT_EXTRA_MEDIUM;
+			trafficManagementExtra = TRAFFIC_MANAGEMENT_EXTRA_MEDIUM;
 			break;
 		case 3:
 			this.category = LARGE;
-			trafficManagementFeesExtra = TRAFFIC_MANAGEMENT_EXTRA_LARGE;
+			trafficManagementExtra = TRAFFIC_MANAGEMENT_EXTRA_LARGE;
+			break;
+		default:
+			this.category = null;
+			trafficManagementExtra = 0;
 			break;
 		}
 	}
+	
+	public double getTrafficManagementExtra() {
+		return trafficManagementExtra;
+	}
+	
+//	public void setTrafficManagementFeesExtra(double trafficManagementFeesExtra) {
+//		this.trafficManagementFeesExtra = trafficManagementFeesExtra;
+//	}
+//	
+//	public ServiceType getIndustrialWasteDisposal() {
+//		return industrialWasteDisposal;
+//	}
+//
+//	public void setIndustrialWasteDisposal(ServiceType industrialWasteDisposal) {
+//		this.industrialWasteDisposal = industrialWasteDisposal;
+//	}
+//
+//	public ServiceType getFireServicesLevy() {
+//		return fireServicesLevy;
+//	}
+//
+//	public void setFireServicesLevy(ServiceType fireServicesLevy) {
+//		this.fireServicesLevy = fireServicesLevy;
+//	}
+//
+//	public ServiceType getTrafficManagementLevy() {
+//		return trafficManagementLevy;
+//	}
+//
+//	public void setTrafficManagementLevy(ServiceType trafficManagementLevy) {
+//		this.trafficManagementLevy = trafficManagementLevy;
+//	}
 
 	@Override
 	public void setUpExtraServices() {
@@ -70,10 +112,10 @@ public class SchoolCommunity extends Property {
 														  INDUSTRIAL_WASTE_DISPOSAL_FEES);
 		fireServicesLevy = new BaseAndPercentageOfValueService("Fire Levy", FIRE_SERVICES_BASE, 
 																FIRE_SERVICES_PERCENT, 
-																getCapitalImprovedRate());
+																getCapitalImprovedValue());
 		trafficManagementLevy = new BaseAndExtraService("Traffic Management Levy", 
 														 TRAFFIC_MANAGEMENT_BASE, 
-														 trafficManagementFeesExtra);
+														 trafficManagementExtra);
 	}
 
 	@Override
