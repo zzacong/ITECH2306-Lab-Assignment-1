@@ -21,3 +21,4 @@ V4.2 by Zac
 
 Arun 
 -Implemented VacantLand Propert Type
+-Implemented Junit test for VaccantLand class.
