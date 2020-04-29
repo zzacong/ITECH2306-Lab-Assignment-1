@@ -24,3 +24,6 @@ V4.3 by Zac
 
 V4.4 by Zac
 - Removed Arun's modification
+
+V4.5 by Anush
+- Added JUnit test case for Commercial class
