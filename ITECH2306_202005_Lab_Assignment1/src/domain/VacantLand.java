@@ -17,6 +17,13 @@ public class VacantLand extends Property{
 		setCapitalImprovedRate(CIV_RATE);
 	}
 	
+	public VacantLand(String[] overlayArray) {
+		super();
+		setCapitalImprovedRate(CIV_RATE);
+		setOverlays(overlayArray);
+		
+	}
+	
 	public String[] getOverlays() {
 		return overlays;
 	}
