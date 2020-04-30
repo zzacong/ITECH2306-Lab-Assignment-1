@@ -1,27 +1,35 @@
 package domain;
 
+//import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author Zac
+ * @author Anush
  *
  */
 
-class SchoolCommunityTestCase {
+public class SchoolCommunityTestCase {
 	
 	private SchoolCommunity schoolCommunity;
 
-	@BeforeEach
-	void setUp() throws Exception {
+	// Create a SchoolCommunity object before running each test
+	@Before
+	public void setUp() throws Exception {
 		schoolCommunity = new SchoolCommunity();
-		schoolCommunity.setCapitalImprovedValue(350000.00);
+		schoolCommunity.setCapitalImprovedValue(350000.00); // Set up CIV value for the property type before running test case
+		schoolCommunity.getOwner().setCharity(false); // Set default charitable status = false 
 	}
 
+	// Boundary testing for categoryIndex
 	@Test
 	public void testCategoryNull() {
 		assertNull(schoolCommunity.getCategory());
@@ -31,16 +39,16 @@ class SchoolCommunityTestCase {
 		assertNull(schoolCommunity.getCategory());
 	}
 	
+	// Boundary testing for categoryIndex
 	@Test
 	public void testCategoryNotNull() {
 		schoolCommunity.setCategory(1);
-		assertNotNull(schoolCommunity.getCategory());
-		schoolCommunity.setCategory(2);
 		assertNotNull(schoolCommunity.getCategory());
 		schoolCommunity.setCategory(3);
 		assertNotNull(schoolCommunity.getCategory());
 	}
 	
+	// Test the category name
 	@Test
 	public void testCategory() {
 		schoolCommunity.setCategory(1);
@@ -51,6 +59,7 @@ class SchoolCommunityTestCase {
 		assertEquals("Large", schoolCommunity.getCategory());
 	}
 	
+	// Test the Traffic Management Levy value 
 	@Test
 	public void testTrafficManagementLevy() {
 		schoolCommunity.setCategory(1);
@@ -61,6 +70,7 @@ class SchoolCommunityTestCase {
 		assertEquals(100.00, schoolCommunity.getTrafficManagementExtra(), 0.0001);
 	}
 
+	// Test extra services charge for Small category 
 	@Test
 	public void testSmallSchoolCommunityExtraServices() {
 		schoolCommunity.setCategory(1);
@@ -68,6 +78,7 @@ class SchoolCommunityTestCase {
 		assertEquals(1481.00, schoolCommunity.calculateExtraServices(), 0.0001);
 	}
 	
+	// Test extra services charge for Medium category
 	@Test
 	public void testMediumSchoolCommunityExtraServices() {
 		schoolCommunity.setCategory(2);
@@ -75,6 +86,7 @@ class SchoolCommunityTestCase {
 		assertEquals(1501.00, schoolCommunity.calculateExtraServices(), 0.0001);
 	}
 	
+	// Test extra services charge for Large category
 	@Test
 	public void testLargeSchoolCommunityExtraServices() {
 		schoolCommunity.setCategory(3);
@@ -82,6 +94,8 @@ class SchoolCommunityTestCase {
 		assertEquals(1521.00, schoolCommunity.calculateExtraServices(), 0.0001);
 	}
 	
+	// Test total rate for Small category depending on charitable status
+	// default charity value = false
 	@Test
 	public void testSmallSchoolCommunityRate() {
 		schoolCommunity.setCategory(1);
@@ -91,6 +105,8 @@ class SchoolCommunityTestCase {
 		assertEquals(1884.80, schoolCommunity.calculateRates(), 0.0001);
 	}
 	
+	// Test total rate for Medium category depending on charitable status
+	// default charity value = false	
 	@Test
 	public void testMediumSchoolCommunityRate() {
 		schoolCommunity.setCategory(2);
@@ -100,6 +116,8 @@ class SchoolCommunityTestCase {
 		assertEquals(1900.80, schoolCommunity.calculateRates(), 0.0001);
 	}
 	
+	// Test total rate for Large category depending on charitable status
+	// default charity value = false
 	@Test
 	public void testLargeSchoolCommunityRate() {
 		schoolCommunity.setCategory(3);
