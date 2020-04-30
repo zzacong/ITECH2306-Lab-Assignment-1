@@ -58,7 +58,7 @@ public class Commercial extends Property {
 	
 	@Override
 	public String toString() {
-		return  super.toString() + "Commercial [\n" + 
+		return  super.toString() + "Property type: Commercial [\n" + 
 									wasteManagement.toString() + "\n" +
 									fireServicesLevy.toString() + " ]\n ";
 	}

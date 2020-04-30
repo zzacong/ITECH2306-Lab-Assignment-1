@@ -42,7 +42,7 @@ public class OtherProperty extends Property {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "OtherProperty [\n" +
+		return super.toString() + "Property type: OtherProperty [\n" +
 								  fireServicesLevy.toString() + "]\n ";	
 	}
 

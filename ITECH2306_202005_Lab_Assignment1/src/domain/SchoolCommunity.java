@@ -28,7 +28,6 @@ public class SchoolCommunity extends Property {
 	
 	public SchoolCommunity(int categoryIndex) {
 		// We are explicit about our defaults for Strings
-//		super();
 		this();
 		this.setCategory(categoryIndex);
 	}
@@ -53,24 +52,27 @@ public class SchoolCommunity extends Property {
 	}
 
 	public void setCategory(int categoryIndex) {
-		switch (categoryIndex)
-		{
-		case 1:
-			this.category = SMALL;
-			trafficManagementExtra = TRAFFIC_MANAGEMENT_EXTRA_SMALL;
-			break;
-		case 2:
-			this.category = MEDIUM;
-			trafficManagementExtra = TRAFFIC_MANAGEMENT_EXTRA_MEDIUM;
-			break;
-		case 3:
-			this.category = LARGE;
-			trafficManagementExtra = TRAFFIC_MANAGEMENT_EXTRA_LARGE;
-			break;
-		default:
+		if (categoryIndex >= 1 && categoryIndex <= 3) {
+			switch (categoryIndex)
+			{
+			case 1:
+				this.category = SMALL;
+				trafficManagementExtra = TRAFFIC_MANAGEMENT_EXTRA_SMALL;
+				break;
+			case 2:
+				this.category = MEDIUM;
+				trafficManagementExtra = TRAFFIC_MANAGEMENT_EXTRA_MEDIUM;
+				break;
+			case 3:
+				this.category = LARGE;
+				trafficManagementExtra = TRAFFIC_MANAGEMENT_EXTRA_LARGE;
+				break;
+			}
+		}
+		else {
+			System.out.println("Category index is out of range!");
 			this.category = null;
 			trafficManagementExtra = 0;
-			break;
 		}
 	}
 	
@@ -100,10 +102,10 @@ public class SchoolCommunity extends Property {
 
 	@Override
 	public String toString() {
-		return super.toString() + "SchoolCommunity [\n" + 
+		return super.toString() + "Property type: SchoolCommunity [\n" +
 								   industrialWasteDisposal.toString() + "\n" + 
 								   fireServicesLevy.toString() + "\n" + 
-								   trafficManagementLevy.toString() + "]\n";
+								   trafficManagementLevy.toString() + "] \n";
 	}
 	
 }

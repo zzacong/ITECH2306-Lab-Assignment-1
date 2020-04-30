@@ -59,7 +59,7 @@ public class Industrial extends Property {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Industrial [\n" + 
+		return super.toString() + "Property type: Industrial [\n" + 
 								   industrialWasteDisposal.toString() + "\n" +
 								   fireServicesLevy.toString() + "]\n";
 	}

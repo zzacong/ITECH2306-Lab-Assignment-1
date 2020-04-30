@@ -67,7 +67,12 @@ public abstract class Property {
 	}
 
 	public void setCapitalImprovedValue(double capitalImprovedValue) {
-		this.capitalImprovedValue = capitalImprovedValue;
+		if (capitalImprovedValue >= 100.00 && capitalImprovedValue <= 50000000.00) {
+			this.capitalImprovedValue = capitalImprovedValue;
+		}
+		else {
+			System.out.println("Capital Improved Value is out of range!");
+		}
 	}
 
 	public double getNetAnnualValue() {
@@ -95,7 +100,7 @@ public abstract class Property {
 	}
 
 	public void setCapitalImprovedRate(double capitalImprovedRate) {
-		this.capitalImprovedRate = capitalImprovedRate;
+			this.capitalImprovedRate = capitalImprovedRate;
 	}
 
 	public RatePayer getOwner() {

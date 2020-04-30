@@ -69,7 +69,7 @@ public class Residential extends Property {
 
 	@Override
 	public String toString() {
-		return  super.toString() + "Residential [\n" + 
+		return  super.toString() + "Property type: Residential [\n" + 
 									wasteManagement.toString() + "\n" +
 									greenWasteManagement.toString() + "\n" +
 									fireServicesLevy.toString() + " ]\n ";
