@@ -135,9 +135,9 @@ public class SchoolCommunityTestCase {
 		assertEquals(1,(schoolCommunity.getOwner().isCharity() ? 1 - schoolCommunity.getOwner().getCharityDiscountPercentage() : 1), 0.001);
 	}
 	
-	// Test multiplying CIV with CIV rate
+	// Test multiplying CIV with CIV rate, CIV = $350,000
 	@Test
-	public void testCalculateCIV() {
+	public void testCIVRateCalculation() {
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		assertEquals(875, (schoolCommunity.getCapitalImprovedValue() * schoolCommunity.getCapitalImprovedRate()), 0.001);
 	}
