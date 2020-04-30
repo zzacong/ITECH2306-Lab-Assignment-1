@@ -46,3 +46,10 @@ V4.6 by Zac
 
 V4.7 by Zac
 - Change @Before method name in commercialTestCase - setUp()
+
+V4.8 by Zac
+- Major changes in SchoolCommunityTestCase:
+  - Break down test with multiple asserts into smaller test with only one
+assert
+  - Change @before method
+  - Set up CIV only on test which require a CIV
