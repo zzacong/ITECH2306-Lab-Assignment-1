@@ -1,6 +1,17 @@
 # itech2306-202005-lab-assignment1-team-zac-anush
 itech2306-202005-lab-assignment1-team-zac-anush created by GitHub Classroom
 
+V2.0 by Zac
+- Made changes to Hospital property type
+- Made changes to CalculatePropertyTypeRates operation
+
+V2.1 by Zac
+- Made changes to SchoolCommunity property type
+- Made changes to CalculatePropertyTypeRates operation
+
+V2.3 by Zac
+- Fixed bug for showing 0-3 option when obtaining input for comunityCategory
+
 V3.0 by Anush
 - Implemented Industrial Property Type
 
@@ -32,3 +43,6 @@ V4.6 by Zac
 - Implement PropertyTypeTestCaseRunner
 - Fix imports on SchoolCommunityTestCase and CommercialTestCase
 - Add comments for both JUnit test case
+
+V4.7 by Zac
+- Change @Before method name in commercialTestCase - setUp()
