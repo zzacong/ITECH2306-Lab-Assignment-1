@@ -19,7 +19,7 @@ public class CommercialTestCase {
 	
 	// Create a Commercial object before running each test
 	@Before
-	public void initialize() {
+	public void setUp() {
 		commercial = new Commercial();
 		commercial.setCapitalImprovedValue(45000.00); // ensures that CIV value is set before the Test case runs
 		commercial.getOwner().setCharity(false); // Set default charitable status = false 
