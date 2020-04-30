@@ -65,3 +65,6 @@ V4.10 by Zac
 
 V4.11 by Zac
 - Modify CommercialTestCase
+
+Version 4.12
+- Modify formatting of output
