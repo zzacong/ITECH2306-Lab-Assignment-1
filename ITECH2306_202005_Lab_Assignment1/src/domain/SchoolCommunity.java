@@ -70,7 +70,6 @@ public class SchoolCommunity extends Property {
 			}
 		}
 		else {
-			System.out.println("Category index is out of range!");
 			this.category = null;
 			trafficManagementExtra = 0;
 		}

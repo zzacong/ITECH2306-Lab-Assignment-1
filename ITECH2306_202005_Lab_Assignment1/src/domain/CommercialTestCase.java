@@ -24,14 +24,14 @@ public class CommercialTestCase {
 	// Boundary testing for CIV with a highest value that should be rejected
 	@Test
 	public void testMaxRejectedCIV() {
-		commercial.setCapitalImprovedValue(99);
+		commercial.setCapitalImprovedValue(50000001);
 		assertEquals(0, commercial.getCapitalImprovedValue(), 0.001);
 	}
 
 	// Boundary testing for CIV with a lowest value that should be rejected
 	@Test
 	public void testMinRejectedCIV() {
-		commercial.setCapitalImprovedValue(50000001);
+		commercial.setCapitalImprovedValue(99);
 		assertEquals(0, commercial.getCapitalImprovedValue(), 0.001);
 	}
 	

@@ -54,14 +54,14 @@ public class SchoolCommunityTestCase {
 	// Boundary testing for CIV with a highest value that should be rejected
 	@Test
 	public void testMaxRejectedCIV() {
-		schoolCommunity.setCapitalImprovedValue(99);
+		schoolCommunity.setCapitalImprovedValue(50000001);
 		assertEquals(0, schoolCommunity.getCapitalImprovedValue(), 0.001);
 	}
 
 	// Boundary testing for CIV with a lowest value that should be rejected
 	@Test
 	public void testMinRejectedCIV() {
-		schoolCommunity.setCapitalImprovedValue(50000001);
+		schoolCommunity.setCapitalImprovedValue(99);
 		assertEquals(0, schoolCommunity.getCapitalImprovedValue(), 0.001);
 	}
 	

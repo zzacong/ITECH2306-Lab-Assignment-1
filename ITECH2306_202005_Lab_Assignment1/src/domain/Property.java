@@ -70,9 +70,11 @@ public abstract class Property {
 		if (capitalImprovedValue >= 100.00 && capitalImprovedValue <= 50000000.00) {
 			this.capitalImprovedValue = capitalImprovedValue;
 		}
+		
 		else {
-			System.out.println("Capital Improved Value is out of range!");
+			this.capitalImprovedValue = 0;
 		}
+
 	}
 
 	public double getNetAnnualValue() {
