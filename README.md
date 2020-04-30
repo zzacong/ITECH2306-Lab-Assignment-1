@@ -62,3 +62,6 @@ V4.10 by Zac
   - Validate CIV for setCapitalImprovedValue() in Property class
   - Add tests for testing boundary value of CIV in SchoolCommunityTestCase
 - Improve formatting of property type output
+
+V4.11 by Zac
+- Modify CommercialTestCase
