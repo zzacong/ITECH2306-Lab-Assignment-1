@@ -56,3 +56,9 @@ assert
   
 V4.9 by Anush
 - Improved PropertyTypeTestCaseRunner 
+
+V4.10 by Zac
+- Modify SchoolCommunityTestCase
+  - Validate CIV for setCapitalImprovedValue() in Property class
+  - Add tests for testing boundary value of CIV in SchoolCommunityTestCase
+- Improve formatting of property type output
