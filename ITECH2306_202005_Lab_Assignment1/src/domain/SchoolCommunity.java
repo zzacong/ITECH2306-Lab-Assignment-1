@@ -28,12 +28,13 @@ public class SchoolCommunity extends Property {
 	
 	public SchoolCommunity(int categoryIndex) {
 		// We are explicit about our defaults for Strings
-		this.setClassification("Private");
+//		super();
+		this();
 		this.setCategory(categoryIndex);
-		setCapitalImprovedRate(CIV_RATE);
 	}
 	
 	public SchoolCommunity() {
+		super();
 		// We are explicit about our defaults for Strings
 		this.setClassification("Private");
 		setCapitalImprovedRate(CIV_RATE);

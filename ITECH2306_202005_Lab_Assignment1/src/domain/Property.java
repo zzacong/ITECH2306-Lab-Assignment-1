@@ -83,12 +83,11 @@ public abstract class Property {
 	}
 
 	public void setValuationDate(String date) {
-
 		this.valuationDate = date;
 	}
+	
 	private String dateToString(LocalDate date) {
 		return date.format(FORMATTER);
-		
 	}
 	
 	public double getCapitalImprovedRate() {
@@ -126,5 +125,4 @@ public abstract class Property {
 	}
 	
 	
-
 }

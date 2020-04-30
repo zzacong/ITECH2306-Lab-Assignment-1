@@ -19,7 +19,7 @@ public class Industrial extends Property {
 	
 	public Industrial() {
 		super();
-		//Explicit assignment of property attributes
+		// Explicit assignment of property attributes
 		this.setHazardStatus("Chemicals");
 		this.setHeavyVehicleStatus("Approved");
 		setCapitalImprovedRate(CIV_RATE);

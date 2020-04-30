@@ -17,6 +17,7 @@ public class Commercial extends Property {
 
 	public Commercial() {
 		super();
+		// Explicit assignment of property attributes
 		this.setBusinessName("Zac and Anush Pty. Ltd");
 		this.setAbn(123456);
 		setCapitalImprovedRate(CIV_RATE);
