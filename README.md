@@ -27,3 +27,8 @@ V4.4 by Zac
 
 V4.5 by Anush
 - Added JUnit test case for Commercial class
+
+V4.6 by Zac
+- Implement PropertyTypeTestCaseRunner
+- Fix imports on SchoolCommunityTestCase and CommercialTestCase
+- Add comments for both JUnit test case
