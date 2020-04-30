@@ -100,7 +100,7 @@ public abstract class Property {
 	}
 
 	public void setCapitalImprovedRate(double capitalImprovedRate) {
-			this.capitalImprovedRate = capitalImprovedRate;
+		this.capitalImprovedRate = capitalImprovedRate;
 	}
 
 	public RatePayer getOwner() {
