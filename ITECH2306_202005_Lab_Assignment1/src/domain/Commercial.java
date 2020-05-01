@@ -39,6 +39,7 @@ public class Commercial extends Property {
 		this.abn = abn;
 	}
 
+	// Set up the extra services of Commercial property type
 	@Override
 	public void setUpExtraServices() {
 		wasteManagement = new UnitAndRateService("Waste Management",
@@ -50,6 +51,7 @@ public class Commercial extends Property {
 																getCapitalImprovedValue());		
 	}
 
+	// Add up all the extra services charges
 	@Override
 	public double calculateExtraServices() {
 		return wasteManagement.calculateChargeForServiceType() +

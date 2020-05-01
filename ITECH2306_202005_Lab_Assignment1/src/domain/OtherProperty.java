@@ -26,15 +26,16 @@ public class OtherProperty extends Property {
 		this.specialDescription = specialDescription;
 	}
 
+	// Set up the extra services of OtherProperty property type
 	@Override
 	public void setUpExtraServices() {
 		fireServicesLevy = new BaseAndPercentageOfValueService("Fire Levy",
 				FIRE_SERVICES_BASE,
 				FIRE_SERVICES_PERCENT,
 				getCapitalImprovedValue());
-		
 	}
 
+	// Add up all the extra services charges
 	@Override
 	public double calculateExtraServices() {
 		return fireServicesLevy.calculateChargeForServiceType();

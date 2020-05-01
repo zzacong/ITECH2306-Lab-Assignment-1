@@ -52,7 +52,7 @@ public class SchoolCommunity extends Property {
 	}
 
 	public void setCategory(int categoryIndex) {
-		if (categoryIndex >= 1 && categoryIndex <= 3) {
+		if (categoryIndex >= 1 && categoryIndex <= 3) { // Make sure the categoryIndex is within range
 			switch (categoryIndex)
 			{
 			case 1:
@@ -79,6 +79,7 @@ public class SchoolCommunity extends Property {
 		return trafficManagementExtra;
 	}
 
+	// Set up the extra services of School Community property type
 	@Override
 	public void setUpExtraServices() {
 		industrialWasteDisposal = new UnitAndRateService("Industrial Waste Disposal", 
@@ -92,6 +93,7 @@ public class SchoolCommunity extends Property {
 														 trafficManagementExtra);
 	}
 
+	// Add up all the extra services charges
 	@Override
 	public double calculateExtraServices() {
 		return industrialWasteDisposal.calculateChargeForServiceType() + 

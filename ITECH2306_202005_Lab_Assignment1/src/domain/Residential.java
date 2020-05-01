@@ -44,6 +44,7 @@ public class Residential extends Property {
 		this.architecturalStyle = architecturalStyle;
 	}
 	
+	// Set up the extra services of Residential property type
 	@Override
 	public void setUpExtraServices() {
 		// At this stage, this is perhaps more understandable but there may be better alternatives
@@ -59,6 +60,7 @@ public class Residential extends Property {
 																getCapitalImprovedValue());
 	}
 	
+	// Add up all the extra services charges
 	@Override
 	public double calculateExtraServices() {
 		

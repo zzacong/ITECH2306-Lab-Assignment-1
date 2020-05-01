@@ -67,7 +67,7 @@ public abstract class Property {
 	}
 
 	public void setCapitalImprovedValue(double capitalImprovedValue) {
-		if (capitalImprovedValue >= 100.00 && capitalImprovedValue <= 50000000.00) {
+		if (capitalImprovedValue >= 100.00 && capitalImprovedValue <= 50000000.00) { // Make sure the CIV is within range
 			this.capitalImprovedValue = capitalImprovedValue;
 		}
 		

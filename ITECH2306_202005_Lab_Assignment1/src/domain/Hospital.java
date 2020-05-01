@@ -50,6 +50,7 @@ public class Hospital extends Property {
 		this.numberOfFloors = numberOfFloors;
 	}
 
+	// Set up the extra services of Hospital property type
 	@Override
 	public void setUpExtraServices() {
 		industrialWasteDisposal = new UnitAndRateService("Industrial Waste Disposal", 
@@ -60,6 +61,7 @@ public class Hospital extends Property {
 															   getCapitalImprovedValue());
 	}
 
+	// Add up all the extra services charges
 	@Override
 	public double calculateExtraServices() {
 		return industrialWasteDisposal.calculateChargeForServiceType() + 

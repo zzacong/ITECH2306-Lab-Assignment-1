@@ -19,7 +19,7 @@ public class Industrial extends Property {
 	
 	public Industrial() {
 		super();
-		// Explicit assignment of property attributes
+		// Explicit assignment of default property attributes
 		this.setHazardStatus("Chemicals");
 		this.setHeavyVehicleStatus("Approved");
 		setCapitalImprovedRate(CIV_RATE);
@@ -41,6 +41,7 @@ public class Industrial extends Property {
 		this.heavyVehicleStatus = heavyVehicleStatus;
 	}
 
+	// Set up the extra services of Industrial property type
 	@Override
 	public void setUpExtraServices() {
 		industrialWasteDisposal = new UnitAndRateService("Industrial Waste Disposal", 
@@ -51,6 +52,7 @@ public class Industrial extends Property {
 					   											getCapitalImprovedValue());				
 	}
 
+	// Add up all the extra services charges
 	@Override
 	public double calculateExtraServices() {
 		return industrialWasteDisposal.calculateChargeForServiceType() + 
