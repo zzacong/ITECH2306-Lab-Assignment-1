@@ -72,3 +72,6 @@ V4.12 by Zac
 V4.13 by Anush
 - Removed console outputs to make the code more readable
 - Simple fixes in the max and min values for both test cases
+
+V4.14 by Zac
+- Adding comments
