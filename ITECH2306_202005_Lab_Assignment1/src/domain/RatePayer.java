@@ -16,6 +16,15 @@ public class RatePayer {
 	private double charityDiscountPercentage = 0.20;
 	private static final String DUMMY_VALUE = "Dummy Value";
 	
+	public RatePayer(String name, String address, String postcode, String phone, String type, boolean charity) {
+		this.setName(name);
+		this.setAddress(address);
+		this.setPostcode(postcode);
+		this.setPhone(phone);
+		this.setType(type);
+		this.setCharity(charity);
+	}
+	
 	public RatePayer() {
 		this.setName(DUMMY_VALUE);
 		this.setAddress(DUMMY_VALUE);
