@@ -1,5 +1,6 @@
 package domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * @author Takeogh
  *
  */
-public abstract class Property {
+public abstract class Property implements Serializable {
 	private String description;
 	private String location;
 	private double area;
