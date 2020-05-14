@@ -86,3 +86,8 @@ V5.1 by Zac
   - Created LoadRatePayers class
   - Created new folder: files
   - Import two csv files
+
+V5.2 by Zac
+- LoadRatePayers class
+  - Read ITECH2306_2020_Load_RatePayers.csv file using Scanner
+  - Create ArrayList of RatePayer
