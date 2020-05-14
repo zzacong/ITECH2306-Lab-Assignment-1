@@ -78,3 +78,11 @@ V4.14 by Zac
 
 V4.15 by Zac
 - Adding .gitignore file
+
+V5.1 by Zac
+- First version for Assignment 2
+  - Created utility package
+  - Created LoadProperties class
+  - Created LoadRatePayers class
+  - Created new folder: files
+  - Import two csv files
