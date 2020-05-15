@@ -104,3 +104,6 @@ V5.4 by Zac
 - Edit ITECH2306_2020_Load_Properties.csv file
 - Created Load_Properties.dat
 - Created Load_RatePayer.dat
+
+V5.5 by Zac
+- Created new constructors on Property class and Residential class
