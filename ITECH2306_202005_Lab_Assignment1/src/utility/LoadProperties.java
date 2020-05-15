@@ -37,16 +37,16 @@ public class LoadProperties {
 		String propertyType = null;
 		String description = null;
 		String location = null;
-		double area;
-		double siteValue;
-		double capitalImprovedValue;
-		double capitalImprovedRate;
-		double netAnnualValue;
+		double area = 0;
+		double siteValue = 0;
+		double capitalImprovedValue = 0;
+		double capitalImprovedRate = 0;
+		double netAnnualValue = 0;
 		String valuationDate = null;
 		String owner = null;
 		String additionalAttr1 = null;
 		String additionalAttr2= null;
-		String additionalAttr3= null;
+		double additionalAttr3 = 0;
 		
 		ArrayList<Property> listOfProperties = new ArrayList<Property>();
 		
@@ -56,7 +56,7 @@ public class LoadProperties {
 		try {
 			File file = new File("files/ITECH2306_2020_Load_Properties.csv");
 			fileScanner = new Scanner(file);
-			System.out.println("File is located");
+			System.out.println("csv file is located");
 			
 			while (fileScanner.hasNextLine()) {
 				
@@ -64,60 +64,62 @@ public class LoadProperties {
 				rowScanner.useDelimiter(",");
 				
 				while (rowScanner.hasNext()) {
-					String dataStr;
-					Double dataDbl;
+					String dataStr = null;
+					double dataDbl = 0;
+					if ((column >= 0 && column <= 2) || (column >= 8 && column <= 11)) dataStr = rowScanner.next();
+					else dataDbl = rowScanner.nextDouble();
 					switch (column) {
 					case 0:
-						dataStr = rowScanner.next();
+//						dataStr = rowScanner.next();
 						propertyType = dataStr;
 						break;
 					case 1:
-						dataStr = rowScanner.next();
+//						dataStr = rowScanner.next();
 						description = dataStr;
 						break;
 					case 2:
-						dataStr = rowScanner.next();
+//						dataStr = rowScanner.next();
 						location = dataStr;
 						break;
 					case 3:
-						dataDbl = rowScanner.nextDouble();
+//						dataDbl = rowScanner.nextDouble();
 						area = dataDbl;
 						break;
 					case 4:
-						dataDbl = rowScanner.nextDouble();
+//						dataDbl = rowScanner.nextDouble();
 						siteValue = dataDbl;
 						break;
 					case 5:
-						dataDbl = rowScanner.nextDouble();
+//						dataDbl = rowScanner.nextDouble();
 						capitalImprovedValue = dataDbl;
 						break;
 					case 6:
-						dataDbl = rowScanner.nextDouble();
+//						dataDbl = rowScanner.nextDouble();
 						capitalImprovedRate = dataDbl; 
 						break;
 					case 7:
-						dataDbl = rowScanner.nextDouble();
+//						dataDbl = rowScanner.nextDouble();
 						netAnnualValue = dataDbl;
 						break;
 					case 8:
-						dataStr = rowScanner.next();
+//						dataStr = rowScanner.next();
 						valuationDate = dataStr;
 						break;
 					case 9:
-						dataStr = rowScanner.next();
+//						dataStr = rowScanner.next();
 						owner = dataStr;
 						break;
 					case 10:
-						dataStr = rowScanner.next();
+//						dataStr = rowScanner.next();
 						additionalAttr1 = dataStr;
 						break;
 					case 11:
-						dataStr = rowScanner.next();
+//						dataStr = rowScanner.next();
 						additionalAttr2 = dataStr;
 						break;
 					case 12:
-						dataStr = rowScanner.next();
-						additionalAttr3 = dataStr;
+//						dataDbl = rowScanner.nextDouble();
+						additionalAttr3 = dataDbl;
 						break;
 					}
 					if (!rowScanner.hasNext()) column = 0; 
@@ -128,8 +130,9 @@ public class LoadProperties {
 				if (propertyTypes.contains(propertyType)) {
 					switch (propertyTypes.indexOf(propertyType)) {
 					case(RESIDENTIAL):
-						property = new Residential();
+						property = new Residential(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, additionalAttr1, additionalAttr2);
 						System.out.println("Residential property type created");
+						System.out.println(property);
 						break;
 					case(COMMERCIAL):
 						property = new Commercial();
@@ -157,7 +160,6 @@ public class LoadProperties {
 						break;	
 					}
 				}
-				System.out.println(propertyType);
 //				System.out.println(propertyTypes.contains(propertyType));
 //				System.out.println(propertyTypes.indexOf(propertyType));
 				listOfProperties.add(property);

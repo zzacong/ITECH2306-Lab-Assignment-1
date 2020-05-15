@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * @author Takeogh
+ * @author Zac
  *
  */
 public abstract class Property implements Serializable {
@@ -21,6 +22,17 @@ public abstract class Property implements Serializable {
 
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	protected static final String NOT_AVAILABLE = "Not Available";
+	
+	public Property(String description, String location, double area, double siteValue, 
+					double capitalImprovedValue, double netAnnuallValue, String valuationDate) {
+		this.setDescription(description);
+		this.setLocation(location);
+		this.setArea(area);
+		this.setSiteValue(siteValue);
+		this.setCapitalImprovedValue(capitalImprovedValue);
+		this.setNetAnnualValue(netAnnuallValue);
+		this.setValuationDate(valuationDate);
+	}
 	
 	public Property() {
 		// We are explicit about our String and date defaults but leave the numbers to be filled with Java default values
@@ -126,11 +138,18 @@ public abstract class Property implements Serializable {
 	
 	public abstract double calculateExtraServices();
 
+//	@Override
+//	public String toString() {
+//		return "Property [description=" + description + ", capitalImprovedValue=" + capitalImprovedValue
+//				+ ", capitalImprovedRate=" + capitalImprovedRate + "] \n";
+//	}
+	
 	@Override
 	public String toString() {
-		return "Property [description=" + description + ", capitalImprovedValue=" + capitalImprovedValue
-				+ ", capitalImprovedRate=" + capitalImprovedRate + "] \n";
+		return "Property [description=" + description + ", location=" + location + ", area=" + area 
+				+ ", siteValue=" + siteValue + ", capitalImprovedValue=" + capitalImprovedValue
+				+ ", capitalImprovedRate=" + capitalImprovedRate + ", netAnnualValue=" + netAnnualValue 
+				+ ", valuationDate=" + valuationDate + "] \n";
 	}
-	
 	
 }

@@ -2,6 +2,7 @@ package domain;
 
 /**
  * @author Takeogh
+ * @author Zac
  *
  */
 public class Residential extends Property {
@@ -19,6 +20,13 @@ public class Residential extends Property {
 	private ServiceType wasteManagement;
 	private ServiceType greenWasteManagement;
 	private ServiceType fireServicesLevy;
+	
+	public Residential(String description, String location, double area, double siteValue, double capitalImprovedValue, 
+					   double netAnnualValue, String valuationDate, String propertyType, String architecturalStyle) {
+		super(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate);
+		this.setPropertyType(propertyType);
+		this.setArchitecturalStyle(architecturalStyle);
+	}
 	
 	public Residential() {
 		super();
@@ -69,12 +77,19 @@ public class Residential extends Property {
 			   fireServicesLevy.calculateChargeForServiceType();
 	}
 
-	@Override
+//	@Override
+//	public String toString() {
+//		return  super.toString() + "Property type: Residential [\n" + 
+//									wasteManagement.toString() + "\n" +
+//									greenWasteManagement.toString() + "\n" +
+//									fireServicesLevy.toString() + " ]\n ";
+//	}
+	
+	@Override 
 	public String toString() {
-		return  super.toString() + "Property type: Residential [\n" + 
-									wasteManagement.toString() + "\n" +
-									greenWasteManagement.toString() + "\n" +
-									fireServicesLevy.toString() + " ]\n ";
+		return  super.toString() + "Property type: Residential [" + 
+				"Type=" + propertyType + ", architecturalStyle=" + 
+				architecturalStyle + "]\n";
 	}
 
 }
