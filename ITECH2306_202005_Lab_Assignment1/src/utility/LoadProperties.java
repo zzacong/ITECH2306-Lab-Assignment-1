@@ -25,7 +25,6 @@ public class LoadProperties {
 	public static void main(String[] args) {
 		
 		ArrayList<String> propertyTypes = new ArrayList<String>();
-//		propertyTypes = {RESIDENTIAL, COMMERCIAL, VACANTLAND, HOSPITAL, INDUSTRIAL, SCHOOL_COMMUNITY, OTHER};
 		propertyTypes.add("Residential");
 		propertyTypes.add("Commercial");
 		propertyTypes.add("VacantLand");
@@ -44,41 +43,50 @@ public class LoadProperties {
 		double netAnnualValue = 0;
 		String valuationDate = null;
 		RatePayer owner = null;
-		String additionalAttr1 = null;
-		String additionalAttr2= null;
-		double additionalAttr3 = 0;
+		String extraAttr1 = null;
+		String extraAttr2= null;
+		double extraAttr3 = 0;
 		
 		ArrayList<Property> listOfProperties = new ArrayList<Property>();
-		ArrayList<RatePayer> listOfRatePayers = null; 
+		ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>(); 
 		
 		Scanner fileScanner = null;
 		int column = 0;
 		
 		try {
-			File file = new File("files/ITECH2306_2020_Load_Properties.csv");
-			fileScanner = new Scanner(file);
-			System.out.println("ITECH2306_2020_Load_Properties.csv file is located");
+			File csvFile = new File("files/ITECH2306_2020_Load_Properties.csv");
+			fileScanner = new Scanner(csvFile);
+			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located");
 			
 			FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			System.out.println("Load_RatePayers.dat file is located \n");
+			System.out.println("\"Load_RatePayers.dat\" file is located \n");
 			
 			Object firstThing = ois.readObject(); 
 			if (firstThing instanceof String) {
-				System.out.println("First thing is a string: " + firstThing);
+				System.out.println("First thing is a string: " + firstThing + "\n");
 			}
 			else {
-				System.out.println("1st string is not a string: " + firstThing);
+				System.out.println("First string is not a string: " + firstThing);
 			}
 			
-			Object nextThing = ois.readObject();
-			if (nextThing instanceof ArrayList<?>) {
-				System.out.println("Next thing is an ArrayList \n");
-				listOfRatePayers = (ArrayList<RatePayer>) nextThing;
+			while (fis.available() > 0) {
+				Object nextThing = ois.readObject();
+				if (nextThing instanceof RatePayer) {
+					System.out.println("Next thing is a RatePayer");
+					RatePayer payer = (RatePayer) nextThing;
+					listOfRatePayers.add(payer);
+//					listOfRatePayers = (ArrayList<RatePayer>) nextThing;
+					
+				}
+				else {
+					System.out.println("Next thing is not an ArrayList: " + nextThing);
+				}
+				System.out.println("Input stream available: " + ois.available());
+				System.out.println("Input file available: " + fis.available() + "\n");
 			}
-			else {
-				System.out.println("Next thing is not an ArrayList: " + nextThing);
-			}
+			
+			System.out.println("ArrayList length: " + listOfRatePayers.size() + "\n");
 			ois.close();
 			fis.close();
 			
@@ -141,17 +149,17 @@ public class LoadProperties {
 						break;
 					case 10:
 //						dataStr = rowScanner.next();
-						additionalAttr1 = dataStr;
+						extraAttr1 = dataStr;
 //						System.out.println(additionalAttr1);
 						break;
 					case 11:
 //						dataStr = rowScanner.next();
-						additionalAttr2 = dataStr;
+						extraAttr2 = dataStr;
 //						System.out.println(additionalAttr2);
 						break;
 					case 12:
 //						dataDbl = rowScanner.nextDouble();
-						additionalAttr3 = dataDbl;
+						extraAttr3 = dataDbl;
 						break;
 					}
 					if (!rowScanner.hasNext()) column = 0; 
@@ -162,12 +170,12 @@ public class LoadProperties {
 				if (propertyTypes.contains(propertyType)) {
 					switch (propertyTypes.indexOf(propertyType)) {
 					case(RESIDENTIAL):
-						property = new Residential(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, additionalAttr1, additionalAttr2);
+						property = new Residential(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
 						System.out.println("Residential property type created");
 						System.out.println(property);
 						break;
 					case(COMMERCIAL):
-						property = new Commercial(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, additionalAttr1, additionalAttr2);
+						property = new Commercial(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
 						System.out.println("Commercial property type created");
 						System.out.println(property);
 						break;
@@ -200,8 +208,9 @@ public class LoadProperties {
 				rowScanner.close();
 			}
 			fileScanner.close();
-			File binFile = new File("files/Load_Properties.dat");
-			FileOutputStream fos = new FileOutputStream(binFile);
+			
+			File serializableFile = new File("files/Load_Properties.dat");
+			FileOutputStream fos = new FileOutputStream(serializableFile);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
 			oos.writeObject("List of Properties");
@@ -209,10 +218,10 @@ public class LoadProperties {
 			
 			oos.close();
 			fos.close();
-			System.out.println("Serializable file is created");
+			System.out.println("Serializable file \"Load_Properties.dat\" is created");
 		}
 		catch(FileNotFoundException fnfe) {
-			System.out.println("Unable to locate the ITECH2306_2020_Load_Properties.csv file for opening");
+			System.out.println("ITECH2306_2020_Load_Properties.csv OR Load_RatePayers.dat file cannot be located for opening");
 			fnfe.printStackTrace();
 		}
 		catch(IOException ioe) {
