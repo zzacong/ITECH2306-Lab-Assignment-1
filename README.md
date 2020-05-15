@@ -91,3 +91,19 @@ V5.2 by Zac
 - LoadRatePayers class
   - Read ITECH2306_2020_Load_RatePayers.csv file using Scanner
   - Create ArrayList of RatePayer
+
+V5.3 by Zac
+- LoadRatePayer class
+  - Minor editing
+
+- LoadProperties class
+  - Read ITECH2306_2020_Load_Properties.csv file using Scanner
+  - Create ArrayList of Properties
+
+V5.4 by Zac
+- Edit ITECH2306_2020_Load_Properties.csv file
+- Created Load_Properties.dat
+- Created Load_RatePayer.dat
+
+V5.5 by Zac
+- Created new constructors on Property class and Residential class
