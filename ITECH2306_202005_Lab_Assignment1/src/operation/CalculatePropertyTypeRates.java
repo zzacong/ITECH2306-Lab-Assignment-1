@@ -113,8 +113,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 				System.out.println("Invalid choice.");
 		} while (userInput < min || userInput > max);
 		System.out.println();		// put a space before the next output	
-		return userInput; 
-
+		return userInput;
 	}
 	
 	private double validateDouble(double min, double max){

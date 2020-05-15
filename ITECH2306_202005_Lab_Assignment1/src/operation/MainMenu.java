@@ -24,7 +24,7 @@ public class MainMenu {
 		while (stillRunning)
 		{
 			showMainMenu();
-			choice = getUserSelection(0,3);
+			choice = getUserSelection(0,4);
 			processChoiceMainMenu(choice);
 		}
 		console.close();		
@@ -39,6 +39,7 @@ public class MainMenu {
 		System.out.println("1.  Add a Rate Payer");
 		System.out.println("2.  Add a Property");
 		System.out.println("3.  Calculate a Property Type's Yearly Rates Total");
+		System.out.println("4.  Query a Rate Payer");
 		System.out.println("0.  Exit Program");
 
 	}
@@ -77,6 +78,8 @@ public class MainMenu {
 			case 3:
 				fd = new CalculatePropertyTypeRates(console);
 				break;
+			case 4:
+				fd = new QueryRatePayer(console);
 			case 0:
 				System.out.println("Exiting the system...");
 				System.out.print(ESC + "2J"); //Something to flush the Eclipse console

@@ -220,13 +220,13 @@ public class LoadProperties {
 			fos.close();
 			System.out.println("Serializable file \"Load_Properties.dat\" is created");
 		}
-		catch(FileNotFoundException fnfe) {
+		catch(FileNotFoundException fnfExc) {
 			System.out.println("ITECH2306_2020_Load_Properties.csv OR Load_RatePayers.dat file cannot be located for opening");
-			fnfe.printStackTrace();
+			fnfExc.printStackTrace();
 		}
-		catch(IOException ioe) {
-			System.out.println("Problem with file processing: " + ioe.getMessage());
-			ioe.printStackTrace();
+		catch(IOException ioExc) {
+			System.out.println("Problem with file processing: " + ioExc.getMessage());
+			ioExc.printStackTrace();
 		}
 		catch(Exception otherExc) {
 			System.out.println("Something went wrong: " + otherExc.getMessage());
