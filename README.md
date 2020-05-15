@@ -115,5 +115,8 @@ V5.6 by Zac
 
 V5.7 by Zac
 - Serializable file:
-  - Write each RatePayer object one by one instead of writing the whole
-ArrayList
+  - Write each RatePayer object one by one instead of writing the whole ArrayList
+
+V5.8 by Zac
+- Created QueryRatePayer class
+- Partially implemented Requirement 4
