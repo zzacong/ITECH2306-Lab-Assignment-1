@@ -107,3 +107,8 @@ V5.4 by Zac
 
 V5.5 by Zac
 - Created new constructors on Property class and Residential class
+
+V5.6 by Zac
+- Chaining constructors on Prooperty class and subclasses
+- Create new constructor on Commercial class
+- Read Load_RatePayers.dat file into LoadProperties class
