@@ -112,3 +112,8 @@ V5.6 by Zac
 - Chaining constructors on Prooperty class and subclasses
 - Create new constructor on Commercial class
 - Read Load_RatePayers.dat file into LoadProperties class
+
+V5.7 by Zac
+- Serializable file:
+  - Write each RatePayer object one by one instead of writing the whole
+ArrayList
