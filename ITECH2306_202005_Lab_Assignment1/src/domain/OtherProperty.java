@@ -2,6 +2,7 @@ package domain;
 
 /**
  * @author Takeogh
+ * @author Zac
  *
  */
 public class OtherProperty extends Property {
@@ -13,9 +14,8 @@ public class OtherProperty extends Property {
 	private ServiceType fireServicesLevy;
 	
 	public OtherProperty() {
-		super();
+		super(CIV_RATE);
 		this.setSpecialDescription("None");
-		setCapitalImprovedRate(CIV_RATE);
 	}
 
 	public String getSpecialDescription() {

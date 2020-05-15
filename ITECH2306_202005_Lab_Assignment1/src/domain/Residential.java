@@ -22,18 +22,17 @@ public class Residential extends Property {
 	private ServiceType fireServicesLevy;
 	
 	public Residential(String description, String location, double area, double siteValue, double capitalImprovedValue, 
-					   double netAnnualValue, String valuationDate, String propertyType, String architecturalStyle) {
-		super(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate);
+					   double netAnnualValue, String valuationDate, RatePayer owner, String propertyType, String architecturalStyle) {
+		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
 		this.setPropertyType(propertyType);
 		this.setArchitecturalStyle(architecturalStyle);
 	}
 	
 	public Residential() {
-		super();
+		super(CIV_RATE);
 		// We are explicit about our defaults for Strings
 		this.setPropertyType("House");
 		this.setArchitecturalStyle("Modern");
-		setCapitalImprovedRate(CIV_RATE);
 	}
 	
 	public String getPropertyType() {

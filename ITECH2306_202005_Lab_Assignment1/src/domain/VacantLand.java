@@ -2,14 +2,17 @@ package domain;
 
 /**
  * @author Takeogh
+ * @author Zac
  *
  */
 
 public class VacantLand extends Property{
 
 	private String[] overlays;
+	private static final double CIV_RATE = 0.0020;
 
 	public VacantLand() {
+		super(CIV_RATE);
 		System.out.println("Not implemented yet");
 	}
 	

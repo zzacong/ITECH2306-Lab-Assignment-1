@@ -18,11 +18,10 @@ public class Industrial extends Property {
 	private ServiceType fireServicesLevy;
 	
 	public Industrial() {
-		super();
+		super(CIV_RATE);
 		// Explicit assignment of default property attributes
 		this.setHazardStatus("Chemicals");
 		this.setHeavyVehicleStatus("Approved");
-		setCapitalImprovedRate(CIV_RATE);
 	}
 	
 	public String getHazardStatus() {

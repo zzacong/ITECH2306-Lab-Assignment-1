@@ -67,9 +67,9 @@ public class LoadRatePayers {
 					charity = (rowScanner.next().equalsIgnoreCase("true"))? true : false;
 				}
 				
-				RatePayer p = new RatePayer(name, address, postcode, phone, type, charity);
-				listOfRatePayers.add(p);
-				System.out.println(p);
+				RatePayer payer = new RatePayer(name, address, postcode, phone, type, charity);
+				listOfRatePayers.add(payer);
+				System.out.println(payer);
 				rowScanner.close();
 			}
 			fileScanner.close();
@@ -78,7 +78,8 @@ public class LoadRatePayers {
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
 			oos.writeObject("List of Rate Payers");
-			for (RatePayer rp : listOfRatePayers) oos.writeObject(rp);
+//			for (RatePayer rp : listOfRatePayers) oos.writeObject(rp);
+			oos.writeObject(listOfRatePayers);
 			
 			oos.close();
 			fos.close();

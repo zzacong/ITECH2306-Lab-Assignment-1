@@ -33,10 +33,9 @@ public class SchoolCommunity extends Property {
 	}
 	
 	public SchoolCommunity() {
-		super();
+		super(CIV_RATE);
 		// We are explicit about our defaults for Strings
 		this.setClassification("Private");
-		setCapitalImprovedRate(CIV_RATE);
 	}
 
 	public String getClassification() {

@@ -6,7 +6,7 @@ package domain;
  */
 public class Commercial extends Property {
 	private String businessName;
-	private long abn;
+	private String abn;
 	private static final double CIV_RATE = 0.0059;
 	private static final int WASTE_MANAGEMENT_UNITS = 2;
 	private static final double WASTE_MANAGEMENT_FEES = 350.00;
@@ -15,12 +15,18 @@ public class Commercial extends Property {
 	private ServiceType wasteManagement;
 	private ServiceType fireServicesLevy;
 
+	public Commercial(String description, String location, double area, double siteValue, double capitalImprovedValue, 
+			   double netAnnualValue, String valuationDate, RatePayer owner, String businessName, String abn) {
+		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+		this.setBusinessName(businessName);
+		this.setAbn(abn);
+	}
+	
 	public Commercial() {
-		super();
+		super(CIV_RATE);
 		// Explicit assignment of property attributes
 		this.setBusinessName("Zac and Anush Pty. Ltd");
-		this.setAbn(123456);
-		setCapitalImprovedRate(CIV_RATE);
+		this.setAbn("123456");
 	}
 
 	public String getBusinessName() {
@@ -31,11 +37,11 @@ public class Commercial extends Property {
 		this.businessName = businessName;
 	}
 
-	public long getAbn() {
+	public String getAbn() {
 		return abn;
 	}
 
-	public void setAbn(long abn) {
+	public void setAbn(String abn) {
 		this.abn = abn;
 	}
 
@@ -58,11 +64,18 @@ public class Commercial extends Property {
 				   fireServicesLevy.calculateChargeForServiceType();
 	}
 	
-	@Override
+//	@Override
+//	public String toString() {
+//		return  super.toString() + "Property type: Commercial [\n" + 
+//									wasteManagement.toString() + "\n" +
+//									fireServicesLevy.toString() + " ]\n ";
+//	}
+	
+	@Override 
 	public String toString() {
-		return  super.toString() + "Property type: Commercial [\n" + 
-									wasteManagement.toString() + "\n" +
-									fireServicesLevy.toString() + " ]\n ";
+		return  super.toString() + "Property type: Commercial [" + 
+				"businessName=" + businessName + ", ABN=" + 
+				abn + "]\n";
 	}
 
 }

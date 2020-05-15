@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author Takeogh
+ * @author Zac
  *
  */
 public class RatePayer implements Serializable {

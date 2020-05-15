@@ -18,12 +18,11 @@ public class Hospital extends Property {
 	private ServiceType fireServicesLevy;
 	
 	public Hospital() {
-		super();
+		super(CIV_RATE);
 		// We are explicit about our defaults for Strings
 		this.setPropertyStatus("Private");
 		this.setFacilities("Clinics");
 		this.setNumberOfFloors(1);
-		setCapitalImprovedRate(CIV_RATE);
 	}
 
 	public String getPropertyStatus() {

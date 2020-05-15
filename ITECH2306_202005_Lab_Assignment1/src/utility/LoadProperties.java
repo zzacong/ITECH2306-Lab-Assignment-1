@@ -40,15 +40,16 @@ public class LoadProperties {
 		double area = 0;
 		double siteValue = 0;
 		double capitalImprovedValue = 0;
-		double capitalImprovedRate = 0;
+		double capitalImprovedRate;
 		double netAnnualValue = 0;
 		String valuationDate = null;
-		String owner = null;
+		RatePayer owner = null;
 		String additionalAttr1 = null;
 		String additionalAttr2= null;
 		double additionalAttr3 = 0;
 		
 		ArrayList<Property> listOfProperties = new ArrayList<Property>();
+		ArrayList<RatePayer> listOfRatePayers = null; 
 		
 		Scanner fileScanner = null;
 		int column = 0;
@@ -56,7 +57,30 @@ public class LoadProperties {
 		try {
 			File file = new File("files/ITECH2306_2020_Load_Properties.csv");
 			fileScanner = new Scanner(file);
-			System.out.println("csv file is located");
+			System.out.println("ITECH2306_2020_Load_Properties.csv file is located");
+			
+			FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			System.out.println("Load_RatePayers.dat file is located \n");
+			
+			Object firstThing = ois.readObject(); 
+			if (firstThing instanceof String) {
+				System.out.println("First thing is a string: " + firstThing);
+			}
+			else {
+				System.out.println("1st string is not a string: " + firstThing);
+			}
+			
+			Object nextThing = ois.readObject();
+			if (nextThing instanceof ArrayList<?>) {
+				System.out.println("Next thing is an ArrayList \n");
+				listOfRatePayers = (ArrayList<RatePayer>) nextThing;
+			}
+			else {
+				System.out.println("Next thing is not an ArrayList: " + nextThing);
+			}
+			ois.close();
+			fis.close();
 			
 			while (fileScanner.hasNextLine()) {
 				
@@ -107,15 +131,23 @@ public class LoadProperties {
 						break;
 					case 9:
 //						dataStr = rowScanner.next();
-						owner = dataStr;
+						for (RatePayer payer: listOfRatePayers) {
+							if (payer.getName().equalsIgnoreCase(dataStr)) {
+								owner = payer;
+								break;
+							}
+						}
+//						owner = dataStr;
 						break;
 					case 10:
 //						dataStr = rowScanner.next();
 						additionalAttr1 = dataStr;
+//						System.out.println(additionalAttr1);
 						break;
 					case 11:
 //						dataStr = rowScanner.next();
 						additionalAttr2 = dataStr;
+//						System.out.println(additionalAttr2);
 						break;
 					case 12:
 //						dataDbl = rowScanner.nextDouble();
@@ -130,13 +162,14 @@ public class LoadProperties {
 				if (propertyTypes.contains(propertyType)) {
 					switch (propertyTypes.indexOf(propertyType)) {
 					case(RESIDENTIAL):
-						property = new Residential(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, additionalAttr1, additionalAttr2);
+						property = new Residential(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, additionalAttr1, additionalAttr2);
 						System.out.println("Residential property type created");
 						System.out.println(property);
 						break;
 					case(COMMERCIAL):
-						property = new Commercial();
+						property = new Commercial(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, additionalAttr1, additionalAttr2);
 						System.out.println("Commercial property type created");
+						System.out.println(property);
 						break;
 					case(VACANT_LAND):
 						property = new VacantLand();
