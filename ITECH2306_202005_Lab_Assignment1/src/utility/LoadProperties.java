@@ -10,6 +10,7 @@ import domain.*;
 
 /**
  * @author Zac
+ * @author Anush
  *
  */
 public class LoadProperties {
@@ -50,12 +51,16 @@ public class LoadProperties {
 		ArrayList<Property> listOfProperties = new ArrayList<Property>();
 		ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>(); 
 		
-		Scanner fileScanner = null;
 		int column = 0;
 		
-		try {
+		try (Scanner fileScanner = new Scanner(new File("files/ITECH2306_2020_Load_Properties.csv"));
 			FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
 			ObjectInputStream ois = new ObjectInputStream(fis);
+			Scanner rowScanner = new Scanner(fileScanner.nextLine());
+			FileOutputStream fos = new FileOutputStream(new File("files/Load_Properties.dat"));
+			ObjectOutputStream oos = new ObjectOutputStream(fos);){
+			
+			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located");
 			System.out.println("\"Load_RatePayers.dat\" file is located \n");
 			
 			Object firstThing = ois.readObject(); 
@@ -83,16 +88,9 @@ public class LoadProperties {
 			}
 			
 			System.out.println("ArrayList length: " + listOfRatePayers.size() + "\n");
-			ois.close();
-			fis.close();
-			
-			File csvFile = new File("files/ITECH2306_2020_Load_Properties.csv");
-			fileScanner = new Scanner(csvFile);
-			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located");
-			
+						
 			while (fileScanner.hasNextLine()) {
-				
-				Scanner rowScanner = new Scanner(fileScanner.nextLine());
+
 				rowScanner.useDelimiter(",");
 				
 				while (rowScanner.hasNext()) {
@@ -192,19 +190,11 @@ public class LoadProperties {
 				
 				System.out.println(fileScanner.hasNextLine());
 				System.out.println(rowScanner.hasNext());
-				rowScanner.close();
+	
 			}
-			fileScanner.close();
-			
-			File serializableFile = new File("files/Load_Properties.dat");
-			FileOutputStream fos = new FileOutputStream(serializableFile);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			
+		
 			oos.writeObject("List of Properties");
 			for (Property rp : listOfProperties) oos.writeObject(rp);
-			
-			oos.close();
-			fos.close();
 			System.out.println("Serializable file \"Load_Properties.dat\" is created");
 		}
 		catch(FileNotFoundException fnfExc) {
@@ -219,7 +209,6 @@ public class LoadProperties {
 			System.out.println("Something went wrong: " + otherExc.getMessage());
 			otherExc.printStackTrace();
 		}
-//		finally {
-//		}
+
 	}
 }

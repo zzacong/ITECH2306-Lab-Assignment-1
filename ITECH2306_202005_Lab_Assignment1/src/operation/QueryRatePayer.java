@@ -16,6 +16,7 @@ import domain.RatePayer;
 
 /**
  * @author Zac
+ * @author Anush
  *
  */
 public class QueryRatePayer extends FunctionalDialog {
@@ -52,9 +53,9 @@ public class QueryRatePayer extends FunctionalDialog {
 	}
 
 	public void setListOfRatePayers() {
-		try {
-			FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
-			ObjectInputStream ois = new ObjectInputStream(fis);
+		try(FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);) {
+
 			System.out.println("\"Load_RatePayers.dat\" file is located \n");
 			
 			Object firstThing = ois.readObject(); 
@@ -78,8 +79,7 @@ public class QueryRatePayer extends FunctionalDialog {
 			}
 			
 			System.out.println("ArrayList length: " + listOfRatePayers.size() + "\n");
-			ois.close();
-			fis.close();
+
 		}
 		catch(FileNotFoundException fnfExc) {
 			System.out.println("Load_RatePayers.dat file cannot be located for opening");
@@ -96,9 +96,9 @@ public class QueryRatePayer extends FunctionalDialog {
 	}
 
 	public void setListOfProperties() {
-		try {
-			FileInputStream fis = new FileInputStream("files/Load_Properties.dat");
-			ObjectInputStream ois = new ObjectInputStream(fis);
+		try (FileInputStream fis = new FileInputStream("files/Load_Properties.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);){
+			
 			System.out.println("\"Load_Properties.dat\" file is located \n");
 			
 			Object firstThing = ois.readObject(); 
@@ -122,8 +122,7 @@ public class QueryRatePayer extends FunctionalDialog {
 			}
 			
 			System.out.println("ArrayList length: " + listOfProperties.size() + "\n");
-			ois.close();
-			fis.close();
+
 		}
 		catch(FileNotFoundException fnfExc) {
 			System.out.println("Load_Properties.dat file cannot be located for opening");

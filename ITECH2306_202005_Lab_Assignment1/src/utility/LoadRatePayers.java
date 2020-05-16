@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import domain.*;
 /**
  * @author Zac
+ * @author Anush
  *
  */
 public class LoadRatePayers {
@@ -22,17 +23,17 @@ public class LoadRatePayers {
 		String type = null;
 		boolean charity = false;
 		ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
-		Scanner fileScanner = null;
 		int column = 0;
 		
-		try {
-			File file = new File("files/ITECH2306_2020_Load_RatePayers.csv");
-			fileScanner = new Scanner(file);
+		try (Scanner fileScanner = new Scanner(new File("files/ITECH2306_2020_Load_RatePayers.csv"));
+			Scanner rowScanner = new Scanner(fileScanner.nextLine());
+			FileOutputStream fos = new FileOutputStream(new File("files/Load_RatePayers.dat"));
+			ObjectOutputStream oos = new ObjectOutputStream(fos);){
+			
 			System.out.println("\"ITECH2306_2020_Load_RatePayers.csv\" is located");
 			
 			while (fileScanner.hasNextLine()) {
-				
-				Scanner rowScanner = new Scanner(fileScanner.nextLine());
+
 				rowScanner.useDelimiter(",");
 				
 				while (rowScanner.hasNext()) {
@@ -72,19 +73,13 @@ public class LoadRatePayers {
 				RatePayer payer = new RatePayer(name, address, postcode, phone, type, charity);
 				listOfRatePayers.add(payer);
 				System.out.println(payer);
-				rowScanner.close();
+
 			}
-			fileScanner.close();
-			File binFile = new File("files/Load_RatePayers.dat");
-			FileOutputStream fos = new FileOutputStream(binFile);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
 			oos.writeObject("List of Rate Payers");
 			for (RatePayer rp : listOfRatePayers) oos.writeObject(rp);
 //			oos.writeObject(listOfRatePayers);
 			
-			oos.close();
-			fos.close();
 			System.out.println("Serializable file \"Load_RatePayers.dat\" is created");
 		}
 		catch(FileNotFoundException fnfe) {
@@ -99,8 +94,7 @@ public class LoadRatePayers {
 			System.out.println("Something went wrong: " + otherExc.getMessage());
 			otherExc.printStackTrace();
 		}
-//		finally {
-//		}
+
 	}
 
 }
