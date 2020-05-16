@@ -27,8 +27,8 @@ public class LoadRatePayers {
 		
 		try (Scanner fileScanner = new Scanner(new File("files/ITECH2306_2020_Load_RatePayers.csv"));
 			FileOutputStream fos = new FileOutputStream(new File("files/Load_RatePayers.dat"));
-			ObjectOutputStream oos = new ObjectOutputStream(fos);){
-			
+			ObjectOutputStream oos = new ObjectOutputStream(fos);)
+		{	
 			System.out.println("\"ITECH2306_2020_Load_RatePayers.csv\" is located");
 			
 			while (fileScanner.hasNextLine()) {
@@ -57,10 +57,12 @@ public class LoadRatePayers {
 						charity = (data.equalsIgnoreCase("true"))? true : false; 
 						break;
 					}
-					if (!rowScanner.hasNext()) 
+					if (!rowScanner.hasNext()) {
 						column = 0; 
-					else 
+					}
+					else { 
 						column++;
+					}
 //					name = rowScanner.next();
 //					address = rowScanner.next();
 //					postcode = rowScanner.next();
@@ -68,18 +70,16 @@ public class LoadRatePayers {
 //					type = rowScanner.next();
 //					charity = (rowScanner.next().equalsIgnoreCase("true"))? true : false;
 				}
-				
 				RatePayer payer = new RatePayer(name, address, postcode, phone, type, charity);
 				listOfRatePayers.add(payer);
 				System.out.println(payer);
 				rowScanner.close();
-
 			}
-
 			oos.writeObject("List of Rate Payers");
-			for (RatePayer rp : listOfRatePayers) oos.writeObject(rp);
+			for (RatePayer rp : listOfRatePayers) {
+				oos.writeObject(rp);
+			}
 //			oos.writeObject(listOfRatePayers);
-			
 			System.out.println("Serializable file \"Load_RatePayers.dat\" is created");
 		}
 		catch(FileNotFoundException fnfe) {

@@ -59,8 +59,8 @@ public class LoadProperties {
 			FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			FileOutputStream fos = new FileOutputStream(new File("files/Load_Properties.dat"));
-			ObjectOutputStream oos = new ObjectOutputStream(fos);){
-			
+			ObjectOutputStream oos = new ObjectOutputStream(fos);) 
+		{	
 			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located");
 			System.out.println("\"Load_RatePayers.dat\" file is located \n");
 			
@@ -73,14 +73,12 @@ public class LoadProperties {
 			}
 			
 			while (fis.available() > 0) {
-				
 				Object nextThing = ois.readObject();
 				if (nextThing instanceof RatePayer) {
 					System.out.println("Next thing is a RatePayer");
 					RatePayer payer = (RatePayer) nextThing;
 					listOfRatePayers.add(payer);
 //					listOfRatePayers = (ArrayList<RatePayer>) nextThing;
-					
 				}
 				else {
 					System.out.println("Next thing is not an ArrayList: " + nextThing);
@@ -89,7 +87,7 @@ public class LoadProperties {
 				System.out.println("Input file available: " + fis.available() + "\n");
 			}
 			
-			System.out.println("ArrayList length: " + listOfRatePayers.size() + "\n");
+			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
 						
 			while (fileScanner.hasNextLine()) {
 				Scanner rowScanner = new Scanner(fileScanner.nextLine());
@@ -99,13 +97,13 @@ public class LoadProperties {
 					String dataStr = null;
 					double dataDbl = 0;
 					
-	
-					if ((column >= 0 && column <= 2) || (column >= 8 && column <= 11)) 
+					if ((column >= 0 && column <= 2) || (column >= 8 && column <= 11)) {
 						dataStr = rowScanner.next();
-					else
+					}
+					else {
 						dataDbl = rowScanner.nextDouble();
-					
-					
+					}
+			
 					switch (column) {
 					case 0:
 						propertyType = dataStr;
@@ -149,8 +147,6 @@ public class LoadProperties {
 						else {
 							extraAttr1 = dataStr ;
 						}
-									
-							
 						break;
 					case 11:
 						if (propertyType.equalsIgnoreCase("Industrial")) {
@@ -164,6 +160,7 @@ public class LoadProperties {
 						extraAttr3 =(int) dataDbl;
 						break;
 					}
+					
 					if (rowScanner.hasNext()) {
 						column++; 
 					}
@@ -172,20 +169,14 @@ public class LoadProperties {
 					}
 				}
 				
-				
-				
 				Property property = null;
 				if (propertyTypes.contains(propertyType)) {
 					switch (propertyTypes.indexOf(propertyType)) {
 					case(RESIDENTIAL):
 						property = new Residential(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
-//						System.out.println("Residential property type created");
-//						System.out.println(property);
 						break;
 					case(COMMERCIAL):
 						property = new Commercial(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
-//						System.out.println("Commercial property type created");
-//						System.out.println(property);
 						break;
 					case(VACANT_LAND):
 						property = new VacantLand();
@@ -193,38 +184,27 @@ public class LoadProperties {
 						break;
 					case(HOSPITAL):
 						property = new Hospital(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraBooleanAttr, extraAttr2, extraAttr3);
-//						System.out.println("Hospital property type created");	
-						
 						break;
 					case(INDUSTRIAL):
 						property = new Industrial(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraBooleanAttr);
-//						System.out.println("Industrial property type created");
 						break;
 					case(SCHOOL_COMMUNITY):
 						property = new SchoolCommunity(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
-//						System.out.println("School Community property type created");
 						break;
 					case(OTHER):
 						property = new OtherProperty();
-//						System.out.println("Other property type created");	
 						break;	
 					}
 				}
-				
+				listOfProperties.add(property);				
 				System.out.println(property);
-//				System.out.println(propertyTypes.contains(propertyType));
-//				System.out.println(propertyTypes.indexOf(propertyType));
-				listOfProperties.add(property);
-				System.out.println(property.getClass().getSimpleName());
-				
-//				System.out.println(fileScanner.hasNextLine());
-//				System.out.println(rowScanner.hasNext());
+//				System.out.println(property.getClass().getSimpleName());
 				rowScanner.close();
 			}
-			
-			
 			oos.writeObject("List of Properties");
-			for (Property rp : listOfProperties) oos.writeObject(rp);
+			for (Property rp : listOfProperties) { 
+				oos.writeObject(rp);
+			}
 			System.out.println("Serializable file \"Load_Properties.dat\" is created");
 		}
 		catch(FileNotFoundException fnfExc) {
@@ -239,6 +219,5 @@ public class LoadProperties {
 			System.out.println("Something went wrong: " + otherExc.getMessage());
 			otherExc.printStackTrace();
 		}
-
 	}
 }

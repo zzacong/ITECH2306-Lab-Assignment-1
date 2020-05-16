@@ -46,16 +46,17 @@ public class QueryRatePayer extends FunctionalDialog {
 			maxRatePayers = listOfRatePayers.size(); 
 			setPrompt(RATE_PAYER_PROMPT, 0);
 			ratePayer = obtainIntInput(MIN_RATE_PAYERS, maxRatePayers, prompt);
-			if (ratePayer == END)
+			if (ratePayer == END) {
 				setStillRunning(false);
+			}
 			break;
 		}
 	}
 
 	public void setListOfRatePayers() {
 		try(FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
-			ObjectInputStream ois = new ObjectInputStream(fis);) {
-
+			ObjectInputStream ois = new ObjectInputStream(fis);) 
+		{
 			System.out.println("\"Load_RatePayers.dat\" file is located \n");
 			
 			Object firstThing = ois.readObject(); 
@@ -77,9 +78,7 @@ public class QueryRatePayer extends FunctionalDialog {
 					System.out.println("Next thing is not a RatePayer: " + nextThing);
 				}
 			}
-			
-			System.out.println("ArrayList length: " + listOfRatePayers.size() + "\n");
-
+			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
 		}
 		catch(FileNotFoundException fnfExc) {
 			System.out.println("Load_RatePayers.dat file cannot be located for opening");
@@ -97,8 +96,8 @@ public class QueryRatePayer extends FunctionalDialog {
 
 	public void setListOfProperties() {
 		try (FileInputStream fis = new FileInputStream("files/Load_Properties.dat");
-			ObjectInputStream ois = new ObjectInputStream(fis);){
-			
+			ObjectInputStream ois = new ObjectInputStream(fis);)
+		{
 			System.out.println("\"Load_Properties.dat\" file is located \n");
 			
 			Object firstThing = ois.readObject(); 
@@ -121,7 +120,7 @@ public class QueryRatePayer extends FunctionalDialog {
 				}
 			}
 			
-			System.out.println("ArrayList length: " + listOfProperties.size() + "\n");
+			System.out.println("Number of Properties: " + listOfProperties.size() + "\n");
 
 		}
 		catch(FileNotFoundException fnfExc) {
