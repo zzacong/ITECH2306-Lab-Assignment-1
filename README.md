@@ -128,10 +128,12 @@ V5.9 by Zac
 V5.10 by Anush
 - Implemented try with resources to make the code cleaner
 
-
-V5.11 by Zac
+V5.11 by Anush
 - Fixed errors with try with resources
 - Added toString methods
 - Added constructors
 - Fixed data types for Property classes
 
+V5.12 by Zac
+- Tidying code
+- Removed unwanted lines of code
