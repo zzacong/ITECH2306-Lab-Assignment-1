@@ -120,3 +120,7 @@ V5.7 by Zac
 V5.8 by Zac
 - Created QueryRatePayer class
 - Partially implemented Requirement 4
+
+V5.9 by Zac
+- Continue implementing QueryRatePayer class
+- Overriding equals method on RatePayer class
