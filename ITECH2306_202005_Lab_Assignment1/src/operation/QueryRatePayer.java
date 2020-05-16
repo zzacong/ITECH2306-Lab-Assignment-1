@@ -8,8 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import domain.Property;
 import domain.RatePayer;
 
 /**
@@ -22,82 +24,34 @@ public class QueryRatePayer extends FunctionalDialog {
 	private static final int MIN_RATE_PAYERS = 0;
 	private int maxRatePayers;
 	private static final String RATE_PAYER_PROMPT = "Which rate payer are we querying? \n";
+	private String propertyPrompt;
 	private String prompt;
-	private ArrayList<RatePayer> listOfRatePayers;
+	private ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
 	private int ratePayer;
+	private ArrayList<Property> listOfProperties = new ArrayList<Property>();
+	ArrayList<Property> OwnedProperties;
 	private static final int MAX_NO_USER_INPUTS = 1;
 
 	public QueryRatePayer(Scanner console) {//throws FileNotFoundException, ClassNotFoundException, IOException {
 		super(MAX_NO_USER_INPUTS, console);
 		this.setListOfRatePayers();
+		this.setListOfProperties();
 	}
 
 	@Override
 	protected void obtainInput(int i) {
-//		try {
-			switch (i) {
-			case 0:
-//				FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
-//				ObjectInputStream ois = new ObjectInputStream(fis);
-//				System.out.println("\"Load_RatePayers.dat\" file is located \n");
-//				
-//				Object firstThing = ois.readObject(); 
-//				if (firstThing instanceof String) {
-//					System.out.println("First thing is a string: " + firstThing + "\n");
-//				}
-//				else {
-//					System.out.println("First string is not a string: " + firstThing);
-//				}
-//				
-//				listOfRatePayers = new ArrayList<RatePayer>();
-//				while (fis.available() > 0) {
-//					Object nextThing = ois.readObject();
-//					if (nextThing instanceof RatePayer) {
-//						System.out.println("Next thing is a RatePayer");
-//						RatePayer payer = (RatePayer) nextThing;
-//						listOfRatePayers.add(payer);					
-//					}
-//					else {
-//						System.out.println("Next thing is not an ArrayList: " + nextThing);
-//					}
-////					System.out.println("Input stream available: " + ois.available());
-////					System.out.println("Input file available: " + fis.available() + "\n");
-//				}
-//				
-//				System.out.println("ArrayList length: " + listOfRatePayers.size() + "\n");
-//				ois.close();
-//				fis.close();
-				
-				maxRatePayers = listOfRatePayers.size(); 
-				setPrompt(RATE_PAYER_PROMPT);
-				ratePayer = obtainIntInput(MIN_RATE_PAYERS, maxRatePayers, prompt);
-				if (ratePayer == END)
-					setStillRunning(false);
-				break;
-			}
-//		} 
-//		catch(FileNotFoundException fnfExc) {
-//			System.out.println("Load_RatePayers.dat file cannot be located for opening");
-//			fnfExc.printStackTrace();
-//		}
-//		catch(IOException ioExc) {
-//			System.out.println("Problem with file processing: " + ioExc.getMessage());
-//			ioExc.printStackTrace();
-//		}
-//		catch(Exception otherExc) {
-//			System.out.println("Something went wrong: " + otherExc.getMessage());
-//			otherExc.printStackTrace();
-//		}
-//		finally {
-//			
-//		}
+		switch (i) {
+		case 0:
+			maxRatePayers = listOfRatePayers.size(); 
+			setPrompt(RATE_PAYER_PROMPT, 0);
+			ratePayer = obtainIntInput(MIN_RATE_PAYERS, maxRatePayers, prompt);
+			if (ratePayer == END)
+				setStillRunning(false);
+			break;
+		}
 	}
 
-	public ArrayList<RatePayer> getListOfRatePayers() {
-		return listOfRatePayers;
-	}
-
-	public void setListOfRatePayers() {//throws FileNotFoundException, IOException, ClassNotFoundException {
+	public void setListOfRatePayers() {
 		try {
 			FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
 			ObjectInputStream ois = new ObjectInputStream(fis);
@@ -111,7 +65,6 @@ public class QueryRatePayer extends FunctionalDialog {
 				System.out.println("First string is not a string: " + firstThing);
 			}
 			
-			listOfRatePayers = new ArrayList<RatePayer>();
 			while (fis.available() > 0) {
 				Object nextThing = ois.readObject();
 				if (nextThing instanceof RatePayer) {
@@ -120,7 +73,7 @@ public class QueryRatePayer extends FunctionalDialog {
 					listOfRatePayers.add(payer);					
 				}
 				else {
-					System.out.println("Next thing is not an ArrayList: " + nextThing);
+					System.out.println("Next thing is not a RatePayer: " + nextThing);
 				}
 			}
 			
@@ -142,14 +95,73 @@ public class QueryRatePayer extends FunctionalDialog {
 		}
 	}
 
-	public void setPrompt(String prompt) {
-		String choices = "";
-		int i = 1;
-		for (RatePayer rp : listOfRatePayers) {
-			choices += i + ". " + rp.getName() + "\n";
-			i++;
+	public void setListOfProperties() {
+		try {
+			FileInputStream fis = new FileInputStream("files/Load_Properties.dat");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			System.out.println("\"Load_Properties.dat\" file is located \n");
+			
+			Object firstThing = ois.readObject(); 
+			if (firstThing instanceof String) {
+				System.out.println("First thing is a string: " + firstThing + "\n");
+			}
+			else {
+				System.out.println("First string is not a string: " + firstThing);
+			}
+			
+			while (fis.available() > 0) {
+				Object nextThing = ois.readObject();
+				if (nextThing instanceof Property) {
+					System.out.println("Next thing is a Property");
+					Property property = (Property) nextThing;
+					listOfProperties.add(property);					
+				}
+				else {
+					System.out.println("Next thing is not a Property: " + nextThing);
+				}
+			}
+			
+			System.out.println("ArrayList length: " + listOfProperties.size() + "\n");
+			ois.close();
+			fis.close();
 		}
-		this.prompt = prompt + choices + END + ". To exit";
+		catch(FileNotFoundException fnfExc) {
+			System.out.println("Load_Properties.dat file cannot be located for opening");
+			fnfExc.printStackTrace();
+		}
+		catch(IOException ioExc) {
+			System.out.println("Problem with file processing: " + ioExc.getMessage());
+			ioExc.printStackTrace();
+		}
+		catch(Exception otherExc) {
+			System.out.println("Something went wrong: " + otherExc.getMessage());
+			otherExc.printStackTrace();
+		}
+	}
+	
+	public String getPrompt() {
+		return this.prompt;
+	}
+	
+	public void setPrompt(String description, int index) {
+		String list = "";
+		int i = 1;
+		switch (index) {
+		case 0:
+			for (RatePayer rp : listOfRatePayers) {
+				list += i + ". " + rp.getName() + "\n";
+				i++;
+			}
+			list += END + ". To exit";
+			break;
+		case 1:
+			for (Property p : OwnedProperties) {
+				list += i + ". " + p.toString() + "\n";
+				i++;
+			}
+			break;
+		}
+		this.prompt = description + list;
 	}
 
 	private int obtainIntInput(int min, int max, String prompt) {
@@ -175,6 +187,16 @@ public class QueryRatePayer extends FunctionalDialog {
 	
 	@Override
 	protected void respondToInput() {
+		RatePayer payer = listOfRatePayers.get(ratePayer-1);
+		OwnedProperties = new ArrayList<Property>();
+		for (Property property : listOfProperties) {
+			if (property.getOwner().equals(payer))
+				OwnedProperties.add(property);
+		}
 		
+		propertyPrompt = "You have selected : " + payer + "\n" +
+						 "The properties owned by " + payer.getName() + " are: \n";
+		setPrompt(propertyPrompt, 1);
+		System.out.println(prompt);
 	}
 }

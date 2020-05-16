@@ -29,12 +29,13 @@ public class RatePayer implements Serializable {
 	}
 	
 	public RatePayer() {
-		this.setName(DUMMY_VALUE);
-		this.setAddress(DUMMY_VALUE);
-		this.setPostcode(DUMMY_VALUE);
-		this.setPhone(DUMMY_VALUE);
-		this.setType(DUMMY_VALUE);
-		this.setCharity(false);
+		this(DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, false);
+//		this.setName(DUMMY_VALUE);
+//		this.setAddress(DUMMY_VALUE);
+//		this.setPostcode(DUMMY_VALUE);
+//		this.setPhone(DUMMY_VALUE);
+//		this.setType(DUMMY_VALUE);
+//		this.setCharity(false);
 	}
 
 	public String getName() {
@@ -66,7 +67,10 @@ public class RatePayer implements Serializable {
 	}
 
 	public void setPhone(String phone) {
-		this.phone = phone;
+		if (phone.isEmpty())
+			this.phone = DUMMY_VALUE;
+		else
+			this.phone = phone;
 	}
 
 	public String getType() {
@@ -94,6 +98,35 @@ public class RatePayer implements Serializable {
 		this.charityDiscountPercentage = charityDiscountPercentage;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+//		System.out.println(hashCode());
+//		System.out.println(obj.hashCode());
+		if (obj == null || !(obj.getClass().equals(this.getClass()))) {
+			return false;
+		}
+		RatePayer other = (RatePayer) obj;		
+		if (this.getName().equals(other.getName()) &&
+			this.getAddress().equals(other.getAddress()) &&
+			this.getPostcode().equals(other.getPostcode()) &&
+			this.getPhone().equals(other.getPhone()) &&
+			this.getType().equals(other.getType()) &&
+			this.isCharity() == other.isCharity() &&
+			this.getCharityDiscountPercentage() == other.getCharityDiscountPercentage()) {
+			return true;
+		}
+		else {
+			return false;	
+		}
+	}
+	
+//	@Override
+//	public int hashCode() {
+//		return getName().hashCode();// + getAddress().hashCode() + 
+////				getPostcode().hashCode() + getPhone().hashCode() + 
+////				getType().hashCode() + (int)getCharityDiscountPercentage();
+//	}
+	
 	@Override
 	public String toString() {
 		return "RatePayer [name=" + name + ", address=" + address + ", postcode=" + postcode + ", phone=" + phone

@@ -22,7 +22,7 @@ public abstract class FunctionalDialog {
 		System.out.println(getTitle());
 		while (getStillRunning())
 		{
-			for(int i= 0; i < getNumberOfInputs(); i++) {
+			for(int i = 0; i < getNumberOfInputs(); i++) {
 				obtainInput(i);
 				if (!getStillRunning())
 					break;

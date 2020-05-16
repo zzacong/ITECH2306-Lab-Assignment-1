@@ -54,10 +54,6 @@ public class LoadProperties {
 		int column = 0;
 		
 		try {
-			File csvFile = new File("files/ITECH2306_2020_Load_Properties.csv");
-			fileScanner = new Scanner(csvFile);
-			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located");
-			
 			FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			System.out.println("\"Load_RatePayers.dat\" file is located \n");
@@ -90,6 +86,10 @@ public class LoadProperties {
 			ois.close();
 			fis.close();
 			
+			File csvFile = new File("files/ITECH2306_2020_Load_Properties.csv");
+			fileScanner = new Scanner(csvFile);
+			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located");
+			
 			while (fileScanner.hasNextLine()) {
 				
 				Scanner rowScanner = new Scanner(fileScanner.nextLine());
@@ -102,68 +102,52 @@ public class LoadProperties {
 					else dataDbl = rowScanner.nextDouble();
 					switch (column) {
 					case 0:
-//						dataStr = rowScanner.next();
 						propertyType = dataStr;
 						break;
 					case 1:
-//						dataStr = rowScanner.next();
 						description = dataStr;
 						break;
 					case 2:
-//						dataStr = rowScanner.next();
 						location = dataStr;
 						break;
 					case 3:
-//						dataDbl = rowScanner.nextDouble();
 						area = dataDbl;
 						break;
 					case 4:
-//						dataDbl = rowScanner.nextDouble();
 						siteValue = dataDbl;
 						break;
 					case 5:
-//						dataDbl = rowScanner.nextDouble();
 						capitalImprovedValue = dataDbl;
 						break;
 					case 6:
-//						dataDbl = rowScanner.nextDouble();
 						capitalImprovedRate = dataDbl; 
 						break;
 					case 7:
-//						dataDbl = rowScanner.nextDouble();
 						netAnnualValue = dataDbl;
 						break;
 					case 8:
-//						dataStr = rowScanner.next();
 						valuationDate = dataStr;
 						break;
 					case 9:
-//						dataStr = rowScanner.next();
 						for (RatePayer payer: listOfRatePayers) {
 							if (payer.getName().equalsIgnoreCase(dataStr)) {
 								owner = payer;
 								break;
 							}
 						}
-//						owner = dataStr;
 						break;
 					case 10:
-//						dataStr = rowScanner.next();
 						extraAttr1 = dataStr;
-//						System.out.println(additionalAttr1);
 						break;
 					case 11:
-//						dataStr = rowScanner.next();
 						extraAttr2 = dataStr;
-//						System.out.println(additionalAttr2);
 						break;
 					case 12:
-//						dataDbl = rowScanner.nextDouble();
 						extraAttr3 = dataDbl;
 						break;
 					}
-					if (!rowScanner.hasNext()) column = 0; 
-					else column++;
+					if (rowScanner.hasNext()) column++; 
+					else column = 0;
 				}
 				
 				Property property = null;
@@ -171,40 +155,43 @@ public class LoadProperties {
 					switch (propertyTypes.indexOf(propertyType)) {
 					case(RESIDENTIAL):
 						property = new Residential(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
-						System.out.println("Residential property type created");
-						System.out.println(property);
+//						System.out.println("Residential property type created");
+//						System.out.println(property);
 						break;
 					case(COMMERCIAL):
 						property = new Commercial(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
-						System.out.println("Commercial property type created");
-						System.out.println(property);
+//						System.out.println("Commercial property type created");
+//						System.out.println(property);
 						break;
 					case(VACANT_LAND):
 						property = new VacantLand();
-						System.out.println("Vacant Land is not yet implemented");
+//						System.out.println("Vacant Land is not yet implemented");
 						break;
 					case(HOSPITAL):
 						property = new Hospital();
-						System.out.println("Hospital property type created");	
+//						System.out.println("Hospital property type created");	
 						break;
 					case(INDUSTRIAL):
 						property = new Industrial();
-						System.out.println("Industrial property type created");
+//						System.out.println("Industrial property type created");
 						break;
 					case(SCHOOL_COMMUNITY):
 						property = new SchoolCommunity();
-						System.out.println("School Communnity property type created");
+//						System.out.println("School Community property type created");
 						break;
 					case(OTHER):
 						property = new OtherProperty();
-						System.out.println("Other property type created");	
+//						System.out.println("Other property type created");	
 						break;	
 					}
 				}
 //				System.out.println(propertyTypes.contains(propertyType));
 //				System.out.println(propertyTypes.indexOf(propertyType));
 				listOfProperties.add(property);
-//				System.out.println(property);
+				System.out.println(property.getClass().getSimpleName());
+				
+				System.out.println(fileScanner.hasNextLine());
+				System.out.println(rowScanner.hasNext());
 				rowScanner.close();
 			}
 			fileScanner.close();

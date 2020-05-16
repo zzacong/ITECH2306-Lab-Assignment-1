@@ -152,7 +152,7 @@ public abstract class Property implements Serializable {
 		return "Property [description=" + description + ", location=" + location + ", area=" + area 
 				+ ", siteValue=" + siteValue + ", capitalImprovedValue=" + capitalImprovedValue
 				+ ", capitalImprovedRate=" + capitalImprovedRate + ", netAnnualValue=" + netAnnualValue 
-				+ ", valuationDate=" + valuationDate + ", owner=" + owner + "] \n";
+				+ ", valuationDate=" + valuationDate + ", owner=" + owner.getName() + "] \n";
 	}
 	
 }
