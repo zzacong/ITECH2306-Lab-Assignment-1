@@ -22,6 +22,7 @@ public class LoadProperties {
 	static final int INDUSTRIAL = 4;
 	static final int SCHOOL_COMMUNITY = 5;
 	static final int OTHER = 6;
+	static final String TRUE = "TRUE";
 	
 	public static void main(String[] args) {
 		
@@ -46,7 +47,8 @@ public class LoadProperties {
 		RatePayer owner = null;
 		String extraAttr1 = null;
 		String extraAttr2= null;
-		double extraAttr3 = 0;
+		int extraAttr3 = 0;
+		boolean extraBooleanAttr = false;
 		
 		ArrayList<Property> listOfProperties = new ArrayList<Property>();
 		ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>(); 
@@ -56,7 +58,6 @@ public class LoadProperties {
 		try (Scanner fileScanner = new Scanner(new File("files/ITECH2306_2020_Load_Properties.csv"));
 			FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			Scanner rowScanner = new Scanner(fileScanner.nextLine());
 			FileOutputStream fos = new FileOutputStream(new File("files/Load_Properties.dat"));
 			ObjectOutputStream oos = new ObjectOutputStream(fos);){
 			
@@ -72,6 +73,7 @@ public class LoadProperties {
 			}
 			
 			while (fis.available() > 0) {
+				
 				Object nextThing = ois.readObject();
 				if (nextThing instanceof RatePayer) {
 					System.out.println("Next thing is a RatePayer");
@@ -90,14 +92,20 @@ public class LoadProperties {
 			System.out.println("ArrayList length: " + listOfRatePayers.size() + "\n");
 						
 			while (fileScanner.hasNextLine()) {
-
+				Scanner rowScanner = new Scanner(fileScanner.nextLine());
 				rowScanner.useDelimiter(",");
 				
 				while (rowScanner.hasNext()) {
 					String dataStr = null;
 					double dataDbl = 0;
-					if ((column >= 0 && column <= 2) || (column >= 8 && column <= 11)) dataStr = rowScanner.next();
-					else dataDbl = rowScanner.nextDouble();
+					
+	
+					if ((column >= 0 && column <= 2) || (column >= 8 && column <= 11)) 
+						dataStr = rowScanner.next();
+					else
+						dataDbl = rowScanner.nextDouble();
+					
+					
 					switch (column) {
 					case 0:
 						propertyType = dataStr;
@@ -135,18 +143,36 @@ public class LoadProperties {
 						}
 						break;
 					case 10:
-						extraAttr1 = dataStr;
+						if (propertyType.equalsIgnoreCase("Hospital")) {
+							extraBooleanAttr = (dataStr.equalsIgnoreCase(TRUE))? true : false;
+						}
+						else {
+							extraAttr1 = dataStr ;
+						}
+									
+							
 						break;
 					case 11:
-						extraAttr2 = dataStr;
+						if (propertyType.equalsIgnoreCase("Industrial")) {
+							extraBooleanAttr = (dataStr.equalsIgnoreCase(TRUE))? true : false;
+						}
+						else {
+							extraAttr2 = dataStr ;
+						}
 						break;
 					case 12:
-						extraAttr3 = dataDbl;
+						extraAttr3 =(int) dataDbl;
 						break;
 					}
-					if (rowScanner.hasNext()) column++; 
-					else column = 0;
+					if (rowScanner.hasNext()) {
+						column++; 
+					}
+					else {
+						column = 0;
+					}
 				}
+				
+				
 				
 				Property property = null;
 				if (propertyTypes.contains(propertyType)) {
@@ -166,15 +192,16 @@ public class LoadProperties {
 //						System.out.println("Vacant Land is not yet implemented");
 						break;
 					case(HOSPITAL):
-						property = new Hospital();
+						property = new Hospital(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraBooleanAttr, extraAttr2, extraAttr3);
 //						System.out.println("Hospital property type created");	
+						
 						break;
 					case(INDUSTRIAL):
-						property = new Industrial();
+						property = new Industrial(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraBooleanAttr);
 //						System.out.println("Industrial property type created");
 						break;
 					case(SCHOOL_COMMUNITY):
-						property = new SchoolCommunity();
+						property = new SchoolCommunity(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
 //						System.out.println("School Community property type created");
 						break;
 					case(OTHER):
@@ -183,16 +210,19 @@ public class LoadProperties {
 						break;	
 					}
 				}
+				
+				System.out.println(property);
 //				System.out.println(propertyTypes.contains(propertyType));
 //				System.out.println(propertyTypes.indexOf(propertyType));
 				listOfProperties.add(property);
 				System.out.println(property.getClass().getSimpleName());
 				
-				System.out.println(fileScanner.hasNextLine());
-				System.out.println(rowScanner.hasNext());
-	
+//				System.out.println(fileScanner.hasNextLine());
+//				System.out.println(rowScanner.hasNext());
+				rowScanner.close();
 			}
-		
+			
+			
 			oos.writeObject("List of Properties");
 			for (Property rp : listOfProperties) oos.writeObject(rp);
 			System.out.println("Serializable file \"Load_Properties.dat\" is created");

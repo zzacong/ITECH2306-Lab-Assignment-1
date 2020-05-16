@@ -26,6 +26,13 @@ public class SchoolCommunity extends Property {
 	private ServiceType fireServicesLevy;
 	private ServiceType trafficManagementLevy;
 	
+	public SchoolCommunity(String description, String location, double area, double siteValue, double capitalImprovedValue, 
+			   double netAnnualValue, String valuationDate, RatePayer owner, String classification, String category) {
+		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+		this.setClassification(classification);
+		this.setCategory(category);
+	}
+	
 	public SchoolCommunity(int categoryIndex) {
 		// We are explicit about our defaults for Strings
 		this();
@@ -36,6 +43,7 @@ public class SchoolCommunity extends Property {
 		super(CIV_RATE);
 		// We are explicit about our defaults for Strings
 		this.setClassification("Private");
+		
 	}
 
 	public String getClassification() {
@@ -48,6 +56,10 @@ public class SchoolCommunity extends Property {
 
 	public String getCategory() {
 		return category;
+	}
+	
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public void setCategory(int categoryIndex) {
@@ -102,10 +114,17 @@ public class SchoolCommunity extends Property {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Property type: SchoolCommunity [\n" +
-								   industrialWasteDisposal.toString() + "\n" + 
-								   fireServicesLevy.toString() + "\n" + 
-								   trafficManagementLevy.toString() + "] \n";
+		return super.toString() + "Property Type: SchoolCommunity [classification=" + classification + ", category=" + category + "]";
 	}
 	
+	
+
+//	@Override
+//	public String toString() {
+//		return super.toString() + "Property type: SchoolCommunity [\n" +
+//								   industrialWasteDisposal.toString() + "\n" + 
+//								   fireServicesLevy.toString() + "\n" + 
+//								   trafficManagementLevy.toString() + "] \n";
+//	}
+//	
 }

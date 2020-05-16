@@ -40,11 +40,18 @@ public class OtherProperty extends Property {
 	public double calculateExtraServices() {
 		return fireServicesLevy.calculateChargeForServiceType();
 	}
-	
+
 	@Override
 	public String toString() {
-		return super.toString() + "Property type: OtherProperty [\n" +
-								  fireServicesLevy.toString() + "]\n ";	
+		return super.toString() + "Property Type: OtherProperty [specialDescription=" + specialDescription + "]";
 	}
+	
+	
+	
+//	@Override
+//	public String toString() {
+//		return super.toString() + "Property type: OtherProperty [\n" +
+//								  fireServicesLevy.toString() + "]\n ";	
+//	}
 
 }

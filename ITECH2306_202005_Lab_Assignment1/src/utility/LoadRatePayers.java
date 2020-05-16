@@ -26,14 +26,13 @@ public class LoadRatePayers {
 		int column = 0;
 		
 		try (Scanner fileScanner = new Scanner(new File("files/ITECH2306_2020_Load_RatePayers.csv"));
-			Scanner rowScanner = new Scanner(fileScanner.nextLine());
 			FileOutputStream fos = new FileOutputStream(new File("files/Load_RatePayers.dat"));
 			ObjectOutputStream oos = new ObjectOutputStream(fos);){
 			
 			System.out.println("\"ITECH2306_2020_Load_RatePayers.csv\" is located");
 			
 			while (fileScanner.hasNextLine()) {
-
+				Scanner rowScanner = new Scanner(fileScanner.nextLine());
 				rowScanner.useDelimiter(",");
 				
 				while (rowScanner.hasNext()) {
@@ -73,9 +72,10 @@ public class LoadRatePayers {
 				RatePayer payer = new RatePayer(name, address, postcode, phone, type, charity);
 				listOfRatePayers.add(payer);
 				System.out.println(payer);
+				rowScanner.close();
 
 			}
-			
+
 			oos.writeObject("List of Rate Payers");
 			for (RatePayer rp : listOfRatePayers) oos.writeObject(rp);
 //			oos.writeObject(listOfRatePayers);

@@ -8,7 +8,7 @@ package domain;
 public class Industrial extends Property {
 
 	private String hazardStatus;
-	private String heavyVehicleStatus;
+	private boolean heavyVehicleStatus;
 	private static final double CIV_RATE = 0.0059;
 	private static final int INDUSTRIAL_WASTE_DISPOSAL_UNITS = 4;
 	private static final double INDUSTRIAL_WASTE_DISPOSAL_FEES = 500.00;
@@ -17,11 +17,19 @@ public class Industrial extends Property {
 	private ServiceType industrialWasteDisposal;
 	private ServiceType fireServicesLevy;
 	
+	public Industrial(String description, String location, double area, double siteValue, double capitalImprovedValue, 
+			   double netAnnualValue, String valuationDate, RatePayer owner, String hazardStatus, boolean heavyVehicleStatus) {
+		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+		this.setHazardStatus(hazardStatus);
+		this.setHeavyVehicleStatus(heavyVehicleStatus);
+	}
+	
+	
 	public Industrial() {
 		super(CIV_RATE);
 		// Explicit assignment of default property attributes
 		this.setHazardStatus("Chemicals");
-		this.setHeavyVehicleStatus("Approved");
+		this.setHeavyVehicleStatus(true);
 	}
 	
 	public String getHazardStatus() {
@@ -32,11 +40,11 @@ public class Industrial extends Property {
 		this.hazardStatus = hazardStatus;
 	}
 
-	public String getHeavyVehicleStatus() {
+	public boolean getHeavyVehicleStatus() {
 		return heavyVehicleStatus;
 	}
 
-	public void setHeavyVehicleStatus(String heavyVehicleStatus) {
+	public void setHeavyVehicleStatus(boolean heavyVehicleStatus) {
 		this.heavyVehicleStatus = heavyVehicleStatus;
 	}
 
@@ -58,11 +66,19 @@ public class Industrial extends Property {
 				fireServicesLevy.calculateChargeForServiceType();
 	}
 
-	@Override
+
+	@Override 
 	public String toString() {
-		return super.toString() + "Property type: Industrial [\n" + 
-								   industrialWasteDisposal.toString() + "\n" +
-								   fireServicesLevy.toString() + "]\n";
+		return  super.toString() + "Property type: Industrial [" + 
+				"hazardStatus=" + hazardStatus + ", heavyVehicleStatus=" + 
+				heavyVehicleStatus + "]\n";
 	}
+	
+//	@Override
+//	public String toString() {
+//		return super.toString() + "Property type: Industrial [\n" + 
+//								   industrialWasteDisposal.toString() + "\n" +
+//								   fireServicesLevy.toString() + "]\n";
+//	}
 	
 }

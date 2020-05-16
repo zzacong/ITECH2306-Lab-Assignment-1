@@ -6,7 +6,7 @@ package domain;
  */
 public class Hospital extends Property {
 
-	private String propertyStatus;
+	private boolean isPublic;
 	private String facilities;
 	private int numberOfFloors; 
 	private static final double CIV_RATE = 0.0035;
@@ -17,20 +17,29 @@ public class Hospital extends Property {
 	private ServiceType industrialWasteDisposal;
 	private ServiceType fireServicesLevy;
 	
+	public Hospital(String description, String location, double area, double siteValue, double capitalImprovedValue, 
+			   double netAnnualValue, String valuationDate, RatePayer owner, boolean isPublic, String facilities, int numberOfFloors) {
+		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+		this.setIsPublic(isPublic);
+		this.setFacilities(facilities);
+		this.setNumberOfFloors(numberOfFloors);
+}
+
+	
 	public Hospital() {
 		super(CIV_RATE);
 		// We are explicit about our defaults for Strings
-		this.setPropertyStatus("Private");
+		this.setIsPublic(true);
 		this.setFacilities("Clinics");
 		this.setNumberOfFloors(1);
 	}
 
-	public String getPropertyStatus() {
-		return propertyStatus;
+	public boolean getIsPublic() {
+		return isPublic;
 	}
 
-	public void setPropertyStatus(String propertyStatus) {
-		this.propertyStatus = propertyStatus;
+	public void setIsPublic(boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 
 	public String getFacilities() {
@@ -67,11 +76,23 @@ public class Hospital extends Property {
 				fireServicesLevy.calculateChargeForServiceType();
 	}
 
+
 	@Override
 	public String toString() {
-		return super.toString() + "Property type: Hospital [\n" + 
-								   industrialWasteDisposal.toString() + "\n" +
-								   fireServicesLevy.toString() + "]\n";
+		return super.toString() + "Property type: Hospital [isPublic=" + isPublic + ", facilities=" + facilities + ", numberOfFloors="
+				+ numberOfFloors + "]";
 	}
+
+
+
+
+//	@Override
+//	public String toString() {
+//		return super.toString() + "Property type: Hospital [\n" + 
+//								   industrialWasteDisposal.toString() + "\n" +
+//								   fireServicesLevy.toString() + "]\n";
+//	}
+	
+
 	
 }
