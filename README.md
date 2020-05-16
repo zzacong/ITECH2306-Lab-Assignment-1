@@ -124,3 +124,6 @@ V5.8 by Zac
 V5.9 by Zac
 - Continue implementing QueryRatePayer class
 - Overriding equals method on RatePayer class
+
+V5.10 by Anush
+- Implemented try with resources to make the code cleaner
