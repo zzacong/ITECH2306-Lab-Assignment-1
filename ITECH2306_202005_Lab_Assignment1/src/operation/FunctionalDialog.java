@@ -56,6 +56,7 @@ public abstract class FunctionalDialog {
 	protected void setNumberOfInputs(int noOfInputs) {
 		this.numberOfInputs = noOfInputs;
 	}
+	
 	protected int getNumberOfInputs() {
 		return this.numberOfInputs;
 	}
@@ -63,6 +64,7 @@ public abstract class FunctionalDialog {
 	public void setTitle(String title) {
 		this.title = title;		
 	}
+	
 	public String getTitle() {
 		return this.title;		
 	}

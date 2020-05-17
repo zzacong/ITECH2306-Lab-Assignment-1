@@ -117,8 +117,6 @@ public class SchoolCommunity extends Property {
 		return super.toString() + "Property Type: SchoolCommunity [classification=" + classification + ", category=" + category + "]\n";
 	}
 	
-	
-
 //	@Override
 //	public String toString() {
 //		return super.toString() + "Property type: SchoolCommunity [\n" +

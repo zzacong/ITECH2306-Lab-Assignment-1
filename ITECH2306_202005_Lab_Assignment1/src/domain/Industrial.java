@@ -24,7 +24,6 @@ public class Industrial extends Property {
 		this.setHeavyVehicleStatus(heavyVehicleStatus);
 	}
 	
-	
 	public Industrial() {
 		super(CIV_RATE);
 		// Explicit assignment of default property attributes
@@ -65,7 +64,6 @@ public class Industrial extends Property {
 		return industrialWasteDisposal.calculateChargeForServiceType() + 
 				fireServicesLevy.calculateChargeForServiceType();
 	}
-
 
 	@Override 
 	public String toString() {

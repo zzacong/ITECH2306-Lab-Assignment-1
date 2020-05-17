@@ -53,8 +53,6 @@ public class OtherProperty extends Property {
 		return super.toString() + "Property Type: OtherProperty [specialDescription=" + specialDescription + "]\n";
 	}
 	
-	
-	
 //	@Override
 //	public String toString() {
 //		return super.toString() + "Property type: OtherProperty [\n" +

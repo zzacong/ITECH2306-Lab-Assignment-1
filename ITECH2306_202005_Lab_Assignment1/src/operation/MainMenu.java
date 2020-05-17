@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * @author Takeogh
+ * @author Zac
  *
  */
 public class MainMenu {
@@ -14,7 +15,7 @@ public class MainMenu {
 											   "=========================";
 	final static String ESC = "\033["; //Something to flush the Eclipse console
 	
-	public MainMenu (){
+	public MainMenu () {
 	}	
 		
 	public void operateMenu() {
@@ -80,6 +81,7 @@ public class MainMenu {
 				break;
 			case 4:
 				fd = new QueryRatePayer(console);
+				break;
 			case 0:
 				System.out.println("Exiting the system...");
 				System.out.print(ESC + "2J"); //Something to flush the Eclipse console

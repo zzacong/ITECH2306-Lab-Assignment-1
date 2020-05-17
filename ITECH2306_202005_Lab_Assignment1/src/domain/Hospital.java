@@ -23,9 +23,8 @@ public class Hospital extends Property {
 		this.setIsPublic(isPublic);
 		this.setFacilities(facilities);
 		this.setNumberOfFloors(numberOfFloors);
-}
+	}
 
-	
 	public Hospital() {
 		super(CIV_RATE);
 		// We are explicit about our defaults for Strings
@@ -76,15 +75,11 @@ public class Hospital extends Property {
 				fireServicesLevy.calculateChargeForServiceType();
 	}
 
-
 	@Override
 	public String toString() {
 		return super.toString() + "Property type: Hospital [isPublic=" + isPublic + ", facilities=" + facilities + ", numberOfFloors="
 				+ numberOfFloors + "]\n";
 	}
-
-
-
 
 //	@Override
 //	public String toString() {

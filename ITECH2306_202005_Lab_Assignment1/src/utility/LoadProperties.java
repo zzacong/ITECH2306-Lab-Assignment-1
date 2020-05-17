@@ -5,6 +5,7 @@ package utility;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import domain.*;
 
@@ -23,17 +24,20 @@ public class LoadProperties {
 	static final int SCHOOL_COMMUNITY = 5;
 	static final int OTHER = 6;
 	static final String TRUE = "TRUE";
+	static final String LOAD_PROPERTIES_DAT = "files/Load_Properties.dat";
+	static final String LOAD_PROPERTIES_CSV = "files/ITECH2306_2020_Load_Properties.csv";
+	static final ArrayList<String> PROPERTY_TYPE_NAMES = new ArrayList<String>(Arrays.asList("Residential", "Commercial", "VacantLand", 
+																				"Hospital", "Industrial", "SchoolCommunity", "Other"));
+	private ArrayList<Property> listOfProperties = new ArrayList<Property>();
 	
-	public static void main(String[] args) {
-		
-		ArrayList<String> propertyTypes = new ArrayList<String>();
-		propertyTypes.add("Residential");
-		propertyTypes.add("Commercial");
-		propertyTypes.add("VacantLand");
-		propertyTypes.add("Hospital");
-		propertyTypes.add("Industrial");
-		propertyTypes.add("SchoolCommunity");
-		propertyTypes.add("Other");
+	public LoadProperties() {
+	}
+
+	public ArrayList<Property> getListOfProperties() {
+		return listOfProperties;
+	}
+
+	private void setListOfProperties(ArrayList<RatePayer> listOfRatePayers) {
 		
 		String propertyType = null;
 		String description = null;
@@ -49,45 +53,15 @@ public class LoadProperties {
 		String extraAttr2= null;
 		int extraAttr3 = 0;
 		boolean extraBooleanAttr = false;
-		
-		ArrayList<Property> listOfProperties = new ArrayList<Property>();
-		ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>(); 
-		
 		int column = 0;
 		
-		try (Scanner fileScanner = new Scanner(new File("files/ITECH2306_2020_Load_Properties.csv"));
-			FileInputStream fis = new FileInputStream("files/Load_RatePayers.dat");
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			FileOutputStream fos = new FileOutputStream(new File("files/Load_Properties.dat"));
-			ObjectOutputStream oos = new ObjectOutputStream(fos);) 
+		System.out.println("Setting up list of Properties...");
+		
+		try (Scanner fileScanner = new Scanner(new File(LOAD_PROPERTIES_CSV));
+				FileOutputStream fos = new FileOutputStream(new File(LOAD_PROPERTIES_DAT));
+				ObjectOutputStream oos = new ObjectOutputStream(fos);) 
 		{	
-			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located");
-			System.out.println("\"Load_RatePayers.dat\" file is located \n");
-			
-			Object firstThing = ois.readObject(); 
-			if (firstThing instanceof String) {
-				System.out.println("First thing is a string: " + firstThing + "\n");
-			}
-			else {
-				System.out.println("First string is not a string: " + firstThing);
-			}
-			
-			while (fis.available() > 0) {
-				Object nextThing = ois.readObject();
-				if (nextThing instanceof RatePayer) {
-					System.out.println("Next thing is a RatePayer");
-					RatePayer payer = (RatePayer) nextThing;
-					listOfRatePayers.add(payer);
-//					listOfRatePayers = (ArrayList<RatePayer>) nextThing;
-				}
-				else {
-					System.out.println("Next thing is not an ArrayList: " + nextThing);
-				}
-				System.out.println("Input stream available: " + ois.available());
-				System.out.println("Input file available: " + fis.available() + "\n");
-			}
-			
-			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
+			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located \n");				
 						
 			while (fileScanner.hasNextLine()) {
 				Scanner rowScanner = new Scanner(fileScanner.nextLine());
@@ -141,7 +115,7 @@ public class LoadProperties {
 						}
 						break;
 					case 10:
-						if (propertyType.equalsIgnoreCase("Hospital")) { 
+						if (propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(3))) { 
 							extraBooleanAttr = (dataStr.equalsIgnoreCase(TRUE))? true : false;
 						}
 						else {
@@ -149,7 +123,7 @@ public class LoadProperties {
 						}
 						break;
 					case 11:
-						if (propertyType.equalsIgnoreCase("Industrial")) {
+						if (propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(4))) {
 							extraBooleanAttr = (dataStr.equalsIgnoreCase(TRUE))? true : false;
 						}
 						else {
@@ -170,8 +144,9 @@ public class LoadProperties {
 				}
 				
 				Property property = null;
-				if (propertyTypes.contains(propertyType)) {
-					switch (propertyTypes.indexOf(propertyType)) {
+				if (PROPERTY_TYPE_NAMES.contains(propertyType)) {
+					int propertyTypeIndex = PROPERTY_TYPE_NAMES.indexOf(propertyType);
+					switch (propertyTypeIndex) {
 					case(RESIDENTIAL):
 						property = new Residential(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
 						break;
@@ -180,7 +155,7 @@ public class LoadProperties {
 						break;
 					case(VACANT_LAND):
 						property = new VacantLand();
-//						System.out.println("Vacant Land is not yet implemented");
+						System.out.println("Vacant Land is not yet implemented");
 						break;
 					case(HOSPITAL):
 						property = new Hospital(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraBooleanAttr, extraAttr2, extraAttr3);
@@ -196,7 +171,7 @@ public class LoadProperties {
 						break;	
 					}
 				}
-				listOfProperties.add(property);				
+				this.listOfProperties.add(property);				
 				System.out.println(property);
 //				System.out.println(property.getClass().getSimpleName());
 				rowScanner.close();
@@ -205,10 +180,11 @@ public class LoadProperties {
 			for (Property rp : listOfProperties) { 
 				oos.writeObject(rp);
 			}
+			System.out.println("Number of Properties: " + listOfProperties.size() + "\n");
 			System.out.println("Serializable file \"Load_Properties.dat\" is created");
 		}
 		catch(FileNotFoundException fnfExc) {
-			System.out.println("ITECH2306_2020_Load_Properties.csv OR Load_RatePayers.dat file cannot be located for opening");
+			System.out.println("ITECH2306_2020_Load_Properties.csv OR Load_Properties.dat file cannot be located for opening");
 			fnfExc.printStackTrace();
 		}
 		catch(IOException ioExc) {
@@ -220,4 +196,57 @@ public class LoadProperties {
 			otherExc.printStackTrace();
 		}
 	}
+	
+	public void loadListOfProperties() {
+		
+		System.out.println("Loading list of Properties...");
+		
+		try(FileInputStream fis = new FileInputStream(LOAD_PROPERTIES_DAT); 
+			ObjectInputStream ois = new ObjectInputStream(fis);) 
+		{
+			System.out.println("\"Load_Properties.dat\" file is located \n");
+			Object firstThing = ois.readObject(); 
+			if (firstThing instanceof String) {
+				System.out.println("Loaded file: " + firstThing);
+			}
+			else {
+				System.out.println("First string is not a string: " + firstThing);
+			}
+			
+			while (fis.available() > 0) {
+				Object nextThing = ois.readObject();
+				if (nextThing instanceof Property) {
+					System.out.println("Next thing is a Property");
+					Property property = (Property) nextThing;
+					listOfProperties.add(property);
+				}
+				else {
+					System.out.println("Next thing is not an ArrayList: " + nextThing);
+				}
+			}
+			System.out.println("Number of Properties: " + listOfProperties.size() + "\n");
+//			this.listOfProperties = list;
+		} 
+		catch(FileNotFoundException fnfExc) {
+			System.out.println("Unable to locate Load_Properties.dat file for opening");
+			fnfExc.printStackTrace();
+		}
+		catch(IOException ioExc) {
+			System.out.println("Problem with file processing: " + ioExc.getMessage());
+			ioExc.printStackTrace();
+		}
+		catch(Exception otherExc) {
+			System.out.println("Something went wrong: " + otherExc.getMessage());
+			otherExc.printStackTrace();
+		}
+	}
+		
+	public static void main(String[] args) {
+			LoadProperties loadProperties = new LoadProperties();
+			LoadRatePayers loadRatePayers = new LoadRatePayers();
+			loadRatePayers.loadListOfRatePayers();
+			loadProperties.setListOfProperties(loadRatePayers.getListOfRatePayers());
+	}
+	
+	
 }
