@@ -1,5 +1,10 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import utility.Validator;
+
 /**
  * @author Zac
  * @author Anush
@@ -9,9 +14,11 @@ public class SchoolCommunity extends Property {
 
 	private String classification;
 	private String category;
+	private static final ArrayList<String> CLASSIFICATION_LIST = new ArrayList<String>(Arrays.asList("Public", "Private", "Independent"));
 	private static final String SMALL = "Small", 
 								MEDIUM = "Medium",
 								LARGE = "Large";
+	private static final ArrayList<String> CATEGORY_LIST = new ArrayList<String>(Arrays.asList(SMALL, MEDIUM, LARGE));
 	private static final double CIV_RATE = 0.0025;
 	private static final int INDUSTRIAL_WASTE_DISPOSAL_UNITS = 2;
 	private static final double INDUSTRIAL_WASTE_DISPOSAL_FEES = 500.00;
@@ -51,7 +58,24 @@ public class SchoolCommunity extends Property {
 	}
 
 	public void setClassification(String classification) {
-		this.classification = classification;
+		if (Validator.validateString("School/Community classification", classification)) {
+			boolean exist = false;
+			for (String s : CLASSIFICATION_LIST) {
+				if (s.equalsIgnoreCase(classification)) {
+					this.classification = s;
+					exist = true;
+					break;
+				}
+			}
+			if (!exist) {
+				System.out.println("School/Community classification: " + classification + " is not among Public, Private or Independent.\n" +
+									"Assigning default value.");
+				this.classification = NOT_AVAILABLE;
+			}
+		}
+		else {
+			this.classification = NOT_AVAILABLE;
+		}
 	}
 
 	public String getCategory() {
@@ -59,11 +83,28 @@ public class SchoolCommunity extends Property {
 	}
 	
 	public void setCategory(String category) {
-		this.category = category;
+		boolean exist = false;
+		if (Validator.validateString("School/Community category", category)) {
+			for (int i = 0; i < CATEGORY_LIST.size(); i++) {
+				if (CATEGORY_LIST.get(i).equalsIgnoreCase(category)) {
+					this.setCategory(i + 1);
+					exist = true;
+					break;
+				}
+			}
+			if (!exist) {
+				System.out.println("School/Community category: " + category + " is not among Small, Medium or Large.");
+			}
+		}
+		if (!exist) {
+			System.out.println("Assuming is Small.");
+			this.setCategory(1);
+		}
 	}
 
 	public void setCategory(int categoryIndex) {
-		if (categoryIndex >= 1 && categoryIndex <= 3) { // Make sure the categoryIndex is within range
+//		if (categoryIndex >= 1 && categoryIndex <= 3) { // Make sure the categoryIndex is within range
+		if (Validator.checkIntWithinRange("CategoryIndex", categoryIndex, 1, 3)) { // Make sure the categoryIndex is within range
 			switch (categoryIndex)
 			{
 			case 1:

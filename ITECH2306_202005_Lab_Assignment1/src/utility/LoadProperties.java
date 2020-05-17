@@ -16,17 +16,17 @@ import domain.*;
  */
 public class LoadProperties {
 
-	static final int RESIDENTIAL = 0;
-	static final int COMMERCIAL = 1;
-	static final int VACANT_LAND = 2;
-	static final int HOSPITAL = 3;
-	static final int INDUSTRIAL = 4;
-	static final int SCHOOL_COMMUNITY = 5;
-	static final int OTHER = 6;
-	static final String TRUE = "TRUE";
-	static final String LOAD_PROPERTIES_DAT = "files/Load_Properties.dat";
-	static final String LOAD_PROPERTIES_CSV = "files/ITECH2306_2020_Load_Properties.csv";
-	static final ArrayList<String> PROPERTY_TYPE_NAMES = new ArrayList<String>(Arrays.asList("Residential", "Commercial", "VacantLand", 
+	private static final int RESIDENTIAL = 0;
+	private static final int COMMERCIAL = 1;
+	private static final int VACANT_LAND = 2;
+	private static final int HOSPITAL = 3;
+	private static final int INDUSTRIAL = 4;
+	private static final int SCHOOL_COMMUNITY = 5;
+	private static final int OTHER = 6;
+	private static final String TRUE = "TRUE";
+	private static final String LOAD_PROPERTIES_DAT = "files/Load_Properties.dat";
+	private static final String LOAD_PROPERTIES_CSV = "files/ITECH2306_2020_Load_Properties.csv";
+	private static final ArrayList<String> PROPERTY_TYPE_NAMES = new ArrayList<String>(Arrays.asList("Residential", "Commercial", "VacantLand", 
 																				"Hospital", "Industrial", "SchoolCommunity", "Other"));
 	private ArrayList<Property> listOfProperties = new ArrayList<Property>();
 	
@@ -171,7 +171,6 @@ public class LoadProperties {
 				}
 				this.listOfProperties.add(property);				
 				System.out.println(property);
-//				System.out.println(property.getClass().getSimpleName());
 				rowScanner.close();
 			}
 			oos.writeObject("List of Properties");
@@ -189,9 +188,9 @@ public class LoadProperties {
 			System.out.println("Problem with file processing: " + ioExc.getMessage());
 			ioExc.printStackTrace();
 		}
-//		catch (NullPointerException npExc) {
-//			System.out.println(npExc.getMessage());
-//		}
+		catch (NullPointerException npExc) {
+			System.out.println(npExc.getMessage());
+		}
 		catch (NumberFormatException nfExc) {
 			System.out.println("Unable to convert string to double: " + nfExc.getMessage());
 			nfExc.printStackTrace();

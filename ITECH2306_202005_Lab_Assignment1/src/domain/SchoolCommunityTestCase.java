@@ -55,14 +55,14 @@ public class SchoolCommunityTestCase {
 	@Test
 	public void testMaxRejectedCIV() {
 		schoolCommunity.setCapitalImprovedValue(50000001);
-		assertEquals(0, schoolCommunity.getCapitalImprovedValue(), 0.001);
+		assertEquals(100, schoolCommunity.getCapitalImprovedValue(), 0.001);
 	}
 
 	// Boundary testing for CIV with a lowest value that should be rejected
 	@Test
 	public void testMinRejectedCIV() {
 		schoolCommunity.setCapitalImprovedValue(99);
-		assertEquals(0, schoolCommunity.getCapitalImprovedValue(), 0.001);
+		assertEquals(100, schoolCommunity.getCapitalImprovedValue(), 0.001);
 	}
 	
 	// Boundary testing for CIV with a Minimum value allowed within the range
@@ -78,25 +78,81 @@ public class SchoolCommunityTestCase {
 		schoolCommunity.setCapitalImprovedValue(50000000);
 		assertEquals(50000000, schoolCommunity.getCapitalImprovedValue(), 0.001);
 	}
+	
+	// Test setting up classification with NULL
+	@Test
+	public void testSetNullClassification() {
+		schoolCommunity.setClassification(null);
+		assertEquals("Not Available", schoolCommunity.getClassification());
+	}
+	
+	// Test setting up classification with EMPTY STRING
+	@Test
+	public void testSetEmptyClassification() {
+		schoolCommunity.setClassification("");
+		assertEquals("Not Available", schoolCommunity.getClassification());
+	}
+	
+	// Test setting up classification with RANDOM STRING 
+	@Test
+	public void testSetRandomClassification() {
+		schoolCommunity.setClassification("abc");
+		assertEquals("Not Available", schoolCommunity.getClassification());
+	}
 		
+	// Test setting up PUBLIC classification 
+	@Test
+	public void testSetPublicClassification() {
+		schoolCommunity.setClassification("Public");
+		assertEquals("Public", schoolCommunity.getClassification());
+	}
+	
+	// Test setting up PRIVATE classification 
+	@Test
+	public void testSetPrivateClassification() {
+		schoolCommunity.setClassification("Private");
+		assertEquals("Private", schoolCommunity.getClassification());
+	}
+	
+	// Test setting up INDEPENDENT classification 
+	@Test
+	public void testSetIndependentClassification() {
+		schoolCommunity.setClassification("Independent");
+		assertEquals("Independent", schoolCommunity.getClassification());
+	}
+	
+	// Test setting up category name with NULL
+	@Test
+	public void testSetNullCategoryName() {
+		schoolCommunity.setCategory(null);
+		assertEquals("Small", schoolCommunity.getCategory());
+	}
+	
+	// Test setting up category name with EMPTY STRING
+	@Test
+	public void testSetEmptyCategoryName() {
+		schoolCommunity.setCategory("");
+		assertEquals("Small", schoolCommunity.getCategory());
+	}
+	
 	// Test setting up SMALL category
 	@Test
 	public void testSmallCategoryName() {
-		schoolCommunity.setCategory(1);
+		schoolCommunity.setCategory("Small");
 		assertEquals("Small", schoolCommunity.getCategory());
 	}
 	
 	// Test setting up MEDIUM category
 	@Test
 	public void testMediumCategoryName() {
-		schoolCommunity.setCategory(2);
+		schoolCommunity.setCategory("Medium");
 		assertEquals("Medium", schoolCommunity.getCategory());
 	}
 	
 	// Test setting up LARGE category
 	@Test
 	public void testLargeCategoryName() {
-		schoolCommunity.setCategory(3);
+		schoolCommunity.setCategory("Large");
 		assertEquals("Large", schoolCommunity.getCategory());
 	}
 

@@ -23,13 +23,12 @@ public class Validator {
 		}
 		else {
 			if (inputInt <= 0) {
-				System.out.println("Input number cannot be zero or a negative value.");
+				System.out.println(description + " cannot be zero or negative.");
 				return false;
 			}
 			if (inputInt < min || inputInt > max) {
-				System.out.println("Input number: " + inputInt + " is out of range. \n" +
-									description + " must be within (" + min + "-" + max + "). " + 
-									"Assigning default value.");
+				System.out.println("Input " + description + ": " + inputInt + " is out of the valid range: " +
+									min + "-" + max + ". Assigning default value.");
 				return false;
 			}
 			else {
@@ -47,13 +46,12 @@ public class Validator {
 		}
 		else {
 			if (inputDouble <= 0) {
-				System.out.println("Input number cannot be zero or a negative value.");
+				System.out.println(description + " cannot be zero or negative.");
 				return false;
 			}
 			if (inputDouble < min || inputDouble > max) {
-				System.out.println("Input number: " + inputDouble + " is out of range. \n" +
-									description + " must be within (" + MYFORMAT.format(min) + "-" + MYFORMAT.format(max) + "). " + 
-									"Assigning default value.");
+				System.out.println("Input " + description + ": " + MYFORMAT.format(inputDouble) + " is out of the valid range: " +
+									 MYFORMAT.format(min) + "-" + MYFORMAT.format(max) + ". Assigning default value.");
 				return false;
 			}
 			else {
@@ -63,9 +61,8 @@ public class Validator {
 	}
 	
 	public static boolean validateString(String description, String inputString) {
-		if (inputString == null || inputString.isEmpty() || inputString == "") {
-			System.out.println("Input string cannot be null or empty." +
-								"Invalid " + description + ". Assigning default value.");
+		if (inputString == null || inputString.isEmpty()) {
+			System.out.println(description + " cannot be null or empty. " + "Assigning default value.");
 			return false;
 		}
 		else {
@@ -83,7 +80,7 @@ public class Validator {
 			}	
 		}
 		catch (DateTimeParseException dtpExc) {
-			System.out.println("Invalid format of date in String. ERROR: " + dtpExc.getMessage() +
+			System.out.println("Invalid format of date. ERROR: " + dtpExc.getMessage() +
 								"\nAssigning default date for " + description + ".");
 			return false;
 		}

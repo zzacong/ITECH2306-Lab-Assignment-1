@@ -23,13 +23,19 @@ public abstract class Property implements Serializable {
 	private RatePayer owner;
 	
 	private boolean hasExtraServices = false;
-
+	private static final double AREA_MIN = 100.0;
+	private static final double AREA_MAX = 1000000000.0;
+	private static final double SITE_VALUE_MIN = 99.0;
+	private static final double SITE_VALUE_MAX = 49999999.0;
+	private static final double CIV_MIN = 100.0;
+	private static final double CIV_MAX = 50000000.0;
+	private static final double NET_ANNUAL_VALUE_MIN = 100.0;
+	private static final double NET_ANNUAL_VALUE_MAX = 50000000.0;
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	protected static final String NOT_AVAILABLE = "Not Available";
-//	protected Validator v = new Validator();
 	
 	public Property(double capitalImprovedRate) {
-		this(NOT_AVAILABLE, NOT_AVAILABLE, 0.0, 0.0, 0.0, capitalImprovedRate, 0.0, dateToString(LocalDate.now()), new RatePayer());
+		this(NOT_AVAILABLE, NOT_AVAILABLE, AREA_MIN, SITE_VALUE_MIN, CIV_MIN, capitalImprovedRate, NET_ANNUAL_VALUE_MIN, dateToString(LocalDate.now()), new RatePayer());
 		// We are explicit about our String and date defaults but leave the numbers to be filled with Java default values
 //		this.setDescription(NOT_AVAILABLE);
 //		this.setLocation(NOT_AVAILABLE);
@@ -55,12 +61,13 @@ public abstract class Property implements Serializable {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		if (Validator.validateString("description", description)) {
+	public void setDescription(String description) throws NullPointerException {
+		if (Validator.validateString("Description", description)) {
 			this.description = description;
 		}
 		else {
 			this.description = NOT_AVAILABLE;
+//			throw new NullPointerException("Property description is null.");
 		}
 	}
 
@@ -69,7 +76,7 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setLocation(String location) {
-		if (Validator.validateString("location", location)) {
+		if (Validator.validateString("Location", location)) {
 			this.location = location;
 		}
 		else {
@@ -82,11 +89,11 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setArea(double area) {
-		if (Validator.checkDoubleWithinRange("Area", area, 100.0,1000000000.0)) {
+		if (Validator.checkDoubleWithinRange("Area", area, AREA_MIN, AREA_MAX)) {
 			this.area = area;
 		}
 		else {
-			this.area = 100.0;
+			this.area = AREA_MIN;
 		}
 	}
 
@@ -95,7 +102,7 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setSiteValue(double siteValue) {
-		if (Validator.checkDoubleWithinRange("Site value", siteValue, 100.0, 49999999.0)) {
+		if (Validator.checkDoubleWithinRange("Site value", siteValue, SITE_VALUE_MIN, SITE_VALUE_MAX)) {
 			this.siteValue = siteValue;
 		}
 		else {
@@ -108,12 +115,12 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setCapitalImprovedValue(double capitalImprovedValue) {
-		if (Validator.checkDoubleWithinRange("CIV", capitalImprovedValue, 100.0, 50000000.0)) {
+		if (Validator.checkDoubleWithinRange("CIV", capitalImprovedValue, CIV_MIN, CIV_MAX)) {
 			if(capitalImprovedValue > getSiteValue()) {
 				this.capitalImprovedValue = capitalImprovedValue;
 			}
 			else {
-				System.out.println("CIV must be greater than site value. Assigning siteValue + $100 to CIV.");
+				System.out.println("CIV must be greater than site value. Assigning CIV based on site value.");
 				this.capitalImprovedValue = getSiteValue() + 100.0;
 			}
 		}
@@ -127,7 +134,7 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setNetAnnualValue(double netAnnualValue) {
-		if (Validator.checkDoubleWithinRange("Net annual value", netAnnualValue, 100.0, 50000000.0)) {
+		if (Validator.checkDoubleWithinRange("Net annual value", netAnnualValue, NET_ANNUAL_VALUE_MIN, NET_ANNUAL_VALUE_MAX)) {
 			this.netAnnualValue = netAnnualValue;
 		}
 		else {

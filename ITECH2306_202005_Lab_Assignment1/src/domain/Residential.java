@@ -42,7 +42,7 @@ public class Residential extends Property {
 	}
 
 	public void setPropertyType(String propertyType) {
-		if (Validator.validateString("property type", propertyType)) {
+		if (Validator.validateString("Residential property type", propertyType)) {
 			this.propertyType = propertyType;
 		}
 		else {
@@ -55,7 +55,7 @@ public class Residential extends Property {
 	}
 
 	public void setArchitecturalStyle(String architecturalStyle) {
-		if (Validator.validateString("architectural style", architecturalStyle)) {
+		if (Validator.validateString("Architectural style", architecturalStyle)) {
 			this.architecturalStyle = architecturalStyle;
 		}
 		else {
