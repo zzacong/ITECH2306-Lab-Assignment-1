@@ -133,7 +133,6 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 		} while (userInput < min || userInput > max);
 		System.out.println();		// put a space before the next output	
 		return userInput; 
-
 	}
 	
 	private boolean validateBoolean(){
@@ -149,7 +148,6 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 		getScanner().nextLine();					// gets rid of the newline after the input we just read
 		System.out.println();		                // put a space before the next output	
 		return userInput; 
-
 	}
 
 	@Override
@@ -187,7 +185,5 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 			System.out.println("Details Selected: \n" + property +
 							   "Total Rate Costs: " + property.calculateRates() + "\n");
 		}
-		
 	}
-
 }

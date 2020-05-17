@@ -149,3 +149,9 @@ V5.14 by Zac
 
 V5.15 by Zac
 - Reformat output of toString methods on all property types to show information of extra services where needed
+
+V6.1 by Zac
+- Start implementing requirement 3: Validation
+  - Created Validator class
+  - Validate contents in Property, Residential class
+  - Added new row in Properties.csv file for validating purpose

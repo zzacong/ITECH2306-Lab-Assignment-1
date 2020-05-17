@@ -13,7 +13,7 @@ public class VacantLand extends Property{
 
 	public VacantLand() {
 		super(CIV_RATE);
-		System.out.println("Not implemented yet");
+		System.out.println("VacantLand is not implemented yet");
 	}
 	
 	public String[] getOverlays() {

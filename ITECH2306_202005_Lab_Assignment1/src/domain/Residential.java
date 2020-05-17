@@ -1,5 +1,7 @@
 package domain;
 
+import utility.Validator;
+
 /**
  * @author Takeogh
  * @author Zac
@@ -40,7 +42,12 @@ public class Residential extends Property {
 	}
 
 	public void setPropertyType(String propertyType) {
-		this.propertyType = propertyType;
+		if (Validator.validateString("property type", propertyType)) {
+			this.propertyType = propertyType;
+		}
+		else {
+			this.propertyType = NOT_AVAILABLE;
+		}
 	}
 
 	public String getArchitecturalStyle() {
@@ -48,7 +55,12 @@ public class Residential extends Property {
 	}
 
 	public void setArchitecturalStyle(String architecturalStyle) {
-		this.architecturalStyle = architecturalStyle;
+		if (Validator.validateString("architectural style", architecturalStyle)) {
+			this.architecturalStyle = architecturalStyle;
+		}
+		else {
+			this.architecturalStyle = NOT_AVAILABLE;
+		}
 	}
 	
 	// Set up the extra services of Residential property type

@@ -73,9 +73,11 @@ public class LoadProperties {
 					
 					if ((column >= 0 && column <= 2) || (column >= 8 && column <= 11)) {
 						dataStr = rowScanner.next();
+						dataStr = dataStr.trim();
 					}
 					else {
 						dataDbl = rowScanner.nextDouble();
+						
 					}
 			
 					switch (column) {
@@ -155,7 +157,6 @@ public class LoadProperties {
 						break;
 					case(VACANT_LAND):
 						property = new VacantLand();
-						System.out.println("Vacant Land is not yet implemented");
 						break;
 					case(HOSPITAL):
 						property = new Hospital(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraBooleanAttr, extraAttr2, extraAttr3);

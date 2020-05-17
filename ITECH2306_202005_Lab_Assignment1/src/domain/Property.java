@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import utility.Validator;
+
 /**
  * @author Takeogh
  * @author Zac
@@ -24,6 +26,7 @@ public abstract class Property implements Serializable {
 
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	protected static final String NOT_AVAILABLE = "Not Available";
+//	protected Validator v = new Validator();
 	
 	public Property(double capitalImprovedRate) {
 		this(NOT_AVAILABLE, NOT_AVAILABLE, 0.0, 0.0, 0.0, capitalImprovedRate, 0.0, dateToString(LocalDate.now()), new RatePayer());
@@ -53,7 +56,12 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		if (Validator.validateString("description", description)) {
+			this.description = description;
+		}
+		else {
+			this.description = NOT_AVAILABLE;
+		}
 	}
 
 	public String getLocation() {
@@ -61,7 +69,12 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setLocation(String location) {
-		this.location = location;
+		if (Validator.validateString("location", location)) {
+			this.location = location;
+		}
+		else {
+			this.location = NOT_AVAILABLE;
+		}
 	}
 
 	public double getArea() {
@@ -69,7 +82,12 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setArea(double area) {
-		this.area = area;
+		if (Validator.checkDoubleWithinRange("Area", area, 100.0,1000000000.0)) {
+			this.area = area;
+		}
+		else {
+			this.area = 100.0;
+		}
 	}
 
 	public double getSiteValue() {
@@ -77,7 +95,12 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setSiteValue(double siteValue) {
-		this.siteValue = siteValue;
+		if (Validator.checkDoubleWithinRange("Site value", siteValue, 100.0, 49999999.0)) {
+			this.siteValue = siteValue;
+		}
+		else {
+			this.siteValue = 100.0;
+		}
 	}
 
 	public double getCapitalImprovedValue() {
@@ -85,14 +108,18 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setCapitalImprovedValue(double capitalImprovedValue) {
-		if (capitalImprovedValue >= 100.00 && capitalImprovedValue <= 50000000.00) { // Make sure the CIV is within range
-			this.capitalImprovedValue = capitalImprovedValue;
+		if (Validator.checkDoubleWithinRange("CIV", capitalImprovedValue, 100.0, 50000000.0)) {
+			if(capitalImprovedValue > getSiteValue()) {
+				this.capitalImprovedValue = capitalImprovedValue;
+			}
+			else {
+				System.out.println("CIV must be greater than site value. Assigning siteValue + $100 to CIV.");
+				this.capitalImprovedValue = getSiteValue() + 100.0;
+			}
 		}
-		
 		else {
-			this.capitalImprovedValue = 0;
+			this.capitalImprovedValue = 100.0;
 		}
-
 	}
 
 	public double getNetAnnualValue() {
@@ -100,7 +127,12 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setNetAnnualValue(double netAnnualValue) {
-		this.netAnnualValue = netAnnualValue;
+		if (Validator.checkDoubleWithinRange("Net annual value", netAnnualValue, 100.0, 50000000.0)) {
+			this.netAnnualValue = netAnnualValue;
+		}
+		else {
+			this.capitalImprovedValue = 100.0;
+		}
 	}
 
 	public String getValuationDate() {
@@ -108,7 +140,12 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setValuationDate(String date) {
-		this.valuationDate = date;
+		if (Validator.validateStringToDate("Valuation Date", date)) {
+			this.valuationDate = date;
+		}
+		else {
+			setValuationDate(dateToString(LocalDate.now()));
+		}
 	}
 	
 	private static String dateToString(LocalDate date) {
@@ -120,7 +157,12 @@ public abstract class Property implements Serializable {
 	}
 
 	public void setCapitalImprovedRate(double capitalImprovedRate) {
-		this.capitalImprovedRate = capitalImprovedRate;
+		if (Validator.checkDoubleWithinRange("Capital Improved Rate", capitalImprovedRate, 0.0020, 1.0)) {
+			this.capitalImprovedRate = capitalImprovedRate;
+		}
+		else {
+			this.capitalImprovedRate = 0.0020;
+		}
 	}
 
 	public RatePayer getOwner() {
