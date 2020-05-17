@@ -93,6 +93,7 @@ public class SchoolCommunity extends Property {
 	// Set up the extra services of School Community property type
 	@Override
 	public void setUpExtraServices() {
+		setHasExtraServices(true);
 		industrialWasteDisposal = new UnitAndRateService("Industrial Waste Disposal", 
 														  INDUSTRIAL_WASTE_DISPOSAL_UNITS, 
 														  INDUSTRIAL_WASTE_DISPOSAL_FEES);
@@ -112,9 +113,21 @@ public class SchoolCommunity extends Property {
 			   trafficManagementLevy.calculateChargeForServiceType();
 	}
 
+	public String extraServices() {
+		if (getHasExtraServices()) {
+			return  "Property extra services: [\n" + industrialWasteDisposal.toString() + "\n" + 
+					fireServicesLevy.toString() + "\n" + trafficManagementLevy.toString() + " ]\n";
+		}
+		else {
+			return "";
+		}
+	}
+	
 	@Override
 	public String toString() {
-		return super.toString() + "Property Type: SchoolCommunity [classification=" + classification + ", category=" + category + "]\n";
+		return super.toString() + "Property Type: SchoolCommunity [classification=" + classification + 
+									", category=" + category + "]\n" + 
+									extraServices();
 	}
 	
 //	@Override

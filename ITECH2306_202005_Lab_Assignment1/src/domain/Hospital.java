@@ -60,6 +60,7 @@ public class Hospital extends Property {
 	// Set up the extra services of Hospital property type
 	@Override
 	public void setUpExtraServices() {
+		setHasExtraServices(true);
 		industrialWasteDisposal = new UnitAndRateService("Industrial Waste Disposal", 
 														  INDUSTRIAL_WASTE_DISPOSAL_UNITS, 
 														  INDUSTRIAL_WASTE_DISPOSAL_FEES);
@@ -75,10 +76,21 @@ public class Hospital extends Property {
 				fireServicesLevy.calculateChargeForServiceType();
 	}
 
+	public String extraServices() {
+		if (getHasExtraServices()) {
+			return  "Property extra services: [\n" + industrialWasteDisposal.toString() + "\n" + 
+					fireServicesLevy.toString() + " ]\n";
+		}
+		else {
+			return "";
+		}
+	}
+	
 	@Override
 	public String toString() {
-		return super.toString() + "Property type: Hospital [isPublic=" + isPublic + ", facilities=" + facilities + ", numberOfFloors="
-				+ numberOfFloors + "]\n";
+		return super.toString() + "Property type: Hospital [isPublic=" + isPublic + ", facilities=" + facilities + 
+									", numberOfFloors=" + numberOfFloors + "]\n" + 
+									extraServices();
 	}
 
 //	@Override

@@ -48,6 +48,7 @@ public class Commercial extends Property {
 	// Set up the extra services of Commercial property type
 	@Override
 	public void setUpExtraServices() {
+		setHasExtraServices(true);
 		wasteManagement = new UnitAndRateService("Waste Management",
 												  WASTE_MANAGEMENT_UNITS,
 												  WASTE_MANAGEMENT_FEES);
@@ -64,18 +65,21 @@ public class Commercial extends Property {
 				   fireServicesLevy.calculateChargeForServiceType();
 	}
 	
-//	@Override
-//	public String toString() {
-//		return  super.toString() + "Property type: Commercial [\n" + 
-//									wasteManagement.toString() + "\n" +
-//									fireServicesLevy.toString() + " ]\n ";
-//	}
+	public String extraServices() {
+		if (getHasExtraServices()) {
+			return  "Property extra services: [\n" + wasteManagement.toString() + "\n" + 
+					fireServicesLevy.toString() + " ]\n";
+		}
+		else {
+			return "";
+		}
+	}
 	
 	@Override 
 	public String toString() {
 		return  super.toString() + "Property type: Commercial [" + 
-				"businessName=" + businessName + ", ABN=" + 
-				abn + "]\n";
+									"businessName=" + businessName + ", ABN=" + abn + "]\n" + 
+									extraServices();
 	}
 
 }

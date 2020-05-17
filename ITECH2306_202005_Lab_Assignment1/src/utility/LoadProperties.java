@@ -45,7 +45,7 @@ public class LoadProperties {
 		double area = 0;
 		double siteValue = 0;
 		double capitalImprovedValue = 0;
-		double capitalImprovedRate;
+//		double capitalImprovedRate;
 		double netAnnualValue = 0;
 		String valuationDate = null;
 		RatePayer owner = null;
@@ -98,7 +98,7 @@ public class LoadProperties {
 						capitalImprovedValue = dataDbl;
 						break;
 					case 6:
-						capitalImprovedRate = dataDbl; 
+//						capitalImprovedRate = dataDbl; 
 						break;
 					case 7:
 						netAnnualValue = dataDbl;
@@ -177,8 +177,8 @@ public class LoadProperties {
 				rowScanner.close();
 			}
 			oos.writeObject("List of Properties");
-			for (Property rp : listOfProperties) { 
-				oos.writeObject(rp);
+			for (Property p : listOfProperties) { 
+				oos.writeObject(p);
 			}
 			System.out.println("Number of Properties: " + listOfProperties.size() + "\n");
 			System.out.println("Serializable file \"Load_Properties.dat\" is created");
@@ -204,24 +204,26 @@ public class LoadProperties {
 		try(FileInputStream fis = new FileInputStream(LOAD_PROPERTIES_DAT); 
 			ObjectInputStream ois = new ObjectInputStream(fis);) 
 		{
-			System.out.println("\"Load_Properties.dat\" file is located \n");
+			System.out.println("\"Load_Properties.dat\" file is located");
 			Object firstThing = ois.readObject(); 
 			if (firstThing instanceof String) {
 				System.out.println("Loaded file: " + firstThing);
 			}
 			else {
+				// Throw some exceptions here
 				System.out.println("First string is not a string: " + firstThing);
 			}
 			
 			while (fis.available() > 0) {
 				Object nextThing = ois.readObject();
 				if (nextThing instanceof Property) {
-					System.out.println("Next thing is a Property");
+//					System.out.println("Next thing is a Property");
 					Property property = (Property) nextThing;
 					listOfProperties.add(property);
 				}
 				else {
-					System.out.println("Next thing is not an ArrayList: " + nextThing);
+					// Throw some exceptions here
+					System.out.println("Next thing is not a Property: " + nextThing);
 				}
 			}
 			System.out.println("Number of Properties: " + listOfProperties.size() + "\n");

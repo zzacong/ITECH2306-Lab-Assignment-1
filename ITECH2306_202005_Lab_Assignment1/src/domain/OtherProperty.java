@@ -36,6 +36,7 @@ public class OtherProperty extends Property {
 	// Set up the extra services of OtherProperty property type
 	@Override
 	public void setUpExtraServices() {
+		setHasExtraServices(true);
 		fireServicesLevy = new BaseAndPercentageOfValueService("Fire Levy",
 				FIRE_SERVICES_BASE,
 				FIRE_SERVICES_PERCENT,
@@ -48,9 +49,19 @@ public class OtherProperty extends Property {
 		return fireServicesLevy.calculateChargeForServiceType();
 	}
 
+	public String extraServices() {
+		if (getHasExtraServices()) {
+			return  "Property extra services: [\n" + fireServicesLevy.toString() + " ]\n";
+		}
+		else {
+			return "";
+		}
+	}
+	
 	@Override
 	public String toString() {
-		return super.toString() + "Property Type: OtherProperty [specialDescription=" + specialDescription + "]\n";
+		return super.toString() + "Property Type: OtherProperty [specialDescription=" + specialDescription + "]\n" + 
+									extraServices();
 	}
 	
 //	@Override

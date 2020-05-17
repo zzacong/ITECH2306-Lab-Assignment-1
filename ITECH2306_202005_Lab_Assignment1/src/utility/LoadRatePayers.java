@@ -111,7 +111,7 @@ public class LoadRatePayers {
 		try(FileInputStream fis = new FileInputStream(LOAD_RATEPAYERS_DAT); 
 			ObjectInputStream ois = new ObjectInputStream(fis);) 
 		{
-			System.out.println("\"Load_RatePayers.dat\" file is located \n");
+			System.out.println("\"Load_RatePayers.dat\" file is located");
 			Object firstThing = ois.readObject(); 
 			if (firstThing instanceof String) {
 				System.out.println("Loaded file: " + firstThing);
@@ -124,13 +124,13 @@ public class LoadRatePayers {
 			while (fis.available() > 0) {
 				Object nextThing = ois.readObject();
 				if (nextThing instanceof RatePayer) {
-					System.out.println("Next thing is a RatePayer");
+//					System.out.println("Next thing is a RatePayer");
 					RatePayer payer = (RatePayer) nextThing;
 					listOfRatePayers.add(payer);
 				}
 				else {
 					// Throw some exceptions here
-					System.out.println("Next thing is not an ArrayList: " + nextThing);
+					System.out.println("Next thing is not a Rate Payer: " + nextThing);
 				}
 			}
 			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");

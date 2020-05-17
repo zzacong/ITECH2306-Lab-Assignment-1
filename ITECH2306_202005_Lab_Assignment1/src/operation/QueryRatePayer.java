@@ -26,7 +26,7 @@ public class QueryRatePayer extends FunctionalDialog {
 	private static final int END = 0;
 	private static final int MIN_RATE_PAYERS = 0;
 	private int maxRatePayers;
-	private static final String RATE_PAYER_PROMPT = "Which rate payer are we querying? \n";
+	private static final String RATE_PAYER_PROMPT = "Which rate payer would you like to query? \n";
 	private String propertyPrompt;
 	private String prompt;
 	private ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
@@ -59,18 +59,16 @@ public class QueryRatePayer extends FunctionalDialog {
 		RatePayer payer = listOfRatePayers.get(ratePayer-1);
 		OwnedProperties = new ArrayList<Property>();
 		for (Property property : listOfProperties) {
-			if (property.getOwner().equals(payer))
+			if (property.getOwner().equals(payer)) {
+				property.setUpExtraServices();
 				OwnedProperties.add(property);
+			}
 		}
 		
 		propertyPrompt = "You have selected : " + payer + "\n" +
-						 "The properties owned by " + payer.getName() + " are: \n";
+						 "The properties owned by " + payer.getName() + " are: \n\n";
 		setPrompt(propertyPrompt, 1);
 		System.out.println(prompt);
-	}
-	
-	public String getPrompt() {
-		return this.prompt;
 	}
 	
 	public void setPrompt(String description, int index) {
@@ -86,7 +84,7 @@ public class QueryRatePayer extends FunctionalDialog {
 			break;
 		case 1:
 			for (Property p : OwnedProperties) {
-				list += i + ". " + p.toString() + "\n";
+				list += i + ". " + p.toString() + "Total Rate Costs: " + p.calculateRates() + "\n\n";
 				i++;
 			}
 			break;

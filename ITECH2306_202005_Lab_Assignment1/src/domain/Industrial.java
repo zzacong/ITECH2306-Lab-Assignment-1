@@ -50,6 +50,7 @@ public class Industrial extends Property {
 	// Set up the extra services of Industrial property type
 	@Override
 	public void setUpExtraServices() {
+		setHasExtraServices(true);
 		industrialWasteDisposal = new UnitAndRateService("Industrial Waste Disposal", 
 														  INDUSTRIAL_WASTE_DISPOSAL_UNITS, 
 														  INDUSTRIAL_WASTE_DISPOSAL_FEES);
@@ -65,11 +66,21 @@ public class Industrial extends Property {
 				fireServicesLevy.calculateChargeForServiceType();
 	}
 
+	public String extraServices() {
+		if (getHasExtraServices()) {
+			return  "Property extra services: [\n" + industrialWasteDisposal.toString() + "\n" + 
+					fireServicesLevy.toString() + " ]\n";
+		}
+		else {
+			return "";
+		}
+	}
+	
 	@Override 
 	public String toString() {
-		return  super.toString() + "Property type: Industrial [" + 
-				"hazardStatus=" + hazardStatus + ", heavyVehicleStatus=" + 
-				heavyVehicleStatus + "]\n";
+		return  super.toString() + "Property type: Industrial [" + "hazardStatus=" + hazardStatus + 
+									", heavyVehicleStatus=" + heavyVehicleStatus + "]\n" + 
+									extraServices();
 	}
 	
 //	@Override

@@ -19,13 +19,15 @@ public abstract class Property implements Serializable {
 	private double netAnnualValue;
 	private String valuationDate;
 	private RatePayer owner;
+	
+	private boolean hasExtraServices = false;
 
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	protected static final String NOT_AVAILABLE = "Not Available";
 	
 	public Property(double capitalImprovedRate) {
-		// We are explicit about our String and date defaults but leave the numbers to be filled with Java default values
 		this(NOT_AVAILABLE, NOT_AVAILABLE, 0.0, 0.0, 0.0, capitalImprovedRate, 0.0, dateToString(LocalDate.now()), new RatePayer());
+		// We are explicit about our String and date defaults but leave the numbers to be filled with Java default values
 //		this.setDescription(NOT_AVAILABLE);
 //		this.setLocation(NOT_AVAILABLE);
 //		this.setValuationDate(dateToString(LocalDate.now()));
@@ -129,10 +131,18 @@ public abstract class Property implements Serializable {
 		this.owner = owner;
 	}
 	
+	public boolean getHasExtraServices() {
+		return hasExtraServices;
+	}
+
+	public void setHasExtraServices(boolean hasExtraServices) {
+		this.hasExtraServices = hasExtraServices;
+	}
+
 	public double calculateRates() {
 		// So, we return the CIV multiplied by the CIV rate + the total of extra services all multiplied by
 		// a charity discount (if applicable)
-		return(((getCapitalImprovedValue() * getCapitalImprovedRate()) 
+		return (((getCapitalImprovedValue() * getCapitalImprovedRate()) 
 				+ calculateExtraServices()) *
 				(getOwner().isCharity() ? 1 - getOwner().getCharityDiscountPercentage() : 1));
 	}
@@ -141,12 +151,6 @@ public abstract class Property implements Serializable {
 	
 	public abstract double calculateExtraServices();
 
-//	@Override
-//	public String toString() {
-//		return "Property [description=" + description + ", capitalImprovedValue=" + capitalImprovedValue
-//				+ ", capitalImprovedRate=" + capitalImprovedRate + "] \n";
-//	}
-	
 	@Override
 	public String toString() {
 		return "Property [description=" + description + ", location=" + location + ", area=" + area 

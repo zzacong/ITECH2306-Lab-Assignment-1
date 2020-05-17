@@ -184,7 +184,7 @@ public class CalculatePropertyTypeRates extends FunctionalDialog {
 			property.setCapitalImprovedValue(capitalImprovedValue);
 			property.setUpExtraServices();
 			property.getOwner().setCharity(charityStatus);
-			System.out.println("Details Selected: \n" + property +  "\n" +
+			System.out.println("Details Selected: \n" + property +
 							   "Total Rate Costs: " + property.calculateRates() + "\n");
 		}
 		
