@@ -143,3 +143,6 @@ V5.13 by Anush
 - Added constructor for OtherProperty class
 - reformatted toString for better viewing
 
+V5.14 by Zac
+- Rearrange code in LoadRatePayers, LoadProperties, QueryRatePayer classes to implement OOP concept
+- Reduce lines of codes
