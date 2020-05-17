@@ -66,51 +66,48 @@ public class LoadProperties {
 			while (fileScanner.hasNextLine()) {
 				Scanner rowScanner = new Scanner(fileScanner.nextLine());
 				rowScanner.useDelimiter(",");
-				
+				String stringData = null;
+				double doubleData = 0;
 				while (rowScanner.hasNext()) {
-					String dataStr = null;
-					double dataDbl = 0;
 					
-					if ((column >= 0 && column <= 2) || (column >= 8 && column <= 11)) {
-						dataStr = rowScanner.next();
-						dataStr = dataStr.trim();
-					}
-					else {
-						dataDbl = rowScanner.nextDouble();
-						
+					stringData = rowScanner.next();
+					stringData = stringData.trim();
+					
+					if ((column >= 3 && column <= 7) || column == 12) {
+						doubleData = Double.parseDouble(stringData);
 					}
 			
 					switch (column) {
 					case 0:
-						propertyType = dataStr;
+						propertyType = stringData;
 						break;
 					case 1:
-						description = dataStr;
+						description = stringData;
 						break;
 					case 2:
-						location = dataStr;
+						location = stringData;
 						break;
 					case 3:
-						area = dataDbl;
+						area = doubleData;
 						break;
 					case 4:
-						siteValue = dataDbl;
+						siteValue = doubleData;
 						break;
 					case 5:
-						capitalImprovedValue = dataDbl;
+						capitalImprovedValue = doubleData;
 						break;
 					case 6:
-//						capitalImprovedRate = dataDbl; 
+//						capitalImprovedRate = doubleData; 
 						break;
 					case 7:
-						netAnnualValue = dataDbl;
+						netAnnualValue = doubleData;
 						break;
 					case 8:
-						valuationDate = dataStr;
+						valuationDate = stringData;
 						break;
 					case 9:
 						for (RatePayer payer: listOfRatePayers) {
-							if (payer.getName().equalsIgnoreCase(dataStr)) {
+							if (payer.getName().equalsIgnoreCase(stringData)) {
 								owner = payer;
 								break;
 							}
@@ -118,22 +115,22 @@ public class LoadProperties {
 						break;
 					case 10:
 						if (propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(3))) { 
-							extraBooleanAttr = (dataStr.equalsIgnoreCase(TRUE))? true : false;
+							extraBooleanAttr = (stringData.equalsIgnoreCase(TRUE))? true : false;
 						}
 						else {
-							extraAttr1 = dataStr ;
+							extraAttr1 = stringData ;
 						}
 						break;
 					case 11:
 						if (propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(4))) {
-							extraBooleanAttr = (dataStr.equalsIgnoreCase(TRUE))? true : false;
+							extraBooleanAttr = (stringData.equalsIgnoreCase(TRUE))? true : false;
 						}
 						else {
-							extraAttr2 = dataStr ;
+							extraAttr2 = stringData ;
 						}
 						break;
 					case 12:
-						extraAttr3 =(int) dataDbl;
+						extraAttr3 =(int) doubleData;
 						break;
 					}
 					
@@ -185,12 +182,19 @@ public class LoadProperties {
 			System.out.println("Serializable file \"Load_Properties.dat\" is created");
 		}
 		catch(FileNotFoundException fnfExc) {
-			System.out.println("ITECH2306_2020_Load_Properties.csv OR Load_Properties.dat file cannot be located for opening");
+			System.out.println("Unable to locate file for opening: " + fnfExc.getMessage());
 			fnfExc.printStackTrace();
 		}
 		catch(IOException ioExc) {
 			System.out.println("Problem with file processing: " + ioExc.getMessage());
 			ioExc.printStackTrace();
+		}
+//		catch (NullPointerException npExc) {
+//			System.out.println(npExc.getMessage());
+//		}
+		catch (NumberFormatException nfExc) {
+			System.out.println("Unable to convert string to double: " + nfExc.getMessage());
+			nfExc.printStackTrace();
 		}
 		catch(Exception otherExc) {
 			System.out.println("Something went wrong: " + otherExc.getMessage());
@@ -231,7 +235,7 @@ public class LoadProperties {
 //			this.listOfProperties = list;
 		} 
 		catch(FileNotFoundException fnfExc) {
-			System.out.println("Unable to locate Load_Properties.dat file for opening");
+			System.out.println("Unable to locate file for opening: " + fnfExc.getMessage());
 			fnfExc.printStackTrace();
 		}
 		catch(IOException ioExc) {

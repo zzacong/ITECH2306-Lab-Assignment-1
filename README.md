@@ -155,3 +155,8 @@ V6.1 by Zac
   - Created Validator class
   - Validate contents in Property, Residential class
   - Added new row in Properties.csv file for validating purpose
+
+V6.2 by Zac
+- Changed how the scanner read data from file
+  - Read all data as String
+  - Parse string as double where needed

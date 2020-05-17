@@ -23,11 +23,11 @@ public class Validator {
 		}
 		else {
 			if (inputInt <= 0) {
-				System.out.println("Number input cannot be zero or a negative value.");
+				System.out.println("Input number cannot be zero or a negative value.");
 				return false;
 			}
 			if (inputInt < min || inputInt > max) {
-				System.out.println("Number input: " + inputInt + " is out of range. \n" +
+				System.out.println("Input number: " + inputInt + " is out of range. \n" +
 									description + " must be within (" + min + "-" + max + "). " + 
 									"Assigning default value.");
 				return false;
@@ -47,11 +47,11 @@ public class Validator {
 		}
 		else {
 			if (inputDouble <= 0) {
-				System.out.println("Number input cannot be zero or a negative value.");
+				System.out.println("Input number cannot be zero or a negative value.");
 				return false;
 			}
 			if (inputDouble < min || inputDouble > max) {
-				System.out.println("Number input: " + inputDouble + " is out of range. \n" +
+				System.out.println("Input number: " + inputDouble + " is out of range. \n" +
 									description + " must be within (" + MYFORMAT.format(min) + "-" + MYFORMAT.format(max) + "). " + 
 									"Assigning default value.");
 				return false;
@@ -64,7 +64,7 @@ public class Validator {
 	
 	public static boolean validateString(String description, String inputString) {
 		if (inputString == null || inputString.isEmpty() || inputString == "") {
-			System.out.println("String input cannot be null or empty." +
+			System.out.println("Input string cannot be null or empty." +
 								"Invalid " + description + ". Assigning default value.");
 			return false;
 		}

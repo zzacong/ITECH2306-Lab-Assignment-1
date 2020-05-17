@@ -48,26 +48,29 @@ public class LoadRatePayers {
 				Scanner rowScanner = new Scanner(fileScanner.nextLine());
 				rowScanner.useDelimiter(",");
 				
+				String stringData;
+				
 				while (rowScanner.hasNext()) {
-					String data = rowScanner.next();
+					stringData = rowScanner.next();
+					stringData = stringData.trim();
 					switch (column) {
 					case 0:
-						name = data;
+						name = stringData;
 						break;
 					case 1:
-						address = data;
+						address = stringData;
 						break;
 					case 2:
-						postcode = data;
+						postcode = stringData;
 						break;
 					case 3:
-						phone = data;
+						phone = stringData;
 						break;
 					case 4:
-						type = data;
+						type = stringData;
 						break;
 					case 5:
-						charity = (data.equalsIgnoreCase("true"))? true : false; 
+						charity = (stringData.equalsIgnoreCase("true"))? true : false; 
 						break;
 					}
 					if (!rowScanner.hasNext()) {
@@ -136,7 +139,7 @@ public class LoadRatePayers {
 			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
 		} 
 		catch(FileNotFoundException fnfExc) {
-			System.out.println("Unable to locate Load_RatePayers.dat file for opening");
+			System.out.println("Unable to locate file for opening: " + fnfExc.getMessage());
 			fnfExc.printStackTrace();
 		}
 		catch(IOException ioExc) {
