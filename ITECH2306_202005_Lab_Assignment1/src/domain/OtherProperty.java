@@ -13,6 +13,13 @@ public class OtherProperty extends Property {
 	private static final double FIRE_SERVICES_PERCENT = 0.00006;
 	private ServiceType fireServicesLevy;
 	
+	public OtherProperty(String description, String location, double area, double siteValue,
+			double capitalImprovedValue, double netAnnualValue, String valuationDate, RatePayer owner,
+			String specialDescription) {
+		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+		this.setSpecialDescription(specialDescription);
+	}
+	
 	public OtherProperty() {
 		super(CIV_RATE);
 		this.setSpecialDescription("None");
@@ -43,7 +50,7 @@ public class OtherProperty extends Property {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Property Type: OtherProperty [specialDescription=" + specialDescription + "]";
+		return super.toString() + "Property Type: OtherProperty [specialDescription=" + specialDescription + "]\n";
 	}
 	
 	

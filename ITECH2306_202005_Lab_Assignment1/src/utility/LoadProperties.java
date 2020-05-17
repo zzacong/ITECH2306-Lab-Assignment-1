@@ -141,7 +141,7 @@ public class LoadProperties {
 						}
 						break;
 					case 10:
-						if (propertyType.equalsIgnoreCase("Hospital")) {
+						if (propertyType.equalsIgnoreCase("Hospital")) { 
 							extraBooleanAttr = (dataStr.equalsIgnoreCase(TRUE))? true : false;
 						}
 						else {
@@ -192,7 +192,7 @@ public class LoadProperties {
 						property = new SchoolCommunity(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
 						break;
 					case(OTHER):
-						property = new OtherProperty();
+						property = new OtherProperty(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1);
 						break;	
 					}
 				}

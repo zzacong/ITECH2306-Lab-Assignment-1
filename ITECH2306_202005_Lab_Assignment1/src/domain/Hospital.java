@@ -80,7 +80,7 @@ public class Hospital extends Property {
 	@Override
 	public String toString() {
 		return super.toString() + "Property type: Hospital [isPublic=" + isPublic + ", facilities=" + facilities + ", numberOfFloors="
-				+ numberOfFloors + "]";
+				+ numberOfFloors + "]\n";
 	}
 
 
