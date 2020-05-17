@@ -160,3 +160,8 @@ V6.2 by Zac
 - Changed how the scanner read data from file
   - Read all data as String
   - Parse string as double where needed
+
+V6.3 by Zac
+- Validate contents in Property, Residential, SchoolCommunity class
+- Set minimum value for Property attributes
+- Update JUnit SchoolCommunityTestCase
