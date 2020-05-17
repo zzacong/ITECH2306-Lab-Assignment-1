@@ -146,3 +146,6 @@ V5.13 by Anush
 V5.14 by Zac
 - Rearrange code in LoadRatePayers, LoadProperties, QueryRatePayer classes to implement OOP concept
 - Reduce lines of codes
+
+V5.15 by Zac
+- Reformat output of toString methods on all property types to show information of extra services where needed
