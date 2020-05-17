@@ -137,3 +137,9 @@ V5.11 by Anush
 V5.12 by Zac
 - Tidying code
 - Removed unwanted lines of code
+
+V5.13 by Anush
+- Implemented OtherProperty class
+- Added constructor for OtherProperty class
+- reformatted toString for better viewing
+
