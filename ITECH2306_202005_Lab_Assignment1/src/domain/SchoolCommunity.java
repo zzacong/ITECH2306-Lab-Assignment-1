@@ -155,13 +155,4 @@ public class SchoolCommunity extends Property {
 									", category=" + category + "]\n" + 
 									extraServices();
 	}
-	
-//	@Override
-//	public String toString() {
-//		return super.toString() + "Property type: SchoolCommunity [\n" +
-//								   industrialWasteDisposal.toString() + "\n" + 
-//								   fireServicesLevy.toString() + "\n" + 
-//								   trafficManagementLevy.toString() + "] \n";
-//	}
-//	
 }

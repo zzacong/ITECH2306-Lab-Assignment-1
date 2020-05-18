@@ -53,7 +53,6 @@ public class LoadProperties {
 		String extraAttr2= null;
 		int extraAttr3 = 0;
 		boolean extraBooleanAttr = false;
-		int column = 0;
 		
 		System.out.println("Setting up list of Properties...");
 		
@@ -64,21 +63,24 @@ public class LoadProperties {
 			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located \n");				
 						
 			while(fileScanner.hasNextLine()) {
-				boolean passValidation = true;
 				try {
 					Scanner rowScanner = new Scanner(fileScanner.nextLine());
 					rowScanner.useDelimiter(",");
-					String stringData;
-					double doubleData = 0;
+
+					int column = 0;
 					while(rowScanner.hasNext()) {
+						String stringData;
+						double doubleData = 0;
 						
 						stringData = rowScanner.next();
 						stringData = stringData.trim();
 						
-						if((column >= 3 && column <= 7) || column == 12) {
-							doubleData = Double.parseDouble(stringData);
+						if(!stringData.isEmpty()) {
+							if((column >= 3 && column <= 7) || column == 12) {
+								doubleData = Double.parseDouble(stringData);	
+							}
 						}
-				
+						
 						switch(column) {
 						case 0:
 							propertyType = stringData;
@@ -173,7 +175,7 @@ public class LoadProperties {
 						}
 					}
 					
-					if(passValidation) {
+					if(property != null) {
 						this.listOfProperties.add(property);				
 						System.out.println(property);
 					}
@@ -182,15 +184,12 @@ public class LoadProperties {
 				}
 				catch(NullPointerException npExc) {
 					System.out.println(npExc.getMessage());
-					passValidation = false;
 				}
 				catch(NumberFormatException nfExc) {
-					System.out.println("Unable to convert string to double: " + nfExc.getMessage() + ".\nRejecting this record entry.\n");
-					passValidation = false;
-				}
+					System.out.println("Unable to convert string to double: " + nfExc.getMessage() + ".\nRejecting this record...\n");
+				}	
 				catch(IllegalArgumentException iaExc) {
 					System.out.println(iaExc.getMessage());
-					passValidation = false;
 				}
 			}
 			oos.writeObject(listOfProperties);

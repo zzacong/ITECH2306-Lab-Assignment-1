@@ -94,8 +94,6 @@ public class RatePayer implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-//		System.out.println(hashCode());
-//		System.out.println(obj.hashCode());
 		if (obj == null || !(obj.getClass().equals(this.getClass()))) {
 			return false;
 		}
@@ -116,7 +114,7 @@ public class RatePayer implements Serializable {
 	
 	@Override
 	public int hashCode() {
-		return getName().hashCode() + (int)getCharityDiscountPercentage();// + Integer.parseInt(getPostcode());
+		return getName().hashCode() + (int)getCharityDiscountPercentage();
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -33,6 +34,7 @@ public abstract class Property implements Serializable {
 	private static final double CIV_RATE_MAX = 1.0;
 	private static final double NET_ANNUAL_VALUE_MIN = 100.0;
 	private static final double NET_ANNUAL_VALUE_MAX = 50000000.0;
+	private static final DecimalFormat FORMAT_2DP = new DecimalFormat("0.00");
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	protected static final String NOT_AVAILABLE = "Not Available";
 	
@@ -201,9 +203,9 @@ public abstract class Property implements Serializable {
 	public double calculateRates() {
 		// So, we return the CIV multiplied by the CIV rate + the total of extra services all multiplied by
 		// a charity discount (if applicable)
-		return (((getCapitalImprovedValue() * getCapitalImprovedRate()) 
+		return Double.parseDouble(FORMAT_2DP.format(((getCapitalImprovedValue() * getCapitalImprovedRate()) 
 				+ calculateExtraServices()) *
-				(getOwner().isCharity() ? 1 - getOwner().getCharityDiscountPercentage() : 1));
+				(getOwner().isCharity() ? 1 - getOwner().getCharityDiscountPercentage() : 1)));
 	}
 	
 	public abstract void setUpExtraServices();

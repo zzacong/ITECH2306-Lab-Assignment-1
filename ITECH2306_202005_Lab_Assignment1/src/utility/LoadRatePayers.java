@@ -44,56 +44,62 @@ public class LoadRatePayers {
 		{	
 			System.out.println("\"ITECH2306_2020_Load_RatePayers.csv\" is located \n");
 			
-			while (fileScanner.hasNextLine()) {
-				Scanner rowScanner = new Scanner(fileScanner.nextLine());
-				rowScanner.useDelimiter(",");
-				
-				String stringData;
-				
-				while (rowScanner.hasNext()) {
-					stringData = rowScanner.next();
-					stringData = stringData.trim();
-					switch (column) {
-					case 0:
-						name = stringData;
-						break;
-					case 1:
-						address = stringData;
-						break;
-					case 2:
-						postcode = stringData;
-						break;
-					case 3:
-						phone = stringData;
-						break;
-					case 4:
-						type = stringData;
-						break;
-					case 5:
-						charity = (stringData.equalsIgnoreCase("true"))? true : false; 
-						break;
+			while(fileScanner.hasNextLine()) {
+				try {
+					Scanner rowScanner = new Scanner(fileScanner.nextLine());
+					rowScanner.useDelimiter(",");
+					
+					String stringData;
+					
+					while(rowScanner.hasNext()) {
+						stringData = rowScanner.next();
+						stringData = stringData.trim();
+						switch(column) {
+						case 0:
+							name = stringData;
+							break;
+						case 1:
+							address = stringData;
+							break;
+						case 2:
+							postcode = stringData;
+							break;
+						case 3:
+							phone = stringData;
+							break;
+						case 4:
+							type = stringData;
+							break;
+						case 5:
+							charity = (stringData.equalsIgnoreCase("true"))? true : false; 
+							break;
+						}
+						
+						column = (rowScanner.hasNext())? ++column : 0;
 					}
-					if (!rowScanner.hasNext()) {
-						column = 0; 
-					}
-					else { 
-						column++;
-					}
+					RatePayer payer = new RatePayer(name, address, postcode, phone, type, charity);
+					
+					listOfRatePayers.add(payer);
+					System.out.println(payer);
+					
+					rowScanner.close();
 				}
-				RatePayer payer = new RatePayer(name, address, postcode, phone, type, charity);
-				listOfRatePayers.add(payer);
-				System.out.println(payer);
-				rowScanner.close();
+				catch(NullPointerException npExc) {
+					System.out.println(npExc.getMessage());
+				}
+				catch(NumberFormatException nfExc) {
+					System.out.println("Unable to convert string to double: " + nfExc.getMessage() + ".\nRejecting this record entry.\n");
+				}
+				catch(IllegalArgumentException iaExc) {
+					System.out.println(iaExc.getMessage());
+				}
 			}
-//			for (RatePayer rp : listOfRatePayers) {
-//				oos.writeObject(rp);
-//			}
 			oos.writeObject(listOfRatePayers);
 			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
 			System.out.println("Serializable file \"Load_RatePayers.dat\" is created");
 		}
 		catch(FileNotFoundException fnfExc) {
-			System.out.println("ITECH2306_2020_Load_RatePayers.csv OR Load_RatePayers.dat file cannot be located for opening");
+			System.out.println("Unable to locate file for opening: " + fnfExc.getMessage());
 			fnfExc.printStackTrace();
 		}
 		catch(IOException ioExc) {
@@ -104,7 +110,6 @@ public class LoadRatePayers {
 			System.out.println("Something went wrong: " + otherExc.getMessage());
 			otherExc.printStackTrace();
 		}
-
 	}
 
 	public void loadListOfRatePayers() {
@@ -124,18 +129,6 @@ public class LoadRatePayers {
 				// Throw exception here
 				System.out.println("First string is not an ArrayList: " + firstThing);
 			}
-//			while (fis.available() > 0) {
-//				Object nextThing = ois.readObject();
-//				if (nextThing instanceof RatePayer) {
-////					System.out.println("Next thing is a RatePayer");
-//					RatePayer payer = (RatePayer) nextThing;
-//					listOfRatePayers.add(payer);
-//				}
-//				else {
-//					// Throw some exceptions here
-//					System.out.println("Next thing is not a Rate Payer: " + nextThing);
-//				}
-//			}
 		} 
 		catch(FileNotFoundException fnfExc) {
 			System.out.println("Unable to locate file for opening: " + fnfExc.getMessage());
