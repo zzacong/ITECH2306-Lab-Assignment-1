@@ -9,10 +9,10 @@ package domain;
 public class VacantLand extends Property{
 
 	private String[] overlays;
-	private static final double CIV_RATE = 0.0020;
+//	private static final double CIV_RATE = 0.0020;
 
 	public VacantLand() {
-		super(CIV_RATE);
+		super();
 		System.out.println("VacantLand is not implemented yet");
 	}
 	

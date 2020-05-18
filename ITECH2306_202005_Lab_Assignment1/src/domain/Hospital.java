@@ -17,20 +17,21 @@ public class Hospital extends Property {
 	private ServiceType industrialWasteDisposal;
 	private ServiceType fireServicesLevy;
 	
-	public Hospital(String description, String location, double area, double siteValue, double capitalImprovedValue, 
+	public Hospital(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
 			   double netAnnualValue, String valuationDate, RatePayer owner, boolean isPublic, String facilities, int numberOfFloors) {
-		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setIsPublic(isPublic);
 		this.setFacilities(facilities);
 		this.setNumberOfFloors(numberOfFloors);
 	}
 
 	public Hospital() {
-		super(CIV_RATE);
-		// We are explicit about our defaults for Strings
+		super();
+		// Explicitly assign defaults for String
 		this.setIsPublic(true);
 		this.setFacilities("Clinics");
 		this.setNumberOfFloors(1);
+		setCapitalImprovedRate(CIV_RATE);
 	}
 
 	public boolean getIsPublic() {

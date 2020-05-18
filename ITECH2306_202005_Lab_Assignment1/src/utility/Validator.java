@@ -13,8 +13,6 @@ import java.time.format.DateTimeParseException;
 public class Validator {
 
 	private static final NumberFormat MYFORMAT = NumberFormat.getNumberInstance();
-	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
-
 
 	public static boolean checkIntWithinRange(String description, int inputInt, int min, int max) {
 		if (min >= max) {
@@ -27,8 +25,7 @@ public class Validator {
 				return false;
 			}
 			if (inputInt < min || inputInt > max) {
-				System.out.println("Input " + description + ": " + inputInt + " is out of the valid range: " +
-									min + "-" + max + ". Assigning default value.");
+				System.out.println(description + ": " + inputInt + " is out of the valid range: (" + min + "-" + max + ").");
 				return false;
 			}
 			else {
@@ -50,8 +47,8 @@ public class Validator {
 				return false;
 			}
 			if (inputDouble < min || inputDouble > max) {
-				System.out.println("Input " + description + ": " + MYFORMAT.format(inputDouble) + " is out of the valid range: " +
-									 MYFORMAT.format(min) + "-" + MYFORMAT.format(max) + ". Assigning default value.");
+				System.out.println(description + ": " + MYFORMAT.format(inputDouble) + 
+									" is out of the valid range (" + MYFORMAT.format(min) + "-" + MYFORMAT.format(max) + ").");
 				return false;
 			}
 			else {
@@ -62,7 +59,7 @@ public class Validator {
 	
 	public static boolean validateString(String description, String inputString) {
 		if (inputString == null || inputString.isEmpty()) {
-			System.out.println(description + " cannot be null or empty. " + "Assigning default value.");
+			System.out.println("Input string cannot be null or empty.");
 			return false;
 		}
 		else {
@@ -70,9 +67,9 @@ public class Validator {
 		}
 	}
 	
-	public static boolean validateStringToDate(String description, String dateInString) {
+	public static boolean validateStringToDate(String description, String dateInString, DateTimeFormatter formatter) {
 		try {
-			if (LocalDate.parse(dateInString, FORMATTER) instanceof LocalDate) {
+			if (LocalDate.parse(dateInString, formatter) instanceof LocalDate) {
 				return true;
 			}
 			else {
@@ -80,9 +77,9 @@ public class Validator {
 			}	
 		}
 		catch (DateTimeParseException dtpExc) {
-			System.out.println("Invalid format of date. ERROR: " + dtpExc.getMessage() +
-								"\nAssigning default date for " + description + ".");
+			System.out.println("Invalid format of date. ERROR: " + dtpExc.getMessage());
 			return false;
 		}
 	}
+	
 }

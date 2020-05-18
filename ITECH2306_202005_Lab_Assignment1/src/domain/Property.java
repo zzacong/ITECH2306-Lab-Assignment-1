@@ -25,36 +25,38 @@ public abstract class Property implements Serializable {
 	private boolean hasExtraServices = false;
 	private static final double AREA_MIN = 100.0;
 	private static final double AREA_MAX = 1000000000.0;
-	private static final double SITE_VALUE_MIN = 99.0;
-	private static final double SITE_VALUE_MAX = 49999999.0;
+	private static final double SITE_VALUE_MIN = 99.99;
+	private static final double SITE_VALUE_MAX = 49999999.99;
 	private static final double CIV_MIN = 100.0;
 	private static final double CIV_MAX = 50000000.0;
+	private static final double CIV_RATE_MIN = 0.0001;
+	private static final double CIV_RATE_MAX = 1.0;
 	private static final double NET_ANNUAL_VALUE_MIN = 100.0;
 	private static final double NET_ANNUAL_VALUE_MAX = 50000000.0;
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	protected static final String NOT_AVAILABLE = "Not Available";
 	
-	public Property(double capitalImprovedRate) {
-		this(NOT_AVAILABLE, NOT_AVAILABLE, AREA_MIN, SITE_VALUE_MIN, CIV_MIN, capitalImprovedRate, NET_ANNUAL_VALUE_MIN, dateToString(LocalDate.now()), new RatePayer());
-		// We are explicit about our String and date defaults but leave the numbers to be filled with Java default values
-//		this.setDescription(NOT_AVAILABLE);
-//		this.setLocation(NOT_AVAILABLE);
-//		this.setValuationDate(dateToString(LocalDate.now()));
-		// Provide a default owner 
-//		this.setOwner(new RatePayer());	
+	public Property() throws NullPointerException, IllegalArgumentException {
+		// Explicitly assign defaults for String and date but leave the numbers to be filled with Java default values
+		// Provide a default owner
+		this(NOT_AVAILABLE, NOT_AVAILABLE, dateToString(LocalDate.now()), new RatePayer());
+	}
+	
+	public Property (String description, String location, String valuationDate, RatePayer owner) throws NullPointerException, IllegalArgumentException {
+		this.setDescription(description);
+		this.setLocation(location);
+		this.setValuationDate(valuationDate);
+		this.setOwner(owner);
 	}
 	
 	public Property(String description, String location, double area, double siteValue, 
-			double capitalImprovedValue, double capitalImprovedRate, double netAnnualValue, String valuationDate, RatePayer owner) {
-		this.setDescription(description);
-		this.setLocation(location);
+			double capitalImprovedValue, double capitalImprovedRate, double netAnnualValue, String valuationDate, RatePayer owner) throws NullPointerException, IllegalArgumentException {
+		this(description, location, valuationDate, owner);
 		this.setArea(area);
 		this.setSiteValue(siteValue);
 		this.setCapitalImprovedValue(capitalImprovedValue);
 		this.setCapitalImprovedRate(capitalImprovedRate);
 		this.setNetAnnualValue(netAnnualValue);
-		this.setValuationDate(valuationDate);
-		this.setOwner(owner);
 	}
 
 	public String getDescription() {
@@ -66,8 +68,7 @@ public abstract class Property implements Serializable {
 			this.description = description;
 		}
 		else {
-			this.description = NOT_AVAILABLE;
-//			throw new NullPointerException("Property description is null.");
+			throw new NullPointerException("Property description is null. Rejecting this record...\n");
 		}
 	}
 
@@ -75,12 +76,12 @@ public abstract class Property implements Serializable {
 		return location;
 	}
 
-	public void setLocation(String location) {
+	public void setLocation(String location) throws NullPointerException {
 		if (Validator.validateString("Location", location)) {
 			this.location = location;
 		}
 		else {
-			this.location = NOT_AVAILABLE;
+			throw new NullPointerException("Property location is null. Rejecting this record...\n");
 		}
 	}
 
@@ -88,12 +89,12 @@ public abstract class Property implements Serializable {
 		return area;
 	}
 
-	public void setArea(double area) {
+	public void setArea(double area) throws IllegalArgumentException {
 		if (Validator.checkDoubleWithinRange("Area", area, AREA_MIN, AREA_MAX)) {
 			this.area = area;
 		}
 		else {
-			this.area = AREA_MIN;
+			throw new IllegalArgumentException("Invalid Area. Rejecting this record...\n");
 		}
 	}
 
@@ -101,12 +102,12 @@ public abstract class Property implements Serializable {
 		return siteValue;
 	}
 
-	public void setSiteValue(double siteValue) {
+	public void setSiteValue(double siteValue) throws IllegalArgumentException {
 		if (Validator.checkDoubleWithinRange("Site value", siteValue, SITE_VALUE_MIN, SITE_VALUE_MAX)) {
 			this.siteValue = siteValue;
 		}
 		else {
-			this.siteValue = 100.0;
+			throw new IllegalArgumentException("Invalid Site value. Rejecting this record...\n");
 		}
 	}
 
@@ -114,31 +115,43 @@ public abstract class Property implements Serializable {
 		return capitalImprovedValue;
 	}
 
-	public void setCapitalImprovedValue(double capitalImprovedValue) {
+	public void setCapitalImprovedValue(double capitalImprovedValue) throws IllegalArgumentException {
 		if (Validator.checkDoubleWithinRange("CIV", capitalImprovedValue, CIV_MIN, CIV_MAX)) {
 			if(capitalImprovedValue > getSiteValue()) {
 				this.capitalImprovedValue = capitalImprovedValue;
 			}
 			else {
-				System.out.println("CIV must be greater than site value. Assigning CIV based on site value.");
-				this.capitalImprovedValue = getSiteValue() + 100.0;
+				throw new IllegalArgumentException("CIV must be greater than site value. Rejecting this record...\n");
 			}
 		}
 		else {
-			this.capitalImprovedValue = 100.0;
+			throw new IllegalArgumentException("Invalid Capital Improved Value. Rejecting this record...\n");
 		}
 	}
 
+	public double getCapitalImprovedRate() {
+		return capitalImprovedRate;
+	}
+
+	public void setCapitalImprovedRate(double capitalImprovedRate) throws IllegalArgumentException {
+		if (Validator.checkDoubleWithinRange("Capital Improved Rate", capitalImprovedRate, CIV_RATE_MIN, CIV_RATE_MAX)) {
+			this.capitalImprovedRate = capitalImprovedRate;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid Capital Improved Rate. Rejecting this record...\n");
+		}
+	}
+	
 	public double getNetAnnualValue() {
 		return netAnnualValue;
 	}
 
-	public void setNetAnnualValue(double netAnnualValue) {
+	public void setNetAnnualValue(double netAnnualValue) throws IllegalArgumentException {
 		if (Validator.checkDoubleWithinRange("Net annual value", netAnnualValue, NET_ANNUAL_VALUE_MIN, NET_ANNUAL_VALUE_MAX)) {
 			this.netAnnualValue = netAnnualValue;
 		}
 		else {
-			this.capitalImprovedValue = 100.0;
+			throw new IllegalArgumentException("Invalid Net annual value. Rejecting this record...\n");
 		}
 	}
 
@@ -146,38 +159,35 @@ public abstract class Property implements Serializable {
 		return valuationDate;
 	}
 
-	public void setValuationDate(String date) {
-		if (Validator.validateStringToDate("Valuation Date", date)) {
-			this.valuationDate = date;
+	public void setValuationDate(String dateInString) throws NullPointerException, IllegalArgumentException {
+		if (Validator.validateString("Valuation date", dateInString)) {
+			if (Validator.validateStringToDate("Valuation date", dateInString, FORMATTER)) {
+				this.valuationDate = dateInString;
+			}
+			else {
+				throw new IllegalArgumentException("Valuation date must use format \"dd MMM yyyy\". Rejecting this record...\n");
+			}
 		}
 		else {
-			setValuationDate(dateToString(LocalDate.now()));
+			throw new NullPointerException("Valuation date is null. Rejecting this record...\n");
 		}
 	}
 	
 	private static String dateToString(LocalDate date) {
 		return date.format(FORMATTER);
 	}
-	
-	public double getCapitalImprovedRate() {
-		return capitalImprovedRate;
-	}
-
-	public void setCapitalImprovedRate(double capitalImprovedRate) {
-		if (Validator.checkDoubleWithinRange("Capital Improved Rate", capitalImprovedRate, 0.0020, 1.0)) {
-			this.capitalImprovedRate = capitalImprovedRate;
-		}
-		else {
-			this.capitalImprovedRate = 0.0020;
-		}
-	}
 
 	public RatePayer getOwner() {
 		return owner;
 	}
 
-	public void setOwner(RatePayer owner) {
-		this.owner = owner;
+	public void setOwner(RatePayer owner) throws NullPointerException {
+		if(owner != null) {
+			this.owner = owner;
+		}	
+		else {
+			throw new NullPointerException("RatePayer is null. Rejecting this record...");
+		}
 	}
 	
 	public boolean getHasExtraServices() {

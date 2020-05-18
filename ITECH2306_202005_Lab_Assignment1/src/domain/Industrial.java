@@ -17,18 +17,19 @@ public class Industrial extends Property {
 	private ServiceType industrialWasteDisposal;
 	private ServiceType fireServicesLevy;
 	
-	public Industrial(String description, String location, double area, double siteValue, double capitalImprovedValue, 
+	public Industrial(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
 			   double netAnnualValue, String valuationDate, RatePayer owner, String hazardStatus, boolean heavyVehicleStatus) {
-		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setHazardStatus(hazardStatus);
 		this.setHeavyVehicleStatus(heavyVehicleStatus);
 	}
 	
 	public Industrial() {
-		super(CIV_RATE);
-		// Explicit assignment of default property attributes
+		super();
+		// Explicitly assign defaults for String
 		this.setHazardStatus("Chemicals");
 		this.setHeavyVehicleStatus(true);
+		setCapitalImprovedRate(CIV_RATE);
 	}
 	
 	public String getHazardStatus() {

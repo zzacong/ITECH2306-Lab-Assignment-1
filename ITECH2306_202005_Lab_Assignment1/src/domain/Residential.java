@@ -23,30 +23,31 @@ public class Residential extends Property {
 	private ServiceType greenWasteManagement;
 	private ServiceType fireServicesLevy;
 	
-	public Residential(String description, String location, double area, double siteValue, double capitalImprovedValue, 
-					   double netAnnualValue, String valuationDate, RatePayer owner, String propertyType, String architecturalStyle) {
-		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+	public Residential(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate,
+					   double netAnnualValue, String valuationDate, RatePayer owner, String propertyType, String architecturalStyle) throws NullPointerException {
+		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setPropertyType(propertyType);
 		this.setArchitecturalStyle(architecturalStyle);
 	}
 	
 	public Residential() {
-		super(CIV_RATE);
-		// We are explicit about our defaults for Strings
+		super();
+		// Explicitly assign defaults for Strings
 		this.setPropertyType("House");
 		this.setArchitecturalStyle("Modern");
+		setCapitalImprovedRate(CIV_RATE);
 	}
 	
 	public String getPropertyType() {
 		return propertyType;
 	}
 
-	public void setPropertyType(String propertyType) {
+	public void setPropertyType(String propertyType) throws NullPointerException {
 		if (Validator.validateString("Residential property type", propertyType)) {
 			this.propertyType = propertyType;
 		}
 		else {
-			this.propertyType = NOT_AVAILABLE;
+			throw new NullPointerException("Residential property type is null. Rejecting this record...\n");
 		}
 	}
 
@@ -54,12 +55,12 @@ public class Residential extends Property {
 		return architecturalStyle;
 	}
 
-	public void setArchitecturalStyle(String architecturalStyle) {
+	public void setArchitecturalStyle(String architecturalStyle) throws NullPointerException {
 		if (Validator.validateString("Architectural style", architecturalStyle)) {
 			this.architecturalStyle = architecturalStyle;
 		}
 		else {
-			this.architecturalStyle = NOT_AVAILABLE;
+			throw new NullPointerException("Residential architectural style is null. Rejecting this record...\n");
 		}
 	}
 	

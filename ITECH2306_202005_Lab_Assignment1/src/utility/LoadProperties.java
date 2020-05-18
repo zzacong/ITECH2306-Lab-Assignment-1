@@ -45,7 +45,7 @@ public class LoadProperties {
 		double area = 0;
 		double siteValue = 0;
 		double capitalImprovedValue = 0;
-//		double capitalImprovedRate;
+		double capitalImprovedRate = 0;
 		double netAnnualValue = 0;
 		String valuationDate = null;
 		RatePayer owner = null;
@@ -57,126 +57,143 @@ public class LoadProperties {
 		
 		System.out.println("Setting up list of Properties...");
 		
-		try (Scanner fileScanner = new Scanner(new File(LOAD_PROPERTIES_CSV));
+		try(Scanner fileScanner = new Scanner(new File(LOAD_PROPERTIES_CSV));
 				FileOutputStream fos = new FileOutputStream(new File(LOAD_PROPERTIES_DAT));
 				ObjectOutputStream oos = new ObjectOutputStream(fos);) 
 		{	
 			System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located \n");				
 						
-			while (fileScanner.hasNextLine()) {
-				Scanner rowScanner = new Scanner(fileScanner.nextLine());
-				rowScanner.useDelimiter(",");
-				String stringData = null;
-				double doubleData = 0;
-				while (rowScanner.hasNext()) {
-					
-					stringData = rowScanner.next();
-					stringData = stringData.trim();
-					
-					if ((column >= 3 && column <= 7) || column == 12) {
-						doubleData = Double.parseDouble(stringData);
-					}
-			
-					switch (column) {
-					case 0:
-						propertyType = stringData;
-						break;
-					case 1:
-						description = stringData;
-						break;
-					case 2:
-						location = stringData;
-						break;
-					case 3:
-						area = doubleData;
-						break;
-					case 4:
-						siteValue = doubleData;
-						break;
-					case 5:
-						capitalImprovedValue = doubleData;
-						break;
-					case 6:
-//						capitalImprovedRate = doubleData; 
-						break;
-					case 7:
-						netAnnualValue = doubleData;
-						break;
-					case 8:
-						valuationDate = stringData;
-						break;
-					case 9:
-						for (RatePayer payer: listOfRatePayers) {
-							if (payer.getName().equalsIgnoreCase(stringData)) {
-								owner = payer;
-								break;
-							}
+			while(fileScanner.hasNextLine()) {
+				boolean passValidation = true;
+				try {
+					Scanner rowScanner = new Scanner(fileScanner.nextLine());
+					rowScanner.useDelimiter(",");
+					String stringData;
+					double doubleData = 0;
+					while(rowScanner.hasNext()) {
+						
+						stringData = rowScanner.next();
+						stringData = stringData.trim();
+						
+						if((column >= 3 && column <= 7) || column == 12) {
+							doubleData = Double.parseDouble(stringData);
 						}
-						break;
-					case 10:
-						if (propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(3))) { 
-							extraBooleanAttr = (stringData.equalsIgnoreCase(TRUE))? true : false;
-						}
-						else {
-							extraAttr1 = stringData ;
-						}
-						break;
-					case 11:
-						if (propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(4))) {
-							extraBooleanAttr = (stringData.equalsIgnoreCase(TRUE))? true : false;
-						}
-						else {
-							extraAttr2 = stringData ;
-						}
-						break;
-					case 12:
-						extraAttr3 =(int) doubleData;
-						break;
-					}
-					
-					if (rowScanner.hasNext()) {
-						column++; 
-					}
-					else {
-						column = 0;
-					}
-				}
 				
-				Property property = null;
-				if (PROPERTY_TYPE_NAMES.contains(propertyType)) {
-					int propertyTypeIndex = PROPERTY_TYPE_NAMES.indexOf(propertyType);
-					switch (propertyTypeIndex) {
-					case(RESIDENTIAL):
-						property = new Residential(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
-						break;
-					case(COMMERCIAL):
-						property = new Commercial(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
-						break;
-					case(VACANT_LAND):
-						property = new VacantLand();
-						break;
-					case(HOSPITAL):
-						property = new Hospital(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraBooleanAttr, extraAttr2, extraAttr3);
-						break;
-					case(INDUSTRIAL):
-						property = new Industrial(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraBooleanAttr);
-						break;
-					case(SCHOOL_COMMUNITY):
-						property = new SchoolCommunity(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
-						break;
-					case(OTHER):
-						property = new OtherProperty(description, location, area, siteValue, capitalImprovedValue, netAnnualValue, valuationDate, owner, extraAttr1);
-						break;	
+						switch(column) {
+						case 0:
+							propertyType = stringData;
+							break;
+						case 1:
+							description = stringData;
+							break;
+						case 2:
+							location = stringData;
+							break;
+						case 3:
+							area = doubleData;
+							break;
+						case 4:
+							siteValue = doubleData;
+							break;
+						case 5:
+							capitalImprovedValue = doubleData;
+							break;
+						case 6:
+							capitalImprovedRate = (doubleData / 100);
+							break;
+						case 7:
+							netAnnualValue = doubleData;
+							break;
+						case 8:
+							valuationDate = stringData;
+							break;
+						case 9:
+							for(RatePayer payer: listOfRatePayers) {
+								if (payer.getName().equalsIgnoreCase(stringData)) {
+									owner = payer;
+									break;
+								}
+							}
+							break;
+						case 10:
+							if(propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(3))) { 
+								extraBooleanAttr = (stringData.equalsIgnoreCase(TRUE))? true : false;
+							}
+							else {
+								extraAttr1 = stringData ;
+							}
+							break;
+						case 11:
+							if(propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(4))) {
+								extraBooleanAttr = (stringData.equalsIgnoreCase(TRUE))? true : false;
+							}
+							else {
+								extraAttr2 = stringData ;
+							}
+							break;
+						case 12:
+							extraAttr3 = (int) doubleData;
+							break;
+						}
+
+						column = (rowScanner.hasNext())? ++column : 0;
 					}
+					
+					Property property = null;
+					if(PROPERTY_TYPE_NAMES.contains(propertyType)) {
+						int index = PROPERTY_TYPE_NAMES.indexOf(propertyType);
+						switch(index) {
+						case(RESIDENTIAL):
+							property = new Residential(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, 
+														netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
+							break;
+						case(COMMERCIAL):
+							property = new Commercial(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate,
+														netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
+							break;
+						case(VACANT_LAND):
+							property = new VacantLand();
+							break;
+						case(HOSPITAL):
+							property = new Hospital(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate,
+													netAnnualValue, valuationDate, owner, extraBooleanAttr, extraAttr2, extraAttr3);
+							break;
+						case(INDUSTRIAL):
+							property = new Industrial(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate,
+													netAnnualValue, valuationDate, owner, extraAttr1, extraBooleanAttr);
+							break;
+						case(SCHOOL_COMMUNITY):
+							property = new SchoolCommunity(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate,
+														netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
+							break;
+						case(OTHER):
+							property = new OtherProperty(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate,
+														netAnnualValue, valuationDate, owner, extraAttr1);
+							break;	
+						}
+					}
+					
+					if(passValidation) {
+						this.listOfProperties.add(property);				
+						System.out.println(property);
+					}
+					
+					rowScanner.close();
 				}
-				this.listOfProperties.add(property);				
-				System.out.println(property);
-				rowScanner.close();
+				catch(NullPointerException npExc) {
+					System.out.println(npExc.getMessage());
+					passValidation = false;
+				}
+				catch(NumberFormatException nfExc) {
+					System.out.println("Unable to convert string to double: " + nfExc.getMessage() + ".\nRejecting this record entry.\n");
+					passValidation = false;
+				}
+				catch(IllegalArgumentException iaExc) {
+					System.out.println(iaExc.getMessage());
+					passValidation = false;
+				}
 			}
-			oos.writeObject("List of Properties");
-			for (Property p : listOfProperties) { 
-				oos.writeObject(p);
-			}
+			oos.writeObject(listOfProperties);
 			System.out.println("Number of Properties: " + listOfProperties.size() + "\n");
 			System.out.println("Serializable file \"Load_Properties.dat\" is created");
 		}
@@ -187,13 +204,6 @@ public class LoadProperties {
 		catch(IOException ioExc) {
 			System.out.println("Problem with file processing: " + ioExc.getMessage());
 			ioExc.printStackTrace();
-		}
-		catch (NullPointerException npExc) {
-			System.out.println(npExc.getMessage());
-		}
-		catch (NumberFormatException nfExc) {
-			System.out.println("Unable to convert string to double: " + nfExc.getMessage());
-			nfExc.printStackTrace();
 		}
 		catch(Exception otherExc) {
 			System.out.println("Something went wrong: " + otherExc.getMessage());
@@ -210,28 +220,14 @@ public class LoadProperties {
 		{
 			System.out.println("\"Load_Properties.dat\" file is located");
 			Object firstThing = ois.readObject(); 
-			if (firstThing instanceof String) {
-				System.out.println("Loaded file: " + firstThing);
+			if(firstThing instanceof ArrayList<?>) {
+				this.listOfProperties = (ArrayList<Property>) firstThing;
+				System.out.println("Number of Properties: " + listOfProperties.size() + "\n");
 			}
 			else {
-				// Throw some exceptions here
-				System.out.println("First string is not a string: " + firstThing);
+				// Throw exception here
+				System.out.println("First string is not an ArrayList: " + firstThing);
 			}
-			
-			while (fis.available() > 0) {
-				Object nextThing = ois.readObject();
-				if (nextThing instanceof Property) {
-//					System.out.println("Next thing is a Property");
-					Property property = (Property) nextThing;
-					listOfProperties.add(property);
-				}
-				else {
-					// Throw some exceptions here
-					System.out.println("Next thing is not a Property: " + nextThing);
-				}
-			}
-			System.out.println("Number of Properties: " + listOfProperties.size() + "\n");
-//			this.listOfProperties = list;
 		} 
 		catch(FileNotFoundException fnfExc) {
 			System.out.println("Unable to locate file for opening: " + fnfExc.getMessage());

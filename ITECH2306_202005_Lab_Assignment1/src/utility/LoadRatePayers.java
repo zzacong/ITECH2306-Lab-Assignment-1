@@ -85,10 +85,10 @@ public class LoadRatePayers {
 				System.out.println(payer);
 				rowScanner.close();
 			}
-			oos.writeObject("List of Rate Payers");
-			for (RatePayer rp : listOfRatePayers) {
-				oos.writeObject(rp);
-			}
+//			for (RatePayer rp : listOfRatePayers) {
+//				oos.writeObject(rp);
+//			}
+			oos.writeObject(listOfRatePayers);
 			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
 			System.out.println("Serializable file \"Load_RatePayers.dat\" is created");
 		}
@@ -116,27 +116,26 @@ public class LoadRatePayers {
 		{
 			System.out.println("\"Load_RatePayers.dat\" file is located");
 			Object firstThing = ois.readObject(); 
-			if (firstThing instanceof String) {
-				System.out.println("Loaded file: " + firstThing);
+			if (firstThing instanceof ArrayList<?>) {
+				this.listOfRatePayers = (ArrayList<RatePayer>) firstThing;
+				System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
 			}
 			else {
-				// Throw some exceptions here
-				System.out.println("First string is not a string: " + firstThing);
+				// Throw exception here
+				System.out.println("First string is not an ArrayList: " + firstThing);
 			}
-			
-			while (fis.available() > 0) {
-				Object nextThing = ois.readObject();
-				if (nextThing instanceof RatePayer) {
-//					System.out.println("Next thing is a RatePayer");
-					RatePayer payer = (RatePayer) nextThing;
-					listOfRatePayers.add(payer);
-				}
-				else {
-					// Throw some exceptions here
-					System.out.println("Next thing is not a Rate Payer: " + nextThing);
-				}
-			}
-			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
+//			while (fis.available() > 0) {
+//				Object nextThing = ois.readObject();
+//				if (nextThing instanceof RatePayer) {
+////					System.out.println("Next thing is a RatePayer");
+//					RatePayer payer = (RatePayer) nextThing;
+//					listOfRatePayers.add(payer);
+//				}
+//				else {
+//					// Throw some exceptions here
+//					System.out.println("Next thing is not a Rate Payer: " + nextThing);
+//				}
+//			}
 		} 
 		catch(FileNotFoundException fnfExc) {
 			System.out.println("Unable to locate file for opening: " + fnfExc.getMessage());

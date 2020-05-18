@@ -30,12 +30,6 @@ public class RatePayer implements Serializable {
 	
 	public RatePayer() {
 		this(DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, false);
-//		this.setName(DUMMY_VALUE);
-//		this.setAddress(DUMMY_VALUE);
-//		this.setPostcode(DUMMY_VALUE);
-//		this.setPhone(DUMMY_VALUE);
-//		this.setType(DUMMY_VALUE);
-//		this.setCharity(false);
 	}
 
 	public String getName() {
@@ -120,12 +114,10 @@ public class RatePayer implements Serializable {
 		}
 	}
 	
-//	@Override
-//	public int hashCode() {
-//		return getName().hashCode();// + getAddress().hashCode() + 
-////				getPostcode().hashCode() + getPhone().hashCode() + 
-////				getType().hashCode() + (int)getCharityDiscountPercentage();
-//	}
+	@Override
+	public int hashCode() {
+		return getName().hashCode() + (int)getCharityDiscountPercentage();// + Integer.parseInt(getPostcode());
+	}
 	
 	@Override
 	public String toString() {
@@ -133,7 +125,4 @@ public class RatePayer implements Serializable {
 				+ ", type=" + type + ", charity=" + charity + ", charityDiscountPercentage=" + charityDiscountPercentage
 				+ "]";
 	}
-	
-	
-
 }

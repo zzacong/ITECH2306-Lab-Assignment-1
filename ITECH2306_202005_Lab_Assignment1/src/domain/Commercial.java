@@ -15,18 +15,19 @@ public class Commercial extends Property {
 	private ServiceType wasteManagement;
 	private ServiceType fireServicesLevy;
 
-	public Commercial(String description, String location, double area, double siteValue, double capitalImprovedValue, 
+	public Commercial(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
 			   double netAnnualValue, String valuationDate, RatePayer owner, String businessName, String abn) {
-		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setBusinessName(businessName);
 		this.setAbn(abn);
 	}
 	
 	public Commercial() {
-		super(CIV_RATE);
-		// Explicit assignment of property attributes
+		super();
+		// Explicitly assign defaults for String
 		this.setBusinessName("Zac and Anush Pty. Ltd");
 		this.setAbn("123456");
+		setCapitalImprovedRate(CIV_RATE);
 	}
 
 	public String getBusinessName() {

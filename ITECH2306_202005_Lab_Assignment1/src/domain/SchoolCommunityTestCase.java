@@ -22,117 +22,263 @@ public class SchoolCommunityTestCase {
 	public void setUp() {
 		schoolCommunity = new SchoolCommunity();
 	}
+	
+	// Test setting up description with NULL
+	@Test(expected=NullPointerException.class)
+	public void testNullDescription() {
+		schoolCommunity.setDescription(null);
+	}
+	
+	// Test setting up description with EMPTY STRING
+	@Test(expected=NullPointerException.class)
+	public void testEmptyDescription() {
+		schoolCommunity.setDescription("");
+	}
+		
+	// Test setting up a VALID description 
+	@Test
+	public void testSetDescription() {
+		schoolCommunity.setDescription("Lot 5 PS445631");
+		assertEquals("Lot 5 PS445631", schoolCommunity.getDescription());
+	}
+	
+	// Test setting up location with NULL
+	@Test(expected=NullPointerException.class)
+	public void testNullLocation() {
+		schoolCommunity.setLocation(null);
+	}
+	
+	// Test setting up location with EMPTY STRING
+	@Test(expected=NullPointerException.class)
+	public void testEmptyLocation() {
+		schoolCommunity.setLocation("");
+	}
+		
+	// Test setting up a VALID location 
+	@Test
+	public void testSetLocation() {
+		schoolCommunity.setLocation("1 Residence Dr Mount Helen VIC");
+		assertEquals("1 Residence Dr Mount Helen VIC", schoolCommunity.getLocation());
+	}
+	
+	// Lower boundary testing for Area with a value should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMinRejectedArea() {
+		schoolCommunity.setArea(99.99);
+	}
+	
+	// Lower boundary testing for Area with the smallest value allowed within the range
+	@Test
+	public void testMinAllowedArea() {
+		schoolCommunity.setArea(100.0);
+		assertEquals(100.0, schoolCommunity.getArea(), 0.001);
+	}
+	
+	// Upper boundary testing for Area with the largest value allowed within the range
+	@Test
+	public void testMaxAllowedArea() {
+		schoolCommunity.setArea(1000000000.0);
+		assertEquals(1000000000.0, schoolCommunity.getArea(), 0.001);
+	}
 
-	// Boundary testing for categoryIndex with a highest value that should be rejected
-	@Test
-	public void testMaxRejectedCategoryIndex() {
-		schoolCommunity.setCategory(0);
-		assertNull(schoolCommunity.getCategory());
+	// Upper boundary testing for Area with a value should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMaxRejectedArea() {
+		schoolCommunity.setArea(1000000001.0);
 	}
 	
-	// Boundary testing for categoryIndex with a lowest value that should be rejected
-	@Test
-	public void testMinRejectedCategoryIndex() {	
-		schoolCommunity.setCategory(4);
-		assertNull(schoolCommunity.getCategory());
+	// Lower boundary testing for Site Value with a value should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMinRejectedSiteValue() {
+		schoolCommunity.setSiteValue(99.98);
 	}
 	
-	// Boundary testing for categoryIndex with a Minimum value allowed within the range
+	// Lower boundary testing for Site value with the smallest value allowed within the range
 	@Test
-	public void testMinAllowedCategoryIndex() {
-		schoolCommunity.setCategory(1);
-		assertNotNull(schoolCommunity.getCategory());
+	public void testMinAllowedSiteValue() {
+		schoolCommunity.setSiteValue(99.99);
+		assertEquals(99.99, schoolCommunity.getSiteValue(), 0.001);
 	}
 	
-	// Boundary testing for categoryIndex with a Maximum value allowed within the range
+	// Upper boundary testing for Site value with the largest value allowed within the range
 	@Test
-	public void testMaxAllowedCategoryIndex() {
-		schoolCommunity.setCategory(3);
-		assertNotNull(schoolCommunity.getCategory());
+	public void testMaxAllowedSiteValue() {
+		schoolCommunity.setSiteValue(49999999.99);
+		assertEquals(49999999.99, schoolCommunity.getSiteValue(), 0.001);
 	}
 	
-	// Boundary testing for CIV with a highest value that should be rejected
-	@Test
-	public void testMaxRejectedCIV() {
-		schoolCommunity.setCapitalImprovedValue(50000001);
-		assertEquals(100, schoolCommunity.getCapitalImprovedValue(), 0.001);
+	// Upper boundary testing for Site Value with a value should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMaxRejectedSiteValue() {
+		schoolCommunity.setSiteValue(50000000.0);
 	}
-
-	// Boundary testing for CIV with a lowest value that should be rejected
-	@Test
+	
+	// Lower boundary testing for CIV with a value that should be rejected
+	@Test(expected=IllegalArgumentException.class)
 	public void testMinRejectedCIV() {
-		schoolCommunity.setCapitalImprovedValue(99);
-		assertEquals(100, schoolCommunity.getCapitalImprovedValue(), 0.001);
+		schoolCommunity.setCapitalImprovedValue(99.99);
+//		assertEquals(100, schoolCommunity.getCapitalImprovedValue(), 0.001);
 	}
 	
-	// Boundary testing for CIV with a Minimum value allowed within the range
+	// Lower boundary testing for CIV with the smallest value allowed within the range
 	@Test
 	public void testMinAllowedCIV() {
-		schoolCommunity.setCapitalImprovedValue(100);
-		assertEquals(100, schoolCommunity.getCapitalImprovedValue(), 0.001);
+		schoolCommunity.setCapitalImprovedValue(100.0);
+		assertEquals(100.0, schoolCommunity.getCapitalImprovedValue(), 0.001);
 	}
 	
-	// Boundary testing for CIV with a Maximum value allowed within the range
+	// Upper boundary testing for CIV with the largest value allowed within the range
 	@Test
 	public void testMaxAllowedCIV() {
-		schoolCommunity.setCapitalImprovedValue(50000000);
-		assertEquals(50000000, schoolCommunity.getCapitalImprovedValue(), 0.001);
+		schoolCommunity.setCapitalImprovedValue(50000000.0);
+		assertEquals(50000000.0, schoolCommunity.getCapitalImprovedValue(), 0.001);
+	}
+
+	// Upper boundary testing for CIV with a value that should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMaxRejectedCIV() {
+		schoolCommunity.setCapitalImprovedValue(50000000.01);
+//		assertEquals(100, schoolCommunity.getCapitalImprovedValue(), 0.001);
+	}
+
+	// Test setting a CIV which is smaller than Site Value
+	@Test(expected=IllegalArgumentException.class)
+	public void testCIVSmallerThanSiteValue() {
+		schoolCommunity.setSiteValue(10000.00);
+		schoolCommunity.setCapitalImprovedValue(9999.99);
+	}
+	
+	// Test setting a CIV which is greater than Site Value
+	@Test
+	public void testCIVGreaterThanSiteValue() {
+		schoolCommunity.setSiteValue(10000.00);
+		schoolCommunity.setCapitalImprovedValue(10000.01);
+		assertEquals(10000.01, schoolCommunity.getCapitalImprovedValue(), 0.001);
+	}
+	
+	// Lower boundary testing for CIV rate with a value that should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMinRejectedCIVRate() {
+		schoolCommunity.setCapitalImprovedRate(0.00009);
+	}
+	
+	// Lower boundary testing for CIV rate with the smallest value allowed within the range
+	@Test
+	public void testMinAllowedCIVRate() {
+		schoolCommunity.setCapitalImprovedRate(0.0001);
+		assertEquals(0.0001, schoolCommunity.getCapitalImprovedRate(), 0.001);
+	}
+	
+	// Upper boundary testing for CIV rate with the largest value allowed within the range
+	@Test
+	public void testMaxAllowedCIVRate() {
+		schoolCommunity.setCapitalImprovedRate(1.0);
+		assertEquals(1.0, schoolCommunity.getCapitalImprovedRate(), 0.001);
+	}
+
+	// Upper boundary testing for CIV rate with a value that should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMaxRejectedCIVRate() {
+		schoolCommunity.setCapitalImprovedRate(1.1);
+	}
+	
+	// Lower boundary testing for net annual value with a value that should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMinRejectedNetAnnualValue() {
+		schoolCommunity.setNetAnnualValue(99.99);
+	}
+	
+	// Lower boundary testing for net annual value with the smallest value allowed within the range
+	@Test
+	public void testMinAllowedNetAnnualValue() {
+		schoolCommunity.setNetAnnualValue(100.0);
+		assertEquals(100.0, schoolCommunity.getNetAnnualValue(), 0.001);
+	}
+	
+	// Upper boundary testing for net annual value with the largest value allowed within the range
+	@Test
+	public void testMaxAllowedNetAnnualValue() {
+		schoolCommunity.setNetAnnualValue(50000000.0);
+		assertEquals(50000000.0, schoolCommunity.getNetAnnualValue(), 0.001);
+	}
+
+	// Upper boundary testing for net annual value with a value that should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMaxRejectedNetAnnualValue() {
+		schoolCommunity.setNetAnnualValue(50000000.01);
+	}
+	
+	// Test setting up valuation date with NULL
+	@Test(expected=NullPointerException.class)
+	public void testNullValuationDate() {
+		schoolCommunity.setValuationDate(null);
+	}
+	
+	// Test setting up valuation date with EMPTY STRING
+	@Test(expected=NullPointerException.class)
+	public void testEmptyValuationDate() {
+		schoolCommunity.setValuationDate("");
+	}
+	
+	// Test setting up valuation date with INVALID FORMAT of date in string
+	@Test(expected=IllegalArgumentException.class)
+	public void testInvalidFormatValuationDate() {
+		schoolCommunity.setValuationDate("02/05/2020");
+	}
+	
+	// Test setting up a VALID valuation date 
+	@Test
+	public void testSetValuationDate() {
+		schoolCommunity.setValuationDate("02 May 2020");
+		assertEquals("02 May 2020", schoolCommunity.getValuationDate());
+	}
+	
+	// Test setting up a NULL owner
+	@Test(expected=NullPointerException.class)
+	public void testNullRatePayer() {
+		schoolCommunity.setOwner(null);
+	}
+
+	// Test setting up a VALID owner
+	@Test
+	public void testValidRatePayer() {
+		schoolCommunity.setOwner(new RatePayer());
+		assertEquals(new RatePayer(), schoolCommunity.getOwner());
 	}
 	
 	// Test setting up classification with NULL
-	@Test
-	public void testSetNullClassification() {
+	@Test(expected=NullPointerException.class)
+	public void testNullClassification() {
 		schoolCommunity.setClassification(null);
-		assertEquals("Not Available", schoolCommunity.getClassification());
+//		assertEquals("Not Available", schoolCommunity.getClassification());
 	}
 	
 	// Test setting up classification with EMPTY STRING
-	@Test
-	public void testSetEmptyClassification() {
+	@Test(expected=NullPointerException.class)
+	public void testEmptyClassification() {
 		schoolCommunity.setClassification("");
-		assertEquals("Not Available", schoolCommunity.getClassification());
-	}
-	
-	// Test setting up classification with RANDOM STRING 
-	@Test
-	public void testSetRandomClassification() {
-		schoolCommunity.setClassification("abc");
-		assertEquals("Not Available", schoolCommunity.getClassification());
+//		assertEquals("Not Available", schoolCommunity.getClassification());
 	}
 		
-	// Test setting up PUBLIC classification 
+	// Test setting up a VALID classification 
 	@Test
-	public void testSetPublicClassification() {
+	public void testSetClassification() {
 		schoolCommunity.setClassification("Public");
 		assertEquals("Public", schoolCommunity.getClassification());
 	}
 	
-	// Test setting up PRIVATE classification 
-	@Test
-	public void testSetPrivateClassification() {
-		schoolCommunity.setClassification("Private");
-		assertEquals("Private", schoolCommunity.getClassification());
-	}
-	
-	// Test setting up INDEPENDENT classification 
-	@Test
-	public void testSetIndependentClassification() {
-		schoolCommunity.setClassification("Independent");
-		assertEquals("Independent", schoolCommunity.getClassification());
-	}
-	
-	// Test setting up category name with NULL
-	@Test
-	public void testSetNullCategoryName() {
+	// Test setting up category with NULL
+	@Test(expected=NullPointerException.class)
+	public void testNullCategoryName() {
 		schoolCommunity.setCategory(null);
-		assertEquals("Small", schoolCommunity.getCategory());
+//		assertEquals("Small", schoolCommunity.getCategory());
 	}
 	
-	// Test setting up category name with EMPTY STRING
-	@Test
-	public void testSetEmptyCategoryName() {
+	// Test setting up category with EMPTY STRING
+	@Test(expected=NullPointerException.class)
+	public void testEmptyCategoryName() {
 		schoolCommunity.setCategory("");
-		assertEquals("Small", schoolCommunity.getCategory());
+//		assertEquals("Small", schoolCommunity.getCategory());
 	}
 	
 	// Test setting up SMALL category
@@ -155,7 +301,35 @@ public class SchoolCommunityTestCase {
 		schoolCommunity.setCategory("Large");
 		assertEquals("Large", schoolCommunity.getCategory());
 	}
-
+	
+	// Lower boundary testing for categoryIndex with a value that should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMinRejectedCategoryIndex() {	
+		schoolCommunity.setCategory(4);
+//		assertNull(schoolCommunity.getCategory());
+	}
+	
+	// Lower boundary testing for categoryIndex with the smallest value allowed within the range
+	@Test
+	public void testMinAllowedCategoryIndex() {
+		schoolCommunity.setCategory(1);
+		assertNotNull(schoolCommunity.getCategory());
+	}
+	
+	// Upper boundary testing for categoryIndex with the largest value allowed within the range
+	@Test
+	public void testMaxAllowedCategoryIndex() {
+		schoolCommunity.setCategory(3);
+		assertNotNull(schoolCommunity.getCategory());
+	}
+	
+	// Upper boundary testing for categoryIndex with a value that should be rejected
+	@Test(expected=IllegalArgumentException.class)
+	public void testMaxRejectedCategoryIndex() {
+		schoolCommunity.setCategory(0);
+//		assertNull(schoolCommunity.getCategory());
+	}
+	
 	// Test the Traffic Management Levy value for SMALL category
 	@Test
 	public void testSmallTrafficManagementLevy() {

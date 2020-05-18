@@ -14,7 +14,7 @@ public class SchoolCommunity extends Property {
 
 	private String classification;
 	private String category;
-	private static final ArrayList<String> CLASSIFICATION_LIST = new ArrayList<String>(Arrays.asList("Public", "Private", "Independent"));
+//	private static final ArrayList<String> CLASSIFICATION_LIST = new ArrayList<String>(Arrays.asList("Public", "Private", "Independent"));
 	private static final String SMALL = "Small", 
 								MEDIUM = "Medium",
 								LARGE = "Large";
@@ -33,48 +33,35 @@ public class SchoolCommunity extends Property {
 	private ServiceType fireServicesLevy;
 	private ServiceType trafficManagementLevy;
 	
-	public SchoolCommunity(String description, String location, double area, double siteValue, double capitalImprovedValue, 
-			   double netAnnualValue, String valuationDate, RatePayer owner, String classification, String category) {
-		super(description, location, area, siteValue, capitalImprovedValue, CIV_RATE, netAnnualValue, valuationDate, owner);
+	public SchoolCommunity(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate,
+							double netAnnualValue, String valuationDate, RatePayer owner, String classification, String category) throws NullPointerException, IllegalArgumentException {
+		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setClassification(classification);
 		this.setCategory(category);
 	}
 	
 	public SchoolCommunity(int categoryIndex) {
-		// We are explicit about our defaults for Strings
 		this();
 		this.setCategory(categoryIndex);
 	}
 	
 	public SchoolCommunity() {
-		super(CIV_RATE);
-		// We are explicit about our defaults for Strings
+		super();
+		// Explicitly assign defaults for String
 		this.setClassification("Private");
-		
+		setCapitalImprovedRate(CIV_RATE);
 	}
 
 	public String getClassification() {
 		return classification;
 	}
 
-	public void setClassification(String classification) {
+	public void setClassification(String classification) throws NullPointerException {
 		if (Validator.validateString("School/Community classification", classification)) {
-			boolean exist = false;
-			for (String s : CLASSIFICATION_LIST) {
-				if (s.equalsIgnoreCase(classification)) {
-					this.classification = s;
-					exist = true;
-					break;
-				}
-			}
-			if (!exist) {
-				System.out.println("School/Community classification: " + classification + " is not among Public, Private or Independent.\n" +
-									"Assigning default value.");
-				this.classification = NOT_AVAILABLE;
-			}
+			this.classification = classification;
 		}
 		else {
-			this.classification = NOT_AVAILABLE;
+			throw new NullPointerException("School/Community classification is null. Rejecting this record...\n");
 		}
 	}
 
@@ -82,7 +69,7 @@ public class SchoolCommunity extends Property {
 		return category;
 	}
 	
-	public void setCategory(String category) {
+	public void setCategory(String category) throws NullPointerException, IllegalArgumentException {
 		boolean exist = false;
 		if (Validator.validateString("School/Community category", category)) {
 			for (int i = 0; i < CATEGORY_LIST.size(); i++) {
@@ -93,17 +80,16 @@ public class SchoolCommunity extends Property {
 				}
 			}
 			if (!exist) {
-				System.out.println("School/Community category: " + category + " is not among Small, Medium or Large.");
+				throw new IllegalArgumentException("\"School/Community category: " + category + " is not among " + 
+													"Small, Medium or Large. Rejecting this record...\n");
 			}
 		}
-		if (!exist) {
-			System.out.println("Assuming is Small.");
-			this.setCategory(1);
+		else {
+			throw new NullPointerException("School/Community category is null. Rejecting this record...\n");
 		}
 	}
 
 	public void setCategory(int categoryIndex) {
-//		if (categoryIndex >= 1 && categoryIndex <= 3) { // Make sure the categoryIndex is within range
 		if (Validator.checkIntWithinRange("CategoryIndex", categoryIndex, 1, 3)) { // Make sure the categoryIndex is within range
 			switch (categoryIndex)
 			{
@@ -122,8 +108,7 @@ public class SchoolCommunity extends Property {
 			}
 		}
 		else {
-			this.category = null;
-			trafficManagementExtra = 0;
+			throw new IllegalArgumentException("Invalid School/Community category.");
 		}
 	}
 	
