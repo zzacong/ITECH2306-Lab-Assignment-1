@@ -175,3 +175,8 @@ V6.4 by Zac
 - Update SchoolCommunityTestCase
 - Change PropertyType constructors
 - Change equals() method, hashcode() on RatePayer class
+
+V6.5 by Zac
+- Added new lines of Property and RatePayer records into CSV files to test validation
+- Modify LoadRatePayers class to catch NullPointerException and IllegalArgumentException
+- Round calculateRates() to return double of 2 decimal places
