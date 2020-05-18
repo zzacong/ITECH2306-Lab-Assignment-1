@@ -165,3 +165,13 @@ V6.3 by Zac
 - Validate contents in Property, Residential, SchoolCommunity class
 - Set minimum value for Property attributes
 - Update JUnit SchoolCommunityTestCase
+
+V6.4 by Zac
+- Update the validation process
+- Change how Properties respond to invalid input data
+  - Reject the record when catches invalid input data
+  - Throw NullPointerException or IllegalArgumentexception
+  - Catch these two exceptions in LoadProperties class
+- Update SchoolCommunityTestCase
+- Change PropertyType constructors
+- Change equals() method, hashcode() on RatePayer class
