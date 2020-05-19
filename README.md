@@ -203,3 +203,7 @@ V6.10 by Anush
 
 V6.11 by Zac
 - Improve on validation of attributes
+
+V6.12 by Zac
+- Created RatePayerManager & PropertyManager class for accessing the serializable files
+- Check if listOfRatePayers loaded is empty on QueryRatePayer and LoadProperties class
