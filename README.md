@@ -189,3 +189,10 @@ V6.6 by Anush
 
 V6.7 by Anush
 - Fixes to Industrial class validation
+
+V6.8 by Anush
+- Additional Fixes to Industrial class validation
+- Implemented validation methods for OtherProperty class
+- Improved exception message format for all property classes
+
+
