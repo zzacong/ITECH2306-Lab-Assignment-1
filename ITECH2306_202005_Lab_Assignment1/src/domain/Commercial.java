@@ -41,7 +41,7 @@ public class Commercial extends Property {
 			this.businessName = businessName;
 		}
 		else {
-			throw new NullPointerException("Business name is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Business name for Commercial property is null or empty. Rejecting this record...\n");
 		}
 	}
 
@@ -54,7 +54,7 @@ public class Commercial extends Property {
 			this.abn = abn;
 		}
 		else {
-			throw new NullPointerException("ABN is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("ABN for Commercial Property null or empty. Rejecting this record...\n");
 		}
 	}
 

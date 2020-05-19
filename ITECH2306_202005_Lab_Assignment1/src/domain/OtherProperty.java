@@ -1,8 +1,11 @@
 package domain;
 
+import utility.Validator;
+
 /**
  * @author Takeogh
  * @author Zac
+ * @author Anush
  *
  */
 public class OtherProperty extends Property {
@@ -14,7 +17,7 @@ public class OtherProperty extends Property {
 	private ServiceType fireServicesLevy;
 	
 	public OtherProperty(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
-							double netAnnualValue, String valuationDate, RatePayer owner, String specialDescription) {
+							double netAnnualValue, String valuationDate, RatePayer owner, String specialDescription) throws NullPointerException {
 		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setSpecialDescription(specialDescription);
 	}
@@ -30,8 +33,14 @@ public class OtherProperty extends Property {
 		return specialDescription;
 	}
 
-	public void setSpecialDescription(String specialDescription) {
-		this.specialDescription = specialDescription;
+	public void setSpecialDescription(String specialDescription) throws NullPointerException {
+		if (Validator.validateString("Description", specialDescription)) {
+			this.specialDescription = specialDescription;
+		}
+		else {
+			throw new NullPointerException("Description for OtherProperty is null or empty. Rejecting this record...\n");
+		}
+		
 	}
 
 	// Set up the extra services of OtherProperty property type

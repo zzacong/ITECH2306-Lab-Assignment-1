@@ -20,7 +20,7 @@ public class Industrial extends Property {
 	private ServiceType fireServicesLevy;
 	
 	public Industrial(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
-			   double netAnnualValue, String valuationDate, RatePayer owner, String hazardStatus, String heavyVehicleStatus) throws IllegalArgumentException {
+			   double netAnnualValue, String valuationDate, RatePayer owner, String hazardStatus, String heavyVehicleStatus) throws IllegalArgumentException, NullPointerException {
 		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setHazardStatus(hazardStatus);
 		
@@ -28,7 +28,7 @@ public class Industrial extends Property {
 			this.setHeavyVehicleStatus(Boolean.parseBoolean(heavyVehicleStatus));
 		}
 		else {
-			throw new IllegalArgumentException("heavyVehicleStatus value is either not boolean or  is null or empty.. Rejecting this record...\n");
+			throw new IllegalArgumentException("heavyVehicleStatus value for Industrial property type is either not boolean or  is null or empty.. Rejecting this record...\n");
 		}
 		
 	}
@@ -50,7 +50,7 @@ public class Industrial extends Property {
 			this.hazardStatus = hazardStatus;
 		}
 		else {
-			throw new NullPointerException("Hazard Status is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Hazard Status Industrial property type is null or empty. Rejecting this record...\n");
 		}
 		
 	}

@@ -28,7 +28,7 @@ public class Hospital extends Property {
 			this.setIsPublic(Boolean.parseBoolean(isPublic));
 		}
 		else {
-			throw new IllegalArgumentException("isPublic value is either not boolean or  is null or empty. Rejecting this record...\n");
+			throw new IllegalArgumentException("isPublic value for Hospital property is either not boolean or  is null or empty. Rejecting this record...\n");
 		}
 		this.setFacilities(facilities);
 		this.setNumberOfFloors(numberOfFloors);
