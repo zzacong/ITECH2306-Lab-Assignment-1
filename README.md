@@ -198,5 +198,9 @@ V6.8 by Anush
 V6.9 by Anush
 - Implemented validation to RatePayer class.
 
+V6.10 by Anush
+- Fixes for validations in RatePayer class.
+
+
 
 
