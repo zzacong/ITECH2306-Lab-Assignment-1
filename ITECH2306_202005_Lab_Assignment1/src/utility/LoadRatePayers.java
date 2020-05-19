@@ -33,7 +33,7 @@ public class LoadRatePayers {
 		String postcode = null;
 		String phone = null;
 		String type = null;
-		boolean charity = false;
+		String charity = null;
 		int column = 0;
 		
 		System.out.println("Setting up list of Rate Payers...");
@@ -71,7 +71,7 @@ public class LoadRatePayers {
 							type = stringData;
 							break;
 						case 5:
-							charity = (stringData.equalsIgnoreCase("true"))? true : false; 
+							charity = stringData;
 							break;
 						}
 						

@@ -2,9 +2,12 @@ package domain;
 
 import java.io.Serializable;
 
+import utility.Validator;
+
 /**
  * @author Takeogh
  * @author Zac
+ * @author Anush
  *
  */
 public class RatePayer implements Serializable {
@@ -19,17 +22,25 @@ public class RatePayer implements Serializable {
 	private double charityDiscountPercentage = 0.20;
 	private static final String DUMMY_VALUE = "Dummy Value";
 	
-	public RatePayer(String name, String address, String postcode, String phone, String type, boolean charity) {
+	public RatePayer(String name, String address, String postcode, String phone, String type, String charity) {
 		this.setName(name);
 		this.setAddress(address);
 		this.setPostcode(postcode);
 		this.setPhone(phone);
 		this.setType(type);
-		this.setCharity(charity);
+		
+		if (Validator.validateBoolean("heavyVehicleStatus", charity) == true) {
+			this.setCharity(Boolean.parseBoolean(charity));
+		}
+		else {
+			throw new IllegalArgumentException("heavyVehicleStatus value for Industrial property type is either not boolean or  is null or empty.. Rejecting this record...\n");
+		}
+		
+	
 	}
 	
 	public RatePayer() {
-		this(DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, false);
+		this(DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE );
 	}
 
 	public String getName() {
@@ -37,7 +48,12 @@ public class RatePayer implements Serializable {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		if (Validator.validateString("Name", name)) {
+			this.name = name;
+		}
+		else {
+			throw new NullPointerException("Name for Rate Payer is null or empty. Rejecting this record...\n");
+		}	
 	}
 
 	public String getAddress() {
@@ -45,7 +61,13 @@ public class RatePayer implements Serializable {
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		if (Validator.validateString("Address", address)) {
+			this.address = address;
+		}
+		else {
+			throw new NullPointerException("Address for Rate Payer is null or empty. Rejecting this record...\n");
+		}	
+		
 	}
 
 	public String getPostcode() {
@@ -53,7 +75,13 @@ public class RatePayer implements Serializable {
 	}
 
 	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+		if (Validator.validateString("Postcode", postcode)) {
+			this.postcode = postcode;
+		}
+		else {
+			throw new NullPointerException("Postcode for Rate Payer is null or empty. Rejecting this record...\n");
+		}	
+		
 	}
 
 	public String getPhone() {
@@ -72,7 +100,13 @@ public class RatePayer implements Serializable {
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		if (Validator.validateString("Type", postcode)) {
+			this.type = type;
+		}
+		else {
+			throw new NullPointerException("Type for Rate Payer is null or empty. Rejecting this record...\n");
+		}	
+		
 	}
 
 	public boolean isCharity() {
@@ -89,7 +123,13 @@ public class RatePayer implements Serializable {
 	}
 
 	public void setCharityDiscountPercentage(double charityDiscountPercentage) {
-		this.charityDiscountPercentage = charityDiscountPercentage;
+		if (Validator.checkDoubleWithinRange("Discount Percentage", charityDiscountPercentage, 0.0, 1.0) == true) {
+			this.charityDiscountPercentage = charityDiscountPercentage;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid Discount Percentage value... \n");
+		}
+		
 	}
 
 	@Override
