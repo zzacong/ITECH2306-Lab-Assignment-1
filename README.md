@@ -186,3 +186,6 @@ V6.6 by Anush
 - Modified LoadProperties to pass the boolean data as String for Hospital and Industrial properties for improved validation
 - Added validation method "validateBoolean" inside Validator class
 - Implemented validation methods for Commercial, Industrial and Hospital classes
+
+V6.7 by Anush
+- Fixes to Industrial class validation
