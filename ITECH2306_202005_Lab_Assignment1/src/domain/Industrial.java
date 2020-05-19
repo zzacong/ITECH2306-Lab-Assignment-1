@@ -20,7 +20,7 @@ public class Industrial extends Property {
 	private ServiceType fireServicesLevy;
 	
 	public Industrial(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
-			   double netAnnualValue, String valuationDate, RatePayer owner, String hazardStatus, String heavyVehicleStatus) {
+			   double netAnnualValue, String valuationDate, RatePayer owner, String hazardStatus, String heavyVehicleStatus) throws IllegalArgumentException {
 		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setHazardStatus(hazardStatus);
 		
@@ -28,7 +28,7 @@ public class Industrial extends Property {
 			this.setHeavyVehicleStatus(Boolean.parseBoolean(heavyVehicleStatus));
 		}
 		else {
-			throw new NullPointerException("isPublic value is not boolean. Rejecting this record...\n");
+			throw new IllegalArgumentException("heavyVehicleStatus value is either not boolean or  is null or empty.. Rejecting this record...\n");
 		}
 		
 	}
@@ -45,8 +45,14 @@ public class Industrial extends Property {
 		return hazardStatus;
 	}
 
-	public void setHazardStatus(String hazardStatus) {
-		this.hazardStatus = hazardStatus;
+	public void setHazardStatus(String hazardStatus) throws NullPointerException{
+		if (Validator.validateString("Hazard Status", hazardStatus)) {
+			this.hazardStatus = hazardStatus;
+		}
+		else {
+			throw new NullPointerException("Hazard Status is null or empty. Rejecting this record...\n");
+		}
+		
 	}
 
 	public boolean getHeavyVehicleStatus() {
