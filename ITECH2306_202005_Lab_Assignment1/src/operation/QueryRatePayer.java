@@ -3,18 +3,11 @@
  */
 package operation;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import domain.Property;
 import domain.RatePayer;
-import utility.LoadProperties;
-import utility.LoadRatePayers;
 
 /**
  * @author Zac
@@ -27,12 +20,13 @@ public class QueryRatePayer extends FunctionalDialog {
 	private static final int MIN_RATE_PAYERS = 0;
 	private int maxRatePayers;
 	private static final String RATE_PAYER_PROMPT = "Which rate payer would you like to query? \n";
+	private static final String NO_RATE_PAYER_PROMPT = "There are no Rate Payers to query. Press 0 to exit. \n";
 	private String propertyPrompt;
 	private String prompt;
 	private ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
 	private int ratePayer;
 	private ArrayList<Property> listOfProperties = new ArrayList<Property>();
-	ArrayList<Property> OwnedProperties;
+	ArrayList<Property> ownedProperties;
 	private static final int MAX_NO_USER_INPUTS = 1;
 
 	public QueryRatePayer(Scanner console) {
@@ -42,12 +36,17 @@ public class QueryRatePayer extends FunctionalDialog {
 
 	@Override
 	protected void obtainInput(int i) {
-		switch (i) {
+		switch(i) {
 		case 0:
-			maxRatePayers = listOfRatePayers.size(); 
-			setPrompt(RATE_PAYER_PROMPT, 0);
+			maxRatePayers = listOfRatePayers.size();
+			if(listOfRatePayers.isEmpty()) {
+				setPrompt(NO_RATE_PAYER_PROMPT, 0);
+			}
+			else {
+				setPrompt(RATE_PAYER_PROMPT, 0);
+			}
 			ratePayer = obtainIntInput(MIN_RATE_PAYERS, maxRatePayers, prompt);
-			if (ratePayer == END) {
+			if(ratePayer == END) {
 				setStillRunning(false);
 			}
 			break;
@@ -57,16 +56,21 @@ public class QueryRatePayer extends FunctionalDialog {
 	@Override
 	protected void respondToInput() {
 		RatePayer payer = listOfRatePayers.get(ratePayer-1);
-		OwnedProperties = new ArrayList<Property>();
-		for (Property property : listOfProperties) {
-			if (property.getOwner().equals(payer)) {
+		ownedProperties = new ArrayList<Property>();
+		for(Property property : listOfProperties) {
+			if(property.getOwner().equals(payer)) {
 				property.setUpExtraServices();
-				OwnedProperties.add(property);
+				ownedProperties.add(property);
 			}
 		}
-		
-		propertyPrompt = "You have selected : " + payer + "\n" +
-						 "The properties owned by " + payer.getName() + " are: \n\n";
+		if(!ownedProperties.isEmpty()) {
+			propertyPrompt = ("You have selected : " + payer + "\n" +
+					 			"The properties owned by " + payer.getName() + " are: \n\n");
+		}
+		else {
+			propertyPrompt = ("You have selected : " + payer + 
+								payer.getName() + " does not have any property. \n");
+		}
 		setPrompt(propertyPrompt, 1);
 		System.out.println(prompt);
 	}
@@ -74,16 +78,16 @@ public class QueryRatePayer extends FunctionalDialog {
 	public void setPrompt(String description, int index) {
 		String list = "";
 		int i = 1;
-		switch (index) {
+		switch(index) {
 		case 0:
-			for (RatePayer rp : listOfRatePayers) {
+			for(RatePayer rp : listOfRatePayers) {
 				list += i + ". " + rp.getName() + "\n";
 				i++;
 			}
 			list += END + ". To exit";
 			break;
 		case 1:
-			for (Property p : OwnedProperties) {
+			for(Property p : ownedProperties) {
 				list += i + ". " + p.toString() + "Total Rate Costs: " + p.calculateRates() + "\n\n";
 				i++;
 			}
@@ -93,13 +97,13 @@ public class QueryRatePayer extends FunctionalDialog {
 	}
 
 	private void setListOfRatePayersAndProperties() {
-		LoadRatePayers loadRatePayers = new LoadRatePayers();
-		loadRatePayers.loadListOfRatePayers();
-		this.listOfRatePayers = loadRatePayers.getListOfRatePayers();
+		RatePayerManager rpManager = new RatePayerManager();
+		rpManager.loadListOfRatePayers();
+		this.listOfRatePayers = rpManager.getListOfRatePayers();
 		
-		LoadProperties loadProperties = new LoadProperties();
-		loadProperties.loadListOfProperties();
-		this.listOfProperties = loadProperties.getListOfProperties();
+		PropertyManager pManager = new PropertyManager();
+		pManager.loadListOfProperties();
+		this.listOfProperties = pManager.getListOfProperties();
 	}
 	
 	private int obtainIntInput(int min, int max, String prompt) {
@@ -111,14 +115,14 @@ public class QueryRatePayer extends FunctionalDialog {
 		int userInput;
 		do {
 			System.out.print("Enter a selection ("+min + "-" + max +"):");
-			if (!getScanner().hasNextInt())
+			if(!getScanner().hasNextInt())
 				userInput = max+1;
 			else
 				userInput = getScanner().nextInt();	// obtain the input
 			getScanner().nextLine();					// gets rid of the newline after the number we just read
-			if (userInput < min || userInput > max)
+			if(userInput < min || userInput > max)
 				System.out.println("Invalid choice.");
-		} while (userInput < min || userInput > max);
+		} while(userInput < min || userInput > max);
 		System.out.println();		// put a space before the next output	
 		return userInput;
 	}

@@ -17,44 +17,6 @@ public class LoadRatePayers {
 	static final String LOAD_RATEPAYERS_CSV = "files/ITECH2306_2020_Load_RatePayers.csv";
 	static final String LOAD_RATEPAYERS_DAT = "files/Load_RatePayers.dat";
 
-	private ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
-	
-	public ArrayList<RatePayer> getListOfRatePayers() {
-		return this.listOfRatePayers;
-	}
-
-	public void loadListOfRatePayers() {
-			
-		System.out.println("Loading list of Rate Payers...");
-		
-		try(FileInputStream fis = new FileInputStream(LOAD_RATEPAYERS_DAT); 
-			ObjectInputStream ois = new ObjectInputStream(fis);) 
-		{
-			System.out.println("\"Load_RatePayers.dat\" file is located");
-			Object firstThing = ois.readObject(); 
-			if (firstThing instanceof ArrayList<?>) {
-				this.listOfRatePayers = (ArrayList<RatePayer>) firstThing;
-				System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
-			}
-			else {
-				// Throw exception here
-				System.out.println("First string is not an ArrayList: " + firstThing);
-			}
-		} 
-		catch(FileNotFoundException fnfExc) {
-			System.out.println("Unable to locate file for opening: " + fnfExc.getMessage());
-			fnfExc.printStackTrace();
-		}
-		catch(IOException ioExc) {
-			System.out.println("Problem with file processing: " + ioExc.getMessage());
-			ioExc.printStackTrace();
-		}
-		catch(Exception otherExc) {
-			System.out.println("Something went wrong: " + otherExc.getMessage());
-			otherExc.printStackTrace();
-		}
-	}
-	
 	public static void main(String[] args) {
 		
 		ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
@@ -122,6 +84,7 @@ public class LoadRatePayers {
 				}
 			}
 			oos.writeObject(listOfRatePayers);
+//			oos.writeObject(null);
 			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
 			System.out.println("Serializable file \"Load_RatePayers.dat\" is created");
 		}

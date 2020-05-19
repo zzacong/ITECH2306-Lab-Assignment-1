@@ -188,7 +188,7 @@ public abstract class Property implements Serializable {
 			this.owner = owner;
 		}	
 		else {
-			throw new NullPointerException("RatePayer of Property is null. Rejecting this record...");
+			throw new NullPointerException("Owner of Property is null. Rejecting this record...\n");
 		}
 	}
 	
