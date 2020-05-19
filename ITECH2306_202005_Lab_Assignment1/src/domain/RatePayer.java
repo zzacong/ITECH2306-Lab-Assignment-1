@@ -22,7 +22,7 @@ public class RatePayer implements Serializable {
 	private double charityDiscountPercentage = 0.20;
 	private static final String DUMMY_VALUE = "Dummy Value";
 	
-	public RatePayer(String name, String address, String postcode, String phone, String type, String charity) {
+	public RatePayer(String name, String address, String postcode, String phone, String type, String charity) throws IllegalArgumentException, NullPointerException {
 		this.setName(name);
 		this.setAddress(address);
 		this.setPostcode(postcode);
@@ -47,7 +47,7 @@ public class RatePayer implements Serializable {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) throws NullPointerException {
 		if (Validator.validateString("Name", name)) {
 			this.name = name;
 		}
@@ -60,7 +60,7 @@ public class RatePayer implements Serializable {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(String address) throws NullPointerException {
 		if (Validator.validateString("Address", address)) {
 			this.address = address;
 		}
@@ -74,7 +74,7 @@ public class RatePayer implements Serializable {
 		return postcode;
 	}
 
-	public void setPostcode(String postcode) {
+	public void setPostcode(String postcode) throws NullPointerException {
 		if (Validator.validateString("Postcode", postcode)) {
 			this.postcode = postcode;
 		}
@@ -99,7 +99,7 @@ public class RatePayer implements Serializable {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(String type) throws NullPointerException {
 		if (Validator.validateString("Type", postcode)) {
 			this.type = type;
 		}
@@ -122,7 +122,7 @@ public class RatePayer implements Serializable {
 		return charityDiscountPercentage;
 	}
 
-	public void setCharityDiscountPercentage(double charityDiscountPercentage) {
+	public void setCharityDiscountPercentage(double charityDiscountPercentage) throws IllegalArgumentException {
 		if (Validator.checkDoubleWithinRange("Discount Percentage", charityDiscountPercentage, 0.0, 1.0) == true) {
 			this.charityDiscountPercentage = charityDiscountPercentage;
 		}
@@ -161,6 +161,6 @@ public class RatePayer implements Serializable {
 	public String toString() {
 		return "RatePayer [name=" + name + ", address=" + address + ", postcode=" + postcode + ", phone=" + phone
 				+ ", type=" + type + ", charity=" + charity + ", charityDiscountPercentage=" + charityDiscountPercentage
-				+ "]";
+				+ "]\n";
 	}
 }
