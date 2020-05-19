@@ -180,3 +180,9 @@ V6.5 by Zac
 - Added new lines of Property and RatePayer records into CSV files to test validation
 - Modify LoadRatePayers class to catch NullPointerException and IllegalArgumentException
 - Round calculateRates() to return double of 2 decimal places
+
+V6.6 by Anush
+- Added new lines of Property to test validation
+- Modified LoadProperties to pass the boolean data as String for Hospital and Industrial properties for improved validation
+- Added validation method "validateBoolean" inside Validator class
+- Implemented validation methods for Commercial, Industrial and Hospital classes
