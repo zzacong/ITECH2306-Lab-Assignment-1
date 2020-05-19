@@ -43,11 +43,11 @@ public class Residential extends Property {
 	}
 
 	public void setPropertyType(String propertyType) throws NullPointerException {
-		if (Validator.validateString("Residential property type", propertyType)) {
+		if (Validator.validateString("Type", propertyType)) {
 			this.propertyType = propertyType;
 		}
 		else {
-			throw new NullPointerException("Residential property type is null. Rejecting this record...\n");
+			throw new NullPointerException("Type of Residential is null. Rejecting this record...\n");
 		}
 	}
 
@@ -60,7 +60,7 @@ public class Residential extends Property {
 			this.architecturalStyle = architecturalStyle;
 		}
 		else {
-			throw new NullPointerException("Residential architectural style is null. Rejecting this record...\n");
+			throw new NullPointerException("Architectural style of Residential is null. Rejecting this record...\n");
 		}
 	}
 	

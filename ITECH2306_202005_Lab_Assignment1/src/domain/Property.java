@@ -70,7 +70,7 @@ public abstract class Property implements Serializable {
 			this.description = description;
 		}
 		else {
-			throw new NullPointerException("Property description is null. Rejecting this record...\n");
+			throw new NullPointerException("Description of Property is null. Rejecting this record...\n");
 		}
 	}
 
@@ -83,7 +83,7 @@ public abstract class Property implements Serializable {
 			this.location = location;
 		}
 		else {
-			throw new NullPointerException("Property location is null. Rejecting this record...\n");
+			throw new NullPointerException("Location of Property is null. Rejecting this record...\n");
 		}
 	}
 
@@ -171,7 +171,7 @@ public abstract class Property implements Serializable {
 			}
 		}
 		else {
-			throw new NullPointerException("Valuation date is null. Rejecting this record...\n");
+			throw new NullPointerException("Valuation date of Property is null. Rejecting this record...\n");
 		}
 	}
 	
@@ -188,7 +188,21 @@ public abstract class Property implements Serializable {
 			this.owner = owner;
 		}	
 		else {
-			throw new NullPointerException("RatePayer is null. Rejecting this record...");
+			throw new NullPointerException("RatePayer of Property is null. Rejecting this record...");
+		}
+	}
+	
+	public boolean stringToBoolean(String description, String propertyType, String booleanInString) {
+		if (Validator.validateString(description, booleanInString)) {
+			if (Validator.validateStringToBoolean(description, booleanInString) == true) {
+				return Boolean.parseBoolean(booleanInString);
+			}
+			else {
+				throw new IllegalArgumentException(description + " of " + propertyType + " is not a boolean. Rejecting this record...\n");
+			}
+		}
+		else {
+			throw new NullPointerException(description + " of " + propertyType + " is null or empty. Rejecting this record...\n");
 		}
 	}
 	

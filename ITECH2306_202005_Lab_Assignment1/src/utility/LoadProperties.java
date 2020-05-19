@@ -236,7 +236,5 @@ public class LoadProperties {
 			LoadRatePayers loadRatePayers = new LoadRatePayers();
 			loadRatePayers.loadListOfRatePayers();
 			loadProperties.setListOfProperties(loadRatePayers.getListOfRatePayers());
-	}
-	
-	
+	}	
 }

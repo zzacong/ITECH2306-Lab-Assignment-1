@@ -24,12 +24,7 @@ public class Hospital extends Property {
 			   double netAnnualValue, String valuationDate, RatePayer owner, String isPublic, String facilities, int numberOfFloors) throws NullPointerException, IllegalArgumentException {
 		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		
-		if (Validator.validateBoolean("isPublic", isPublic) == true) {
-			this.setIsPublic(Boolean.parseBoolean(isPublic));
-		}
-		else {
-			throw new IllegalArgumentException("isPublic value for Hospital property is either not boolean or  is null or empty. Rejecting this record...\n");
-		}
+		this.setIsPublic(stringToBoolean("isPublic value", "Hospital",isPublic));
 		this.setFacilities(facilities);
 		this.setNumberOfFloors(numberOfFloors);
 	}
@@ -56,11 +51,11 @@ public class Hospital extends Property {
 	}
 
 	public void setFacilities(String facilities) throws NullPointerException{
-		if (Validator.validateString("Facilities ", facilities)) {
+		if (Validator.validateString("Facilities", facilities)) {
 			this.facilities = facilities;
 		}
 		else {
-			throw new NullPointerException("Facilities for Hospital is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Facilities of Hospital is null or empty. Rejecting this record...\n");
 		}		
 		
 	}
@@ -108,14 +103,4 @@ public class Hospital extends Property {
 									", numberOfFloors=" + numberOfFloors + "]\n" + 
 									extraServices();
 	}
-
-//	@Override
-//	public String toString() {
-//		return super.toString() + "Property type: Hospital [\n" + 
-//								   industrialWasteDisposal.toString() + "\n" +
-//								   fireServicesLevy.toString() + "]\n";
-//	}
-	
-
-	
 }

@@ -14,7 +14,6 @@ public class SchoolCommunity extends Property {
 
 	private String classification;
 	private String category;
-//	private static final ArrayList<String> CLASSIFICATION_LIST = new ArrayList<String>(Arrays.asList("Public", "Private", "Independent"));
 	private static final String SMALL = "Small", 
 								MEDIUM = "Medium",
 								LARGE = "Large";
@@ -57,11 +56,11 @@ public class SchoolCommunity extends Property {
 	}
 
 	public void setClassification(String classification) throws NullPointerException {
-		if (Validator.validateString("School/Community classification", classification)) {
+		if (Validator.validateString("Classification", classification)) {
 			this.classification = classification;
 		}
 		else {
-			throw new NullPointerException("School/Community classification is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Classification of School/Community is null or empty. Rejecting this record...\n");
 		}
 	}
 
@@ -71,7 +70,7 @@ public class SchoolCommunity extends Property {
 	
 	public void setCategory(String category) throws NullPointerException, IllegalArgumentException {
 		boolean exist = false;
-		if (Validator.validateString("School/Community category", category)) {
+		if (Validator.validateString("Category", category)) {
 			for (int i = 0; i < CATEGORY_LIST.size(); i++) {
 				if (CATEGORY_LIST.get(i).equalsIgnoreCase(category)) {
 					this.setCategory(i + 1);
@@ -85,7 +84,7 @@ public class SchoolCommunity extends Property {
 			}
 		}
 		else {
-			throw new NullPointerException("School/Community category is null. Rejecting this record...\n");
+			throw new NullPointerException("Category of School/Community is null. Rejecting this record...\n");
 		}
 	}
 

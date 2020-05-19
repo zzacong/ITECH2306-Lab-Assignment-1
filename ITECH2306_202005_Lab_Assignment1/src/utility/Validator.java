@@ -60,7 +60,7 @@ public class Validator {
 	
 	public static boolean validateString(String description, String inputString) {
 		if (inputString == null || inputString.isEmpty()) {
-			System.out.println("Input string " + description + " cannot be null or empty.");
+			System.out.println("Input string : " + description + " cannot be null or empty.");
 			return false;
 		}
 		else {
@@ -84,20 +84,20 @@ public class Validator {
 	}
 	
 	//there exists no method to test where a String encodes a boolean, hence the value of the string is tested.
-	public static boolean validateBoolean(String description, String input) {
+	public static boolean validateStringToBoolean(String description, String input) {
 		
-		if (validateString(description, input) == true) {
+//		if (validateString(description, input) == true) {
 			if (input.equalsIgnoreCase("true") || input.equalsIgnoreCase("false")) {
 				return true;
 			}
 			else {
-				System.out.println("Input: " + description + " is not boolean.");
+				System.out.println("Input boolean: " + description + " is not boolean.");
 				return false;
 			}
-		}
-		else {
-			return false;
-		}
+//		}
+//		else {
+//			return false;
+//		}
 				
 	}
 	

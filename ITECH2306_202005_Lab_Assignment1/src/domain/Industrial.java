@@ -23,14 +23,7 @@ public class Industrial extends Property {
 			   double netAnnualValue, String valuationDate, RatePayer owner, String hazardStatus, String heavyVehicleStatus) throws IllegalArgumentException, NullPointerException {
 		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setHazardStatus(hazardStatus);
-		
-		if (Validator.validateBoolean("heavyVehicleStatus", heavyVehicleStatus) == true) {
-			this.setHeavyVehicleStatus(Boolean.parseBoolean(heavyVehicleStatus));
-		}
-		else {
-			throw new IllegalArgumentException("heavyVehicleStatus value for Industrial property type is either not boolean or  is null or empty.. Rejecting this record...\n");
-		}
-		
+		this.setHeavyVehicleStatus(stringToBoolean("heavyVehicleStatus", "Industrial", heavyVehicleStatus));
 	}
 	
 	public Industrial() {
@@ -46,11 +39,11 @@ public class Industrial extends Property {
 	}
 
 	public void setHazardStatus(String hazardStatus) throws NullPointerException{
-		if (Validator.validateString("Hazard Status", hazardStatus)) {
+		if (Validator.validateString("Hazard status", hazardStatus)) {
 			this.hazardStatus = hazardStatus;
 		}
 		else {
-			throw new NullPointerException("Hazard Status Industrial property type is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Hazard status of Industrial is null or empty. Rejecting this record...\n");
 		}
 		
 	}
@@ -98,12 +91,4 @@ public class Industrial extends Property {
 									", heavyVehicleStatus=" + heavyVehicleStatus + "]\n" + 
 									extraServices();
 	}
-	
-//	@Override
-//	public String toString() {
-//		return super.toString() + "Property type: Industrial [\n" + 
-//								   industrialWasteDisposal.toString() + "\n" +
-//								   fireServicesLevy.toString() + "]\n";
-//	}
-	
 }

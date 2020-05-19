@@ -28,15 +28,7 @@ public class RatePayer implements Serializable {
 		this.setPostcode(postcode);
 		this.setPhone(phone);
 		this.setType(type);
-		
-		if (Validator.validateBoolean("heavyVehicleStatus", charity) == true) {
-			this.setCharity(Boolean.parseBoolean(charity));
-		}
-		else {
-			throw new IllegalArgumentException("heavyVehicleStatus value for Industrial property type is either not boolean or  is null or empty.. Rejecting this record...\n");
-		}
-		
-	
+		this.setCharity(stringToBoolean("Charity status", charity));
 	}
 	
 	public RatePayer() {
@@ -52,7 +44,7 @@ public class RatePayer implements Serializable {
 			this.name = name;
 		}
 		else {
-			throw new NullPointerException("Name for Rate Payer is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Name of Rate Payer is null or empty. Rejecting this record...\n");
 		}	
 	}
 
@@ -65,7 +57,7 @@ public class RatePayer implements Serializable {
 			this.address = address;
 		}
 		else {
-			throw new NullPointerException("Address for Rate Payer is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Address of Rate Payer is null or empty. Rejecting this record...\n");
 		}	
 		
 	}
@@ -79,7 +71,7 @@ public class RatePayer implements Serializable {
 			this.postcode = postcode;
 		}
 		else {
-			throw new NullPointerException("Postcode for Rate Payer is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Postcode of Rate Payer is null or empty. Rejecting this record...\n");
 		}	
 		
 	}
@@ -89,12 +81,14 @@ public class RatePayer implements Serializable {
 	}
 
 	public void setPhone(String phone) {
-		if (phone.isEmpty())
-			this.phone = DUMMY_VALUE;
-		else
+		if (Validator.validateString("Phone", phone)) {
 			this.phone = phone;
+		}
+		else {
+			throw new NullPointerException("Phone of Rate Payer is null or empty. Rejecting this record...\n");
+		}
 	}
-
+	
 	public String getType() {
 		return type;
 	}
@@ -104,7 +98,7 @@ public class RatePayer implements Serializable {
 			this.type = type;
 		}
 		else {
-			throw new NullPointerException("Type for Rate Payer is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Type of Rate Payer is null or empty. Rejecting this record...\n");
 		}	
 		
 	}
@@ -117,6 +111,19 @@ public class RatePayer implements Serializable {
 		this.charity = charity;
 	}
 
+	public boolean stringToBoolean(String description, String booleanInString) {
+		if (Validator.validateString(description, booleanInString)) {
+			if (Validator.validateStringToBoolean(description, booleanInString)) {
+				return Boolean.parseBoolean(booleanInString);
+			}
+			else {
+				throw new IllegalArgumentException(description + " of Rate Payer is not a boolean. Rejecting this record...\n");
+			}
+		}
+		else {
+			throw new NullPointerException(description + " of Rate Payer is null or empty. Rejecting this record...\n");
+		}
+	}
 	
 	public double getCharityDiscountPercentage() {
 		return charityDiscountPercentage;
