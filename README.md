@@ -195,4 +195,8 @@ V6.8 by Anush
 - Implemented validation methods for OtherProperty class
 - Improved exception message format for all property classes
 
+V6.9 by Anush
+- Implemented validation to RatePayer class.
+
+
 
