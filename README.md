@@ -201,6 +201,5 @@ V6.9 by Anush
 V6.10 by Anush
 - Fixes for validations in RatePayer class.
 
-
-
-
+V6.11 by Zac
+- Improve on validation of attributes
