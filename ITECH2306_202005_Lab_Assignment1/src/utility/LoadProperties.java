@@ -52,7 +52,6 @@ public class LoadProperties {
 		String extraAttr1 = null;
 		String extraAttr2= null;
 		int extraAttr3 = 0;
-		boolean extraBooleanAttr = false;
 		
 		System.out.println("Setting up list of Properties...");
 		
@@ -118,20 +117,10 @@ public class LoadProperties {
 							}
 							break;
 						case 10:
-							if(propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(3))) { 
-								extraBooleanAttr = (stringData.equalsIgnoreCase(TRUE))? true : false;
-							}
-							else {
-								extraAttr1 = stringData ;
-							}
+							extraAttr1 = stringData ;
 							break;
 						case 11:
-							if(propertyType.equalsIgnoreCase(PROPERTY_TYPE_NAMES.get(4))) {
-								extraBooleanAttr = (stringData.equalsIgnoreCase(TRUE))? true : false;
-							}
-							else {
-								extraAttr2 = stringData ;
-							}
+							extraAttr2 = stringData ;
 							break;
 						case 12:
 							extraAttr3 = (int) doubleData;
@@ -158,11 +147,11 @@ public class LoadProperties {
 							break;
 						case(HOSPITAL):
 							property = new Hospital(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate,
-													netAnnualValue, valuationDate, owner, extraBooleanAttr, extraAttr2, extraAttr3);
+													netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2, extraAttr3);
 							break;
 						case(INDUSTRIAL):
 							property = new Industrial(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate,
-													netAnnualValue, valuationDate, owner, extraAttr1, extraBooleanAttr);
+													netAnnualValue, valuationDate, owner, extraAttr1, extraAttr2);
 							break;
 						case(SCHOOL_COMMUNITY):
 							property = new SchoolCommunity(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate,

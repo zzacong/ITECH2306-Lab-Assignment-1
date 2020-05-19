@@ -61,7 +61,7 @@ public class SchoolCommunity extends Property {
 			this.classification = classification;
 		}
 		else {
-			throw new NullPointerException("School/Community classification is null. Rejecting this record...\n");
+			throw new NullPointerException("School/Community classification is null or empty. Rejecting this record...\n");
 		}
 	}
 

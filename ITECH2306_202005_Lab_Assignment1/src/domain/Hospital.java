@@ -1,7 +1,10 @@
 package domain;
 
+import utility.Validator;
+
 /**
  * @author Zac
+ * @author Anush
  *
  */
 public class Hospital extends Property {
@@ -18,9 +21,15 @@ public class Hospital extends Property {
 	private ServiceType fireServicesLevy;
 	
 	public Hospital(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
-			   double netAnnualValue, String valuationDate, RatePayer owner, boolean isPublic, String facilities, int numberOfFloors) {
+			   double netAnnualValue, String valuationDate, RatePayer owner, String isPublic, String facilities, int numberOfFloors) throws NullPointerException, IllegalArgumentException {
 		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
-		this.setIsPublic(isPublic);
+		
+		if (Validator.validateBoolean("isPublic", isPublic) == true) {
+			this.setIsPublic(Boolean.parseBoolean(isPublic));
+		}
+		else {
+			throw new IllegalArgumentException("isPublic value is either not boolean or  is null or empty. Rejecting this record...\n");
+		}
 		this.setFacilities(facilities);
 		this.setNumberOfFloors(numberOfFloors);
 	}
@@ -38,7 +47,7 @@ public class Hospital extends Property {
 		return isPublic;
 	}
 
-	public void setIsPublic(boolean isPublic) {
+	public void setIsPublic(boolean isPublic) {	
 		this.isPublic = isPublic;
 	}
 
@@ -46,8 +55,14 @@ public class Hospital extends Property {
 		return facilities;
 	}
 
-	public void setFacilities(String facilities) {
-		this.facilities = facilities;
+	public void setFacilities(String facilities) throws NullPointerException{
+		if (Validator.validateString("Facilities ", facilities)) {
+			this.facilities = facilities;
+		}
+		else {
+			throw new NullPointerException("Facilities for Hospital is null or empty. Rejecting this record...\n");
+		}		
+		
 	}
 
 	public int getNumberOfFloors() {

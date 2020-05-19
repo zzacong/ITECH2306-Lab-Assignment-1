@@ -1,5 +1,7 @@
 package domain;
 
+import utility.Validator;
+
 /**
  * @author Anush
  * 
@@ -16,7 +18,7 @@ public class Commercial extends Property {
 	private ServiceType fireServicesLevy;
 
 	public Commercial(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
-			   double netAnnualValue, String valuationDate, RatePayer owner, String businessName, String abn) {
+			   double netAnnualValue, String valuationDate, RatePayer owner, String businessName, String abn) throws NullPointerException {
 		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setBusinessName(businessName);
 		this.setAbn(abn);
@@ -33,17 +35,27 @@ public class Commercial extends Property {
 	public String getBusinessName() {
 		return businessName;
 	}
-
-	public void setBusinessName(String businessName) {
-		this.businessName = businessName;
+	
+	public void setBusinessName(String businessName) throws NullPointerException {
+		if (Validator.validateString("Business Name", businessName)) {
+			this.businessName = businessName;
+		}
+		else {
+			throw new NullPointerException("Business name is null or empty. Rejecting this record...\n");
+		}
 	}
 
 	public String getAbn() {
 		return abn;
 	}
 
-	public void setAbn(String abn) {
-		this.abn = abn;
+	public void setAbn(String abn) throws NullPointerException {
+		if (Validator.validateString("ABN", abn)) {
+			this.abn = abn;
+		}
+		else {
+			throw new NullPointerException("ABN is null or empty. Rejecting this record...\n");
+		}
 	}
 
 	// Set up the extra services of Commercial property type

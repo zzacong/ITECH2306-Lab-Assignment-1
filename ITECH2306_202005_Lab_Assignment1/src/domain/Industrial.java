@@ -1,5 +1,7 @@
 package domain;
 
+import utility.Validator;
+
 /**
  * @author Anush
  * @author Zac
@@ -18,10 +20,17 @@ public class Industrial extends Property {
 	private ServiceType fireServicesLevy;
 	
 	public Industrial(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
-			   double netAnnualValue, String valuationDate, RatePayer owner, String hazardStatus, boolean heavyVehicleStatus) {
+			   double netAnnualValue, String valuationDate, RatePayer owner, String hazardStatus, String heavyVehicleStatus) {
 		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setHazardStatus(hazardStatus);
-		this.setHeavyVehicleStatus(heavyVehicleStatus);
+		
+		if (Validator.validateBoolean("heavyVehicleStatus", heavyVehicleStatus) == true) {
+			this.setHeavyVehicleStatus(Boolean.parseBoolean(heavyVehicleStatus));
+		}
+		else {
+			throw new NullPointerException("isPublic value is not boolean. Rejecting this record...\n");
+		}
+		
 	}
 	
 	public Industrial() {
