@@ -3,10 +3,16 @@
  */
 package utility;
 
-import java.io.*;
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import domain.*;
+import java.util.Scanner;
+
+import domain.RatePayer;
+
 /**
  * @author Zac
  * @author Anush
@@ -85,6 +91,7 @@ public class LoadRatePayers {
 			}
 			oos.writeObject(listOfRatePayers);
 //			oos.writeObject(null);
+			oos.flush();
 			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
 			System.out.println("Serializable file \"Load_RatePayers.dat\" is created");
 		}

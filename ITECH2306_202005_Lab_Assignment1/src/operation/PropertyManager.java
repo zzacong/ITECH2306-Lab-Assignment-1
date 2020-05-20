@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
-import domain.*;
+import domain.Property;
 
 /**
  * @author Zac
@@ -35,7 +35,6 @@ public class PropertyManager {
 				System.out.println("Number of Properties: " + listOfProperties.size() + "\n");
 			}
 			else {
-				// Throw exception here
 				System.out.println("First object is not an ArrayList: " + firstThing + "\n");
 			}
 		} 

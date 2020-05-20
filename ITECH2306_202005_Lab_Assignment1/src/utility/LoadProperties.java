@@ -3,11 +3,24 @@
  */
 package utility;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import domain.*;
+
+import domain.Commercial;
+import domain.Hospital;
+import domain.Industrial;
+import domain.OtherProperty;
+import domain.Property;
+import domain.RatePayer;
+import domain.Residential;
+import domain.SchoolCommunity;
+import domain.VacantLand;
 import operation.RatePayerManager;
 
 /**
@@ -185,6 +198,7 @@ public class LoadProperties {
 					}
 				}
 				oos.writeObject(listOfProperties);
+				oos.flush();
 				System.out.println("Number of Properties: " + listOfProperties.size() + "\n");
 				System.out.println("Serializable file \"Load_Properties.dat\" is created");
 			}

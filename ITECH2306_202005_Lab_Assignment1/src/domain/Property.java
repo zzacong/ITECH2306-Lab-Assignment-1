@@ -10,6 +10,7 @@ import utility.Validator;
 /**
  * @author Takeogh
  * @author Zac
+ * @author Anush
  *
  */
 public abstract class Property implements Serializable {
@@ -38,7 +39,7 @@ public abstract class Property implements Serializable {
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	protected static final String NOT_AVAILABLE = "Not Available";
 	
-	public Property() throws NullPointerException, IllegalArgumentException {
+	public Property() {
 		// Explicitly assign defaults for String and date but leave the numbers to be filled with Java default values
 		// Provide a default owner
 		this(NOT_AVAILABLE, NOT_AVAILABLE, dateToString(LocalDate.now()), new RatePayer());

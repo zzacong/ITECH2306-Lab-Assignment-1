@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
-import domain.*;
+import domain.RatePayer;
 
 /**
  * @author Zac
@@ -38,7 +38,6 @@ public class RatePayerManager {
 			}
 			else {
 				System.out.println("First object is not an ArrayList: " + firstThing + "\n");
-//				throw new Exception("No list of Rate Payers. Exiting the system.");
 			}
 		} 
 		catch(FileNotFoundException fnfExc) {
