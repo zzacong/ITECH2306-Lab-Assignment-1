@@ -207,3 +207,7 @@ V6.11 by Zac
 V6.12 by Zac
 - Created RatePayerManager & PropertyManager class for accessing the serializable files
 - Check if listOfRatePayers loaded is empty on QueryRatePayer and LoadProperties class
+
+V6.13 by Zac
+- Organise imports on classes
+- Flush ObjectOutputStream in LoadRatePayers and LoadProperties classes
