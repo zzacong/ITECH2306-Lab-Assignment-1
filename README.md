@@ -211,3 +211,7 @@ V6.12 by Zac
 V6.13 by Zac
 - Organise imports on classes
 - Flush ObjectOutputStream in LoadRatePayers and LoadProperties classes
+
+V6.14 by Zac
+- Create Javadoc for Hospital class
+- Edit author tag for all package-info
