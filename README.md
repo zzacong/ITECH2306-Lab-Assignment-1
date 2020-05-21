@@ -215,3 +215,6 @@ V6.13 by Zac
 V6.14 by Zac
 - Create Javadoc for Hospital class
 - Edit author tag for all package-info
+
+V6.15 by Anush
+- Create Javadoc for Commercial class
