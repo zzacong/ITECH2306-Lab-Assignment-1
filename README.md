@@ -218,3 +218,10 @@ V6.14 by Zac
 
 V6.15 by Anush
 - Create Javadoc for Commercial class
+
+V6.16 by Zac
+- Improve validation for phone number of RatePayer
+- Add more records in csv file to test validation
+- Reformat toString() method on RatePayer and all Property classes
+- Reformat output on LoadRatePayers and LoadProperties classes
+- Modify zero-parameter constructor of RatePayer class
