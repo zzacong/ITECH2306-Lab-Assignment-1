@@ -1,5 +1,6 @@
 package utility;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,7 +38,7 @@ public class Validator {
 	
 	public static boolean checkDoubleWithinRange(String description, double inputDouble, double min, double max) {
 		MYFORMAT.setMinimumFractionDigits(2);
-		MYFORMAT.setMaximumFractionDigits(2);
+		MYFORMAT.setMaximumFractionDigits(4);
 		if (min >= max) {
 			System.out.println("Min must be smaller than Max.");
 			return false;

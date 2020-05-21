@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
+import domain.Property;
 import domain.RatePayer;
 
 /**
@@ -19,7 +20,8 @@ public class RatePayerManager {
 	
 	static final String LOAD_RATEPAYERS_DAT = "files/Load_RatePayers.dat";
 	private ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
-	
+	private ArrayList<Property> ownedProperties;
+
 	public ArrayList<RatePayer> getListOfRatePayers() {
 		return this.listOfRatePayers;
 	}
@@ -51,7 +53,22 @@ public class RatePayerManager {
 		catch(Exception otherExc) {
 			System.out.println("Something went wrong: " + otherExc.getMessage());
 			otherExc.printStackTrace();
-//			Runtime.getRuntime().exit(1);
 		}
+	}
+	
+	public ArrayList<Property> getOwnedProperties(int ratePayer, ArrayList<Property> listOfProperties) {
+		ownedProperties = new ArrayList<Property>();
+		RatePayer payer = this.listOfRatePayers.get(ratePayer);
+		for(Property property : listOfProperties) {
+			if(property.getOwner().equals(payer)) {
+				property.setUpExtraServices();
+				this.ownedProperties.add(property);
+			}
+		}
+		return ownedProperties;
+	}
+	
+	public RatePayer getRatePayer(int ratePayer) {
+		return listOfRatePayers.get(ratePayer);
 	}
 }

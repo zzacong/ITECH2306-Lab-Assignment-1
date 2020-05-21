@@ -26,9 +26,12 @@ public class QueryRatePayer extends FunctionalDialog {
 	private ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
 	private int ratePayer;
 	private ArrayList<Property> listOfProperties = new ArrayList<Property>();
-	ArrayList<Property> ownedProperties;
+	private ArrayList<Property> ownedProperties;
 	private static final int MAX_NO_USER_INPUTS = 1;
 
+	RatePayerManager rManager = new RatePayerManager();
+	PropertyManager pManager = new PropertyManager();
+	
 	public QueryRatePayer(Scanner console) {
 		super(MAX_NO_USER_INPUTS, console);
 		this.setListOfRatePayersAndProperties();
@@ -55,21 +58,15 @@ public class QueryRatePayer extends FunctionalDialog {
 	
 	@Override
 	protected void respondToInput() {
-		RatePayer payer = listOfRatePayers.get(ratePayer-1);
-		ownedProperties = new ArrayList<Property>();
-		for(Property property : listOfProperties) {
-			if(property.getOwner().equals(payer)) {
-				property.setUpExtraServices();
-				ownedProperties.add(property);
-			}
-		}
-		if(!ownedProperties.isEmpty()) {
-			propertyPrompt = ("You have selected : " + payer + "\n\n" +
-					 			"The properties owned by " + payer.getName() + " are: \n\n");
+		RatePayer payer = rManager.getRatePayer(ratePayer-1);
+		ownedProperties = rManager.getOwnedProperties(ratePayer-1, listOfProperties);
+		if(ownedProperties.isEmpty()) {
+			propertyPrompt = ("You have selected : " + payer + "\n" +
+					payer.getName() + " does not have any property. \n");
 		}
 		else {
-			propertyPrompt = ("You have selected : " + payer + "\n" +
-								payer.getName() + " does not have any property. \n");
+			propertyPrompt = ("You have selected : " + payer + "\n\n" +
+		 			"The properties owned by " + payer.getName() + " are: \n\n");
 		}
 		setPrompt(propertyPrompt, 1);
 		System.out.println(prompt);
@@ -97,11 +94,9 @@ public class QueryRatePayer extends FunctionalDialog {
 	}
 
 	private void setListOfRatePayersAndProperties() {
-		RatePayerManager rpManager = new RatePayerManager();
-		rpManager.loadListOfRatePayers();
-		this.listOfRatePayers = rpManager.getListOfRatePayers();
+		rManager.loadListOfRatePayers();
+		this.listOfRatePayers = rManager.getListOfRatePayers();
 		
-		PropertyManager pManager = new PropertyManager();
 		pManager.loadListOfProperties();
 		this.listOfProperties = pManager.getListOfProperties();
 	}

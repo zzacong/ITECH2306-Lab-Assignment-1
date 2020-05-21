@@ -62,7 +62,7 @@ public class OtherProperty extends Property {
 	@Override
 	public String getExtraServicesDetails() {
 		if (getHasExtraServices()) {
-			return  "\n" + "Property extra services: [\n" + fireServicesLevy.toString() + " ]";
+			return  "\n" + "Property extra services: [\n" + fireServicesLevy.toString() + " ]\n";
 		}
 		else {
 			return "";
