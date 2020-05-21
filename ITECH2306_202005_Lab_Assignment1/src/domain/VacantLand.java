@@ -35,4 +35,10 @@ public class VacantLand extends Property{
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public String getExtraServicesDetails() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

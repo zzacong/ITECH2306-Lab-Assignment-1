@@ -43,7 +43,7 @@ public class Industrial extends Property {
 			this.hazardStatus = hazardStatus;
 		}
 		else {
-			throw new NullPointerException("Hazard status of Industrial is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Hazard status of Industrial is null or empty. Rejecting this record...");
 		}
 		
 	}
@@ -75,9 +75,10 @@ public class Industrial extends Property {
 				fireServicesLevy.calculateChargeForServiceType();
 	}
 
-	public String extraServices() {
+	@Override
+	public String getExtraServicesDetails() {
 		if (getHasExtraServices()) {
-			return  "Property extra services: [\n" + industrialWasteDisposal.toString() + "\n" + 
+			return  "\n" + "Property extra services: [\n" + industrialWasteDisposal.toString() + "\n" + 
 					fireServicesLevy.toString() + " ]\n";
 		}
 		else {
@@ -88,7 +89,7 @@ public class Industrial extends Property {
 	@Override 
 	public String toString() {
 		return  super.toString() + "Property type: Industrial [" + "hazardStatus=" + hazardStatus + 
-									", heavyVehicleStatus=" + heavyVehicleStatus + "]\n" + 
-									extraServices();
+									", heavyVehicleStatus=" + heavyVehicleStatus + "]" + 
+									getExtraServicesDetails();
 	}
 }

@@ -22,16 +22,11 @@ public class LoadRatePayers {
 
 	static final String LOAD_RATEPAYERS_CSV = "files/ITECH2306_2020_Load_RatePayers.csv";
 	static final String LOAD_RATEPAYERS_DAT = "files/Load_RatePayers.dat";
+	static int recordNo = 0;
 
 	public static void main(String[] args) {
 		
 		ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
-		String name = null;
-		String address = null;
-		String postcode = null;
-		String phone = null;
-		String type = null;
-		String charity = null;
 		
 		
 		System.out.println("Setting up list of Rate Payers...");
@@ -43,15 +38,26 @@ public class LoadRatePayers {
 			System.out.println("\"ITECH2306_2020_Load_RatePayers.csv\" is located \n");
 			
 			while(fileScanner.hasNextLine()) {
+				System.out.println("Record " + ++recordNo + ": ");
+				
 				try {
 					Scanner rowScanner = new Scanner(fileScanner.nextLine());
 					rowScanner.useDelimiter(",");
 					
+					String name = null;
+					String address = null;
+					String postcode = null;
+					String phone = null;
+					String type = null;
+					String charity = null;
+					
 					int column = 0;
 					while(rowScanner.hasNext()) {
-						String stringData;
+						String stringData = null;
+						
 						stringData = rowScanner.next();
 						stringData = stringData.trim();
+						
 						switch(column) {
 						case 0:
 							name = stringData;
@@ -76,23 +82,26 @@ public class LoadRatePayers {
 						column = (rowScanner.hasNext())? ++column : 0;
 					}
 					RatePayer payer = new RatePayer(name, address, postcode, phone, type, charity);
-					
+
 					listOfRatePayers.add(payer);
 					System.out.println(payer);
+					printRecordCreationMsg(true);
 					
 					rowScanner.close();
 				}
 				catch(NullPointerException npExc) {
 					System.out.println(npExc.getMessage());
+					printRecordCreationMsg(false);
 				}
 				catch(IllegalArgumentException iaExc) {
 					System.out.println(iaExc.getMessage());
+					printRecordCreationMsg(false);
 				}
 			}
 			oos.writeObject(listOfRatePayers);
 //			oos.writeObject(null);
 			oos.flush();
-			System.out.println("Number of Rate Payers: " + listOfRatePayers.size() + "\n");
+			System.out.println("Number of Rate Payers created: " + listOfRatePayers.size() + "\n");
 			System.out.println("Serializable file \"Load_RatePayers.dat\" is created");
 		}
 		catch(FileNotFoundException fnfExc) {
@@ -107,6 +116,10 @@ public class LoadRatePayers {
 			System.out.println("Something went wrong: " + otherExc.getMessage());
 			otherExc.printStackTrace();
 		}
+	}
+	
+	private static void printRecordCreationMsg(boolean result) {
+		System.out.println((result? "Record creation successful. " : "Record creation failed. ") + "\n");
 	}
 
 }

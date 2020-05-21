@@ -2,7 +2,6 @@ package domain;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,7 @@ import org.junit.Test;
 
 public class SchoolCommunityTestCase {
 	
-	private SchoolCommunity schoolCommunity;
+	private Property schoolCommunity;
 
 	// Create a SchoolCommunity object before running each test
 	@Before
@@ -249,6 +248,7 @@ public class SchoolCommunityTestCase {
 	// Test setting up classification with NULL
 	@Test(expected=NullPointerException.class)
 	public void testNullClassification() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setClassification(null);
 //		assertEquals("Not Available", schoolCommunity.getClassification());
 	}
@@ -256,6 +256,7 @@ public class SchoolCommunityTestCase {
 	// Test setting up classification with EMPTY STRING
 	@Test(expected=NullPointerException.class)
 	public void testEmptyClassification() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setClassification("");
 //		assertEquals("Not Available", schoolCommunity.getClassification());
 	}
@@ -263,6 +264,7 @@ public class SchoolCommunityTestCase {
 	// Test setting up a VALID classification 
 	@Test
 	public void testSetClassification() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setClassification("Public");
 		assertEquals("Public", schoolCommunity.getClassification());
 	}
@@ -270,6 +272,7 @@ public class SchoolCommunityTestCase {
 	// Test setting up category with NULL
 	@Test(expected=NullPointerException.class)
 	public void testNullCategoryName() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory(null);
 //		assertEquals("Small", schoolCommunity.getCategory());
 	}
@@ -277,6 +280,7 @@ public class SchoolCommunityTestCase {
 	// Test setting up category with EMPTY STRING
 	@Test(expected=NullPointerException.class)
 	public void testEmptyCategoryName() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory("");
 //		assertEquals("Small", schoolCommunity.getCategory());
 	}
@@ -284,6 +288,7 @@ public class SchoolCommunityTestCase {
 	// Test setting up SMALL category
 	@Test
 	public void testSmallCategoryName() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory("Small");
 		assertEquals("Small", schoolCommunity.getCategory());
 	}
@@ -291,6 +296,7 @@ public class SchoolCommunityTestCase {
 	// Test setting up MEDIUM category
 	@Test
 	public void testMediumCategoryName() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory("Medium");
 		assertEquals("Medium", schoolCommunity.getCategory());
 	}
@@ -298,13 +304,15 @@ public class SchoolCommunityTestCase {
 	// Test setting up LARGE category
 	@Test
 	public void testLargeCategoryName() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory("Large");
 		assertEquals("Large", schoolCommunity.getCategory());
 	}
 	
 	// Lower boundary testing for categoryIndex with a value that should be rejected
 	@Test(expected=IllegalArgumentException.class)
-	public void testMinRejectedCategoryIndex() {	
+	public void testMinRejectedCategoryIndex() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory(4);
 //		assertNull(schoolCommunity.getCategory());
 	}
@@ -312,6 +320,7 @@ public class SchoolCommunityTestCase {
 	// Lower boundary testing for categoryIndex with the smallest value allowed within the range
 	@Test
 	public void testMinAllowedCategoryIndex() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory(1);
 		assertNotNull(schoolCommunity.getCategory());
 	}
@@ -319,6 +328,7 @@ public class SchoolCommunityTestCase {
 	// Upper boundary testing for categoryIndex with the largest value allowed within the range
 	@Test
 	public void testMaxAllowedCategoryIndex() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory(3);
 		assertNotNull(schoolCommunity.getCategory());
 	}
@@ -326,6 +336,7 @@ public class SchoolCommunityTestCase {
 	// Upper boundary testing for categoryIndex with a value that should be rejected
 	@Test(expected=IllegalArgumentException.class)
 	public void testMaxRejectedCategoryIndex() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory(0);
 //		assertNull(schoolCommunity.getCategory());
 	}
@@ -333,6 +344,7 @@ public class SchoolCommunityTestCase {
 	// Test the Traffic Management Levy value for SMALL category
 	@Test
 	public void testSmallTrafficManagementLevy() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory(1);
 		assertEquals(60.00, schoolCommunity.getTrafficManagementExtra(), 0.001);
 	}
@@ -340,6 +352,7 @@ public class SchoolCommunityTestCase {
 	// Test the Traffic Management Levy value for SMALL category
 	@Test
 	public void testMediumTrafficManagementLevy() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory(2);
 		assertEquals(80.00, schoolCommunity.getTrafficManagementExtra(), 0.001);
 	}
@@ -347,6 +360,7 @@ public class SchoolCommunityTestCase {
 	// Test the Traffic Management Levy value for SMALL category
 	@Test
 	public void testLargeTrafficManagementLevy() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCategory(3);
 		assertEquals(100.00, schoolCommunity.getTrafficManagementExtra(), 0.001);
 	}
@@ -375,6 +389,7 @@ public class SchoolCommunityTestCase {
 	// Test extra services charge for SMALL category, CIV = $350,000 
 	@Test
 	public void testSmallCategoryExtraServices() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		schoolCommunity.setCategory(1);
 		schoolCommunity.setUpExtraServices();
@@ -384,6 +399,7 @@ public class SchoolCommunityTestCase {
 	// Test extra services charge for MEDIUM category, CIV = $350,000
 	@Test
 	public void testMediumCategoryExtraServices() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		schoolCommunity.setCategory(2);
 		schoolCommunity.setUpExtraServices();
@@ -393,6 +409,7 @@ public class SchoolCommunityTestCase {
 	// Test extra services charge for LARGE category, CIV = $350,000
 	@Test
 	public void testLargeCategoryExtraServices() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		schoolCommunity.setCategory(3);
 		schoolCommunity.setUpExtraServices();
@@ -402,6 +419,7 @@ public class SchoolCommunityTestCase {
 	// Test total yearly rate for SMALL category with NO DISCOUNT, CIV = $350,000
 	@Test
 	public void testNoDiscountSmallCategoryTotalRate() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		schoolCommunity.getOwner().setCharity(false);
 		schoolCommunity.setCategory(1);
@@ -412,6 +430,7 @@ public class SchoolCommunityTestCase {
 	// Test total yearly rate for SMALL category with DISCOUNT, CIV = $350,000
 	@Test
 	public void testDiscountSmallCategoryTotalRate() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		schoolCommunity.getOwner().setCharity(true);
 		schoolCommunity.setCategory(1);
@@ -422,6 +441,7 @@ public class SchoolCommunityTestCase {
 	// Test total yearly rate for MEDIUM category with NO DISCOUNT, CIV = $350,000
 	@Test
 	public void testNoDiscountMediumCategoryTotalRate() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		schoolCommunity.getOwner().setCharity(false);
 		schoolCommunity.setCategory(2);
@@ -432,6 +452,7 @@ public class SchoolCommunityTestCase {
 	// Test total yearly rate for MEDIUM category with DISCOUNT, CIV = $350,000
 	@Test
 	public void testDiscountMediumCategoryTotalRate() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		schoolCommunity.getOwner().setCharity(true);
 		schoolCommunity.setCategory(2);
@@ -442,6 +463,7 @@ public class SchoolCommunityTestCase {
 	// Test total yearly rate for LARGE category with NO DISCOUNT, CIV = $350,000
 	@Test
 	public void testNoDiscountLargeCategoryTotalRate() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		schoolCommunity.getOwner().setCharity(false);
 		schoolCommunity.setCategory(3);
@@ -452,6 +474,7 @@ public class SchoolCommunityTestCase {
 	// Test total yearly rate for LARGE category with DISCOUNT, CIV = $350,000
 	@Test
 	public void testDiscountLargeCategoryTotalRate() {
+		SchoolCommunity schoolCommunity = new SchoolCommunity();
 		schoolCommunity.setCapitalImprovedValue(350000.00);
 		schoolCommunity.getOwner().setCharity(true);
 		schoolCommunity.setCategory(3);

@@ -41,27 +41,14 @@ public class LoadProperties {
 	private static final String LOAD_PROPERTIES_CSV = "files/ITECH2306_2020_Load_Properties.csv";
 	private static final ArrayList<String> PROPERTY_TYPE_NAMES = new ArrayList<String>(Arrays.asList("Residential", "Commercial", "VacantLand", 
 																				"Hospital", "Industrial", "SchoolCommunity", "Other"));
-		
+	static int recordNo = 0;
+	
 	public static void main(String[] args) {
 		RatePayerManager rpManager = new RatePayerManager();
 		rpManager.loadListOfRatePayers();
 		
 		ArrayList<RatePayer> listOfRatePayers = rpManager.getListOfRatePayers();
 		ArrayList<Property> listOfProperties = new ArrayList<Property>();
-		
-		String propertyType = null;
-		String description = null;
-		String location = null;
-		double area = 0;
-		double siteValue = 0;
-		double capitalImprovedValue = 0;
-		double capitalImprovedRate = 0;
-		double netAnnualValue = 0;
-		String valuationDate = null;
-		RatePayer owner = null;
-		String extraAttr1 = null;
-		String extraAttr2= null;
-		int extraAttr3 = 0;
 		
 		if(!listOfRatePayers.isEmpty()) {
 			System.out.println("Setting up list of Properties...");
@@ -73,13 +60,30 @@ public class LoadProperties {
 				System.out.println("\"ITECH2306_2020_Load_Properties.csv\" file is located \n");				
 							
 				while(fileScanner.hasNextLine()) {
+					System.out.println("Record " + ++recordNo + ": ");
+					
 					try {
 						Scanner rowScanner = new Scanner(fileScanner.nextLine());
 						rowScanner.useDelimiter(",");
-
+						
+						String propertyType = null;
+						String description = null;
+						String location = null;
+						double area = 0;
+						double siteValue = 0;
+						double capitalImprovedValue = 0;
+						double capitalImprovedRate = 0;
+						double netAnnualValue = 0;
+						String valuationDate = null;
+						RatePayer owner = null;
+						String extraAttr1 = null;
+						String extraAttr2= null;
+						int extraAttr3 = 0;
+						
 						int column = 0;
+						
 						while(rowScanner.hasNext()) {
-							String stringData;
+							String stringData = null;
 							double doubleData = 0;
 							
 							stringData = rowScanner.next();
@@ -183,18 +187,22 @@ public class LoadProperties {
 						if(property != null) {
 							listOfProperties.add(property);				
 							System.out.println(property);
+							printRecordCreationMsg(true);
 						}
 						
 						rowScanner.close();
 					}
 					catch(NullPointerException npExc) {
 						System.out.println(npExc.getMessage());
+						printRecordCreationMsg(false);
 					}
 					catch(NumberFormatException nfExc) {
-						System.out.println("Unable to convert string to double: " + nfExc.getMessage() + ".\nRejecting this record...\n");
+						System.out.println("Unable to convert string to double: " + nfExc.getMessage() + ".\nRejecting this record...");
+						printRecordCreationMsg(false);
 					}	
 					catch(IllegalArgumentException iaExc) {
 						System.out.println(iaExc.getMessage());
+						printRecordCreationMsg(false);
 					}
 				}
 				oos.writeObject(listOfProperties);
@@ -218,5 +226,9 @@ public class LoadProperties {
 		else {
 			System.out.println("List of Rate Payers is empty. Cannot load ITECH2306_2020_Load_Properties.csv file. Aborting operation...");
 		}
-	}	
+	}
+	
+	private static void printRecordCreationMsg(boolean result) {
+		System.out.println((result? "Record creation successful. " : "Record creation failed. ") + "\n");
+	}
 }

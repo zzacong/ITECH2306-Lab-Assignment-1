@@ -99,7 +99,7 @@ public class Hospital extends Property {
 			this.facilities = facilities;
 		}
 		else {
-			throw new NullPointerException("Facilities of Hospital is null or empty. Rejecting this record... \n");
+			throw new NullPointerException("Facilities of Hospital is null or empty. Rejecting this record...");
 		}		
 		
 	}
@@ -120,7 +120,7 @@ public class Hospital extends Property {
 			this.numberOfFloors = numberOfFloors;
 		}
 		else {
-			throw new IllegalArgumentException("Invalid number of floors of Hospital. Rejecting this record... \n");
+			throw new IllegalArgumentException("Invalid number of floors of Hospital. Rejecting this record...");
 		}
 	}
 
@@ -151,9 +151,10 @@ public class Hospital extends Property {
 	/**
 	 * @return a string representing the toString() of the extra services for Industrial Waste Disposal and Fire Services Levy if extra services are already set up
 	 */
-	public String extraServices() {
+	@Override
+	public String getExtraServicesDetails() {
 		if (getHasExtraServices()) {
-			return  "Property extra services: [\n" + industrialWasteDisposal.toString() + "\n" + 
+			return  "\n" + "Property extra services: [\n" + industrialWasteDisposal.toString() + "\n" + 
 					fireServicesLevy.toString() + " ]\n";
 		}
 		else {
@@ -167,7 +168,7 @@ public class Hospital extends Property {
 	@Override
 	public String toString() {
 		return super.toString() + "Property type: Hospital [isPublic=" + isPublic + ", facilities=" + facilities + 
-									", numberOfFloors=" + numberOfFloors + "]\n" + 
-									extraServices();
+									", numberOfFloors=" + numberOfFloors + "]" + 
+									getExtraServicesDetails();
 	}
 }

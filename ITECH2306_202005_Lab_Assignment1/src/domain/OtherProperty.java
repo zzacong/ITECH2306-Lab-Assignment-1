@@ -38,7 +38,7 @@ public class OtherProperty extends Property {
 			this.specialDescription = specialDescription;
 		}
 		else {
-			throw new NullPointerException("Description for OtherProperty is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Description for OtherProperty is null or empty. Rejecting this record...");
 		}
 		
 	}
@@ -48,9 +48,9 @@ public class OtherProperty extends Property {
 	public void setUpExtraServices() {
 		setHasExtraServices(true);
 		fireServicesLevy = new BaseAndPercentageOfValueService("Fire Levy",
-				FIRE_SERVICES_BASE,
-				FIRE_SERVICES_PERCENT,
-				getCapitalImprovedValue());
+								FIRE_SERVICES_BASE,
+								FIRE_SERVICES_PERCENT,
+								getCapitalImprovedValue());
 	}
 
 	// Add up all the extra services charges
@@ -59,9 +59,10 @@ public class OtherProperty extends Property {
 		return fireServicesLevy.calculateChargeForServiceType();
 	}
 
-	public String extraServices() {
+	@Override
+	public String getExtraServicesDetails() {
 		if (getHasExtraServices()) {
-			return  "Property extra services: [\n" + fireServicesLevy.toString() + " ]\n";
+			return  "\n" + "Property extra services: [\n" + fireServicesLevy.toString() + " ]";
 		}
 		else {
 			return "";
@@ -70,14 +71,8 @@ public class OtherProperty extends Property {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Property Type: OtherProperty [specialDescription=" + specialDescription + "]\n" + 
-									extraServices();
+		return super.toString() + "Property Type: OtherProperty [specialDescription=" + specialDescription + "]" + 
+				getExtraServicesDetails();
 	}
-	
-//	@Override
-//	public String toString() {
-//		return super.toString() + "Property type: OtherProperty [\n" +
-//								  fireServicesLevy.toString() + "]\n ";	
-//	}
 
 }

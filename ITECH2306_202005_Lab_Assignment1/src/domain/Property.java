@@ -45,7 +45,7 @@ public abstract class Property implements Serializable {
 		this(NOT_AVAILABLE, NOT_AVAILABLE, dateToString(LocalDate.now()), new RatePayer());
 	}
 	
-	public Property (String description, String location, String valuationDate, RatePayer owner) throws NullPointerException, IllegalArgumentException {
+	public Property (String description, String location, String valuationDate, RatePayer owner) {
 		this.setDescription(description);
 		this.setLocation(location);
 		this.setValuationDate(valuationDate);
@@ -53,7 +53,7 @@ public abstract class Property implements Serializable {
 	}
 	
 	public Property(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
-					double netAnnualValue, String valuationDate, RatePayer owner) throws NullPointerException, IllegalArgumentException {
+					double netAnnualValue, String valuationDate, RatePayer owner) {//throws NullPointerException, IllegalArgumentException {
 		this(description, location, valuationDate, owner);
 		this.setArea(area);
 		this.setSiteValue(siteValue);
@@ -71,7 +71,7 @@ public abstract class Property implements Serializable {
 			this.description = description;
 		}
 		else {
-			throw new NullPointerException("Description of Property is null. Rejecting this record... \n");
+			throw new NullPointerException("Description of Property is null. Rejecting this record...");
 		}
 	}
 
@@ -84,7 +84,7 @@ public abstract class Property implements Serializable {
 			this.location = location;
 		}
 		else {
-			throw new NullPointerException("Location of Property is null. Rejecting this record... \n");
+			throw new NullPointerException("Location of Property is null. Rejecting this record...");
 		}
 	}
 
@@ -97,7 +97,7 @@ public abstract class Property implements Serializable {
 			this.area = area;
 		}
 		else {
-			throw new IllegalArgumentException("Invalid Area. Rejecting this record... \n");
+			throw new IllegalArgumentException("Invalid Area. Rejecting this record...");
 		}
 	}
 
@@ -110,7 +110,7 @@ public abstract class Property implements Serializable {
 			this.siteValue = siteValue;
 		}
 		else {
-			throw new IllegalArgumentException("Invalid Site value. Rejecting this record... \n");
+			throw new IllegalArgumentException("Invalid Site value. Rejecting this record...");
 		}
 	}
 
@@ -124,11 +124,11 @@ public abstract class Property implements Serializable {
 				this.capitalImprovedValue = capitalImprovedValue;
 			}
 			else {
-				throw new IllegalArgumentException("CIV must be greater than site value. Rejecting this record... \n");
+				throw new IllegalArgumentException("CIV must be greater than site value. Rejecting this record...");
 			}
 		}
 		else {
-			throw new IllegalArgumentException("Invalid Capital Improved Value. Rejecting this record... \n");
+			throw new IllegalArgumentException("Invalid Capital Improved Value. Rejecting this record...");
 		}
 	}
 
@@ -141,7 +141,7 @@ public abstract class Property implements Serializable {
 			this.capitalImprovedRate = capitalImprovedRate;
 		}
 		else {
-			throw new IllegalArgumentException("Invalid Capital Improved Rate. Rejecting this record... \n");
+			throw new IllegalArgumentException("Invalid Capital Improved Rate. Rejecting this record...");
 		}
 	}
 	
@@ -154,7 +154,7 @@ public abstract class Property implements Serializable {
 			this.netAnnualValue = netAnnualValue;
 		}
 		else {
-			throw new IllegalArgumentException("Invalid Net annual value. Rejecting this record... \n");
+			throw new IllegalArgumentException("Invalid Net annual value. Rejecting this record...");
 		}
 	}
 
@@ -168,11 +168,11 @@ public abstract class Property implements Serializable {
 				this.valuationDate = dateInString;
 			}
 			else {
-				throw new IllegalArgumentException("Valuation date must use format \"dd MMM yyyy\". Rejecting this record... \n");
+				throw new IllegalArgumentException("Valuation date must use format \"dd MMM yyyy\". Rejecting this record...");
 			}
 		}
 		else {
-			throw new NullPointerException("Valuation date of Property is null. Rejecting this record... \n");
+			throw new NullPointerException("Valuation date of Property is null. Rejecting this record...");
 		}
 	}
 	
@@ -189,7 +189,7 @@ public abstract class Property implements Serializable {
 			this.owner = owner;
 		}	
 		else {
-			throw new NullPointerException("Owner of Property is null. Rejecting this record... \n");
+			throw new NullPointerException("Owner of Property is null. Rejecting this record...");
 		}
 	}
 	
@@ -199,11 +199,11 @@ public abstract class Property implements Serializable {
 				return Boolean.parseBoolean(booleanInString);
 			}
 			else {
-				throw new IllegalArgumentException(description + " of " + propertyType + " is not a boolean. Rejecting this record... \n");
+				throw new IllegalArgumentException(description + " of " + propertyType + " is not a boolean. Rejecting this record...");
 			}
 		}
 		else {
-			throw new NullPointerException(description + " of " + propertyType + " is null or empty. Rejecting this record... \n");
+			throw new NullPointerException(description + " of " + propertyType + " is null or empty. Rejecting this record...");
 		}
 	}
 	
@@ -226,6 +226,8 @@ public abstract class Property implements Serializable {
 	public abstract void setUpExtraServices();
 	
 	public abstract double calculateExtraServices();
+	
+	public abstract String getExtraServicesDetails();
 
 	@Override
 	public String toString() {

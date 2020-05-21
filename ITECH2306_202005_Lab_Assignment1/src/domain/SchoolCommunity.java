@@ -60,7 +60,7 @@ public class SchoolCommunity extends Property {
 			this.classification = classification;
 		}
 		else {
-			throw new NullPointerException("Classification of School/Community is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Classification of School/Community is null or empty. Rejecting this record...");
 		}
 	}
 
@@ -80,11 +80,11 @@ public class SchoolCommunity extends Property {
 			}
 			if (!exist) {
 				throw new IllegalArgumentException("\"School/Community category: " + category + " is not among " + 
-													"Small, Medium or Large. Rejecting this record...\n");
+													"Small, Medium or Large. Rejecting this record...");
 			}
 		}
 		else {
-			throw new NullPointerException("Category of School/Community is null. Rejecting this record...\n");
+			throw new NullPointerException("Category of School/Community is null. Rejecting this record...");
 		}
 	}
 
@@ -138,9 +138,10 @@ public class SchoolCommunity extends Property {
 			   trafficManagementLevy.calculateChargeForServiceType();
 	}
 
-	public String extraServices() {
+	@Override
+	public String getExtraServicesDetails() {
 		if (getHasExtraServices()) {
-			return  "Property extra services: [\n" + industrialWasteDisposal.toString() + "\n" + 
+			return  "\n" + "Property extra services: [\n" + industrialWasteDisposal.toString() + "\n" + 
 					fireServicesLevy.toString() + "\n" + trafficManagementLevy.toString() + " ]\n";
 		}
 		else {
@@ -151,7 +152,7 @@ public class SchoolCommunity extends Property {
 	@Override
 	public String toString() {
 		return super.toString() + "Property Type: SchoolCommunity [classification=" + classification + 
-									", category=" + category + "]\n" + 
-									extraServices();
+									", category=" + category + "]" + 
+									getExtraServicesDetails();
 	}
 }

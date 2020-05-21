@@ -64,11 +64,11 @@ public class QueryRatePayer extends FunctionalDialog {
 			}
 		}
 		if(!ownedProperties.isEmpty()) {
-			propertyPrompt = ("You have selected : " + payer + "\n" +
+			propertyPrompt = ("You have selected : " + payer + "\n\n" +
 					 			"The properties owned by " + payer.getName() + " are: \n\n");
 		}
 		else {
-			propertyPrompt = ("You have selected : " + payer + 
+			propertyPrompt = ("You have selected : " + payer + "\n" +
 								payer.getName() + " does not have any property. \n");
 		}
 		setPrompt(propertyPrompt, 1);

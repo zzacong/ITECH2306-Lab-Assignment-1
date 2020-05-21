@@ -47,7 +47,7 @@ public class Residential extends Property {
 			this.propertyType = propertyType;
 		}
 		else {
-			throw new NullPointerException("Type of Residential is null. Rejecting this record...\n");
+			throw new NullPointerException("Type of Residential is null. Rejecting this record...");
 		}
 	}
 
@@ -60,7 +60,7 @@ public class Residential extends Property {
 			this.architecturalStyle = architecturalStyle;
 		}
 		else {
-			throw new NullPointerException("Architectural style of Residential is null. Rejecting this record...\n");
+			throw new NullPointerException("Architectural style of Residential is null. Rejecting this record...");
 		}
 	}
 	
@@ -90,9 +90,10 @@ public class Residential extends Property {
 			   fireServicesLevy.calculateChargeForServiceType();
 	}
 
-	public String extraServices() {
+	@Override
+	public String getExtraServicesDetails() {
 		if (getHasExtraServices()) {
-			return  "Property extra services: [\n" + wasteManagement.toString() + "\n" + 
+			return  "\n" + "Property extra services: [\n" + wasteManagement.toString() + "\n" + 
 				greenWasteManagement.toString() + "\n" + fireServicesLevy.toString() + " ]\n";
 		}
 		else {
@@ -104,7 +105,7 @@ public class Residential extends Property {
 	public String toString() {
 		return  super.toString() + "Property type: Residential [" + 
 				"Type=" + propertyType + ", architecturalStyle=" + 
-				architecturalStyle + "]\n" + extraServices();
+				architecturalStyle + "]" + getExtraServicesDetails();
 	}
 
 }

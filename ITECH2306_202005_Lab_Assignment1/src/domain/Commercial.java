@@ -76,7 +76,7 @@ public class Commercial extends Property {
 			this.businessName = businessName;
 		}
 		else {
-			throw new NullPointerException("Business name for Commercial property is null or empty. Rejecting this record...\n");
+			throw new NullPointerException("Business name for Commercial property is null or empty. Rejecting this record...");
 		}
 	}
 	
@@ -96,7 +96,7 @@ public class Commercial extends Property {
 			this.abn = abn;
 		}
 		else {
-			throw new NullPointerException("ABN for Commercial Property null or empty. Rejecting this record...\n");
+			throw new NullPointerException("ABN for Commercial Property null or empty. Rejecting this record...");
 		}
 	}
 	
@@ -128,9 +128,10 @@ public class Commercial extends Property {
 	/**
 	 * @return a string representing the toString() of the extra services for Waste Management and Fire Services Levy if extra services are already set up
 	 */
-	public String extraServices() {
+	@Override
+	public String getExtraServicesDetails() {
 		if (getHasExtraServices()) {
-			return  "Property extra services: [\n" + wasteManagement.toString() + "\n" + 
+			return  "\n" + "Property extra services: [\n" + wasteManagement.toString() + "\n" + 
 					fireServicesLevy.toString() + " ]\n";
 		}
 		else {
@@ -144,8 +145,8 @@ public class Commercial extends Property {
 	@Override 
 	public String toString() {
 		return  super.toString() + "Property type: Commercial [" + 
-									"businessName=" + businessName + ", ABN=" + abn + "]\n" + 
-									extraServices();
+									"businessName=" + businessName + ", ABN=" + abn + "]" + 
+									getExtraServicesDetails();
 	}
 
 }
