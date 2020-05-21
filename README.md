@@ -225,3 +225,8 @@ V6.16 by Zac
 - Reformat toString() method on RatePayer and all Property classes
 - Reformat output on LoadRatePayers and LoadProperties classes
 - Modify zero-parameter constructor of RatePayer class
+
+V6.17 by Zac
+- Update JUnit test case - SchoolCommunityTestCase
+  - Test zero and negative value for numerical data
+- Move function of getting ownedProperties to RatePayerManager class
