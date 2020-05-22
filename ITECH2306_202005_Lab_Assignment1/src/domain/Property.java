@@ -53,7 +53,7 @@ public abstract class Property implements Serializable {
 	}
 	
 	public Property(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
-					double netAnnualValue, String valuationDate, RatePayer owner) {//throws NullPointerException, IllegalArgumentException {
+					double netAnnualValue, String valuationDate, RatePayer owner) throws NullPointerException, IllegalArgumentException {
 		this(description, location, valuationDate, owner);
 		this.setArea(area);
 		this.setSiteValue(siteValue);
