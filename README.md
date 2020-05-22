@@ -230,3 +230,7 @@ V6.17 by Zac
 - Update JUnit test case - SchoolCommunityTestCase
   - Test zero and negative value for numerical data
 - Move function of getting ownedProperties to RatePayerManager class
+
+V6.18 by Zac
+- Update Javadoc due to change of methods name and added abstract method on Property class
+- Remove sample Industrial class Javadoc
