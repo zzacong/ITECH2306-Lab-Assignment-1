@@ -244,3 +244,6 @@ V6.20 by Anush
 - Improved validation for phoneNumber in RatePayer class
 - Added extra properties and rate payer records to check the validation
 
+V6.21 by Anush
+- Added fixes to the validation methods and RatePayer default values
+
