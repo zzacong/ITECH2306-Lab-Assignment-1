@@ -20,7 +20,7 @@ public class PropertyTypeTestCaseRunner {
 		ArrayList<String> emptyList = new ArrayList<String>();
 		
 		if (result.getFailures().equals(emptyList)) {
-			System.out.println("All tests ran successfully.");			
+			System.out.println("\nAll tests ran successfully.");			
 		}
 		else {
 			System.out.println(result.getFailures());
