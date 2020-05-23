@@ -84,6 +84,26 @@ public class Validator {
 		}
 	}
 	
+	public static boolean validateStringToInt(String input) {
+		try {
+		    Integer.parseInt(input);
+		    return true;
+		} catch (NumberFormatException e) {
+			System.out.println("Invalid number detected. ERROR: " + e.getMessage());
+		    return false;
+		}
+	}
+	
+	public static boolean validateStringToLong(String input) {
+		try {
+		    Long.parseLong(input);
+		    return true;
+		} catch (NumberFormatException e) {
+			System.out.println("Invalid number detected. ERROR: " + e.getMessage());
+		    return false;
+		}
+	}
+	
 	//there exists no method to test where a String encodes a boolean, hence the value of the string is tested.
 	public static boolean validateStringToBoolean(String description, String input) {
 		

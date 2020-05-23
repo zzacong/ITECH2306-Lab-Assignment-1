@@ -85,7 +85,9 @@ public class RatePayer implements Serializable {
 			String[] s = phone.split(" ");
 			String m = "";
 			for(int i  = 0; i < s.length; i++) {
-				m += s[i];
+				if (Validator.validateStringToInt(s[i]) == true) {
+					m += s[i];
+				}
 			}
 			if(m.length() == 10) {
 				this.phone = m;

@@ -90,13 +90,26 @@ public class Commercial extends Property {
 	/**
 	 * @param abn assigns the passed in string as the abn of this Commercial property  
 	 * @throws NullPointerException if the abn is null or empty
+	 * @throws IllegalArgumentException if the abn is not 11 digits
 	 */
-	public void setAbn(String abn) throws NullPointerException {
+	public void setAbn(String abn) throws NullPointerException, IllegalArgumentException {
 		if (Validator.validateString("ABN", abn)) {
-			this.abn = abn;
+			String[] s = abn.split(" ");
+			String m = "";
+			for(int i  = 0; i < s.length; i++) {
+				if (Validator.validateStringToLong(s[i]) == true) {
+					m += s[i];
+				}
+			}
+			if(m.length() == 11) {
+				this.abn = m;
+			}
+			else {
+				throw new IllegalArgumentException("ABN must consist of 11 digits. Rejecting this record...");
+			}
 		}
 		else {
-			throw new NullPointerException("ABN for Commercial Property null or empty. Rejecting this record...");
+			throw new NullPointerException("ABN of commercial property is null or empty. Rejecting this record...");
 		}
 	}
 	
