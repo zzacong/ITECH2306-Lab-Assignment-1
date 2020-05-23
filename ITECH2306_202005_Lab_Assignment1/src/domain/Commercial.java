@@ -56,7 +56,7 @@ public class Commercial extends Property {
 		super();
 		// Explicitly assign defaults for String
 		this.setBusinessName("Zac and Anush Pty. Ltd");
-		this.setAbn("123456");
+		this.setAbn("12367876543");
 		setCapitalImprovedRate(CIV_RATE);
 	}
 
@@ -86,19 +86,32 @@ public class Commercial extends Property {
 	public String getAbn() {
 		return abn;
 	}
+	
+//	public void setAbn(String abn) throws NullPointerException {
+//		if (Validator.validateString("ABN", abn)) {
+//			this.abn = abn;
+//		}
+//		else {
+//			throw new NullPointerException("ABN for Commercial property is null or empty. Rejecting this record...");
+//		}
+//	}
 
 	/**
 	 * @param abn assigns the passed in string as the abn of this Commercial property  
 	 * @throws NullPointerException if the abn is null or empty
 	 * @throws IllegalArgumentException if the abn is not 11 digits
 	 */
-	public void setAbn(String abn) throws NullPointerException, IllegalArgumentException {
+	
+	public void setAbn(String abn) throws NullPointerException, IllegalArgumentException, NumberFormatException {
 		if (Validator.validateString("ABN", abn)) {
 			String[] s = abn.split(" ");
 			String m = "";
 			for(int i  = 0; i < s.length; i++) {
 				if (Validator.validateStringToLong(s[i]) == true) {
 					m += s[i];
+				}
+				else {
+					throw new NumberFormatException("ABN must contain numbers only. Rejecting this record...");
 				}
 			}
 			if(m.length() == 11) {

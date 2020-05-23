@@ -32,7 +32,7 @@ public class RatePayer implements Serializable {
 	}
 	
 	public RatePayer() {
-		this(DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, "FALSE");
+		this(DUMMY_VALUE, DUMMY_VALUE, DUMMY_VALUE, "1234567890", DUMMY_VALUE, "FALSE");
 	}
 
 	public String getName() {

@@ -338,13 +338,27 @@ public class CommercialTestCase {
 		Commercial commercial = new Commercial();
 		commercial.setAbn("");
 	}
+	
+	// Test setting up ABN with invalid input which is not 11 digits
+	@Test(expected=IllegalArgumentException.class)
+	public void testInvalidAbnSize() {
+		Commercial commercial = new Commercial();
+		commercial.setAbn("123 456");
+	}
+	
+	// Test setting up ABN with invalid input which doesn't contain all numbers
+	@Test(expected=NumberFormatException.class)
+	public void testInvalidAbnData() {
+		Commercial commercial = new Commercial();
+		commercial.setAbn("123 456 78A");
+	}
 		
 	// Test setting up a VALID ABN
 	@Test
 	public void testSetAbn() {
 		Commercial commercial = new Commercial();
-		commercial.setAbn("2234 567");
-		assertEquals("2234 567", commercial.getAbn());
+		commercial.setAbn("2234 567 6678");
+		assertEquals("22345676678", commercial.getAbn());
 	}
 
 	
