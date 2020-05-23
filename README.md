@@ -237,3 +237,10 @@ V6.18 by Zac
 
 V6.19 by Anush
 - Added TestCases for CommercialTestCase
+
+V6.20 by Anush
+- Added validation methods inside Validation class
+- Added validation for ABN in Commercial class
+- Improved validation for phoneNumber in RatePayer class
+- Added extra properties and rate payer records to check the validation
+
