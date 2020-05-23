@@ -234,3 +234,6 @@ V6.17 by Zac
 V6.18 by Zac
 - Update Javadoc due to change of methods name and added abstract method on Property class
 - Remove sample Industrial class Javadoc
+
+V6.19 by Anush
+- Added TestCases for CommercialTestCase
