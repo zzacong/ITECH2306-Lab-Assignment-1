@@ -254,3 +254,6 @@ V6.22 by Zac
 V6.23 by Zac
 - Reformat output of doubles to 2 decimal places
 - Modify records of properties in csv file
+
+V6.24 by Zac
+- Use File.seperator to replace hard coded "/" 
