@@ -20,8 +20,9 @@ import domain.RatePayer;
  */
 public class LoadRatePayers {
 
-	static final String LOAD_RATEPAYERS_CSV = "files/ITECH2306_2020_Load_RatePayers.csv";
-	static final String LOAD_RATEPAYERS_DAT = "files/Load_RatePayers.dat";
+	static final String SEPERATOR = File.separator;
+	static final String LOAD_RATEPAYERS_CSV = "files" + SEPERATOR + "ITECH2306_2020_Load_RatePayers.csv";
+	static final String LOAD_RATEPAYERS_DAT = "files" + SEPERATOR + "Load_RatePayers.dat";
 	static int recordNo = 0;
 
 	public static void main(String[] args) {

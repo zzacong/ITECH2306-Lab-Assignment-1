@@ -37,8 +37,9 @@ public class LoadProperties {
 	private static final int INDUSTRIAL = 4;
 	private static final int SCHOOL_COMMUNITY = 5;
 	private static final int OTHER = 6;
-	private static final String LOAD_PROPERTIES_DAT = "files/Load_Properties.dat";
-	private static final String LOAD_PROPERTIES_CSV = "files/ITECH2306_2020_Load_Properties.csv";
+	static final String SEPERATOR = File.separator;
+	private static final String LOAD_PROPERTIES_DAT = "files" + SEPERATOR + "Load_Properties.dat";
+	private static final String LOAD_PROPERTIES_CSV = "files" + SEPERATOR + "ITECH2306_2020_Load_Properties.csv";
 	private static final ArrayList<String> PROPERTY_TYPE_NAMES = new ArrayList<String>(Arrays.asList("Residential", "Commercial", "VacantLand", 
 																				"Hospital", "Industrial", "SchoolCommunity", "Other"));
 	static int recordNo = 0;

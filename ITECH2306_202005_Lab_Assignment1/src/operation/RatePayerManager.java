@@ -3,6 +3,7 @@
  */
 package operation;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,7 +19,8 @@ import domain.RatePayer;
  */
 public class RatePayerManager {
 	
-	static final String LOAD_RATEPAYERS_DAT = "files/Load_RatePayers.dat";
+	static final String SEPERATOR = File.separator;
+	static final String LOAD_RATEPAYERS_DAT = "files" + SEPERATOR + "Load_RatePayers.dat";
 	private ArrayList<RatePayer> listOfRatePayers = new ArrayList<RatePayer>();
 	private ArrayList<Property> ownedProperties;
 

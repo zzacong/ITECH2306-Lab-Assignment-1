@@ -1,5 +1,6 @@
 package operation;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,7 +15,8 @@ import domain.Property;
  */
 public class PropertyManager {
 	
-	private static final String LOAD_PROPERTIES_DAT = "files/Load_Properties.dat";
+	static final String SEPERATOR = File.separator;
+	private static final String LOAD_PROPERTIES_DAT = "files" + SEPERATOR + "Load_Properties.dat";
 	private ArrayList<Property> listOfProperties = new ArrayList<Property>();
 	
 	public ArrayList<Property> getListOfProperties() {
