@@ -247,3 +247,6 @@ V6.20 by Anush
 V6.21 by Anush
 - Added fixes to the validation methods and RatePayer default values
 
+V6.22 by Zac
+- Rewriting throwing of exception in setABN() of Commercial class
+- Rewriting throwing of exception in setPhone() of RatePayer class
