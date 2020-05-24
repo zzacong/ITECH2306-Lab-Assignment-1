@@ -2,6 +2,7 @@ package domain;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -36,6 +37,7 @@ public abstract class Property implements Serializable {
 	private static final double NET_ANNUAL_VALUE_MIN = 100.0;
 	private static final double NET_ANNUAL_VALUE_MAX = 50000000.0;
 	private static final DecimalFormat FORMAT_2DP = new DecimalFormat("0.00");
+	private static final NumberFormat MYFORMAT = NumberFormat.getNumberInstance();
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy");
 	protected static final String NOT_AVAILABLE = "Not Available";
 	
@@ -89,6 +91,7 @@ public abstract class Property implements Serializable {
 	}
 
 	public double getArea() {
+		
 		return area;
 	}
 
@@ -218,9 +221,9 @@ public abstract class Property implements Serializable {
 	public double calculateRates() {
 		// So, we return the CIV multiplied by the CIV rate + the total of extra services all multiplied by
 		// a charity discount (if applicable)
-		return Double.parseDouble(FORMAT_2DP.format(((getCapitalImprovedValue() * getCapitalImprovedRate()) 
+		return ((getCapitalImprovedValue() * getCapitalImprovedRate()) 
 				+ calculateExtraServices()) *
-				(getOwner().isCharity() ? 1 - getOwner().getCharityDiscountPercentage() : 1)));
+				(getOwner().isCharity() ? 1 - getOwner().getCharityDiscountPercentage() : 1);
 	}
 	
 	public abstract void setUpExtraServices();
@@ -231,9 +234,11 @@ public abstract class Property implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Property [description=" + description + ", location=" + location + ", area=" + area 
-				+ ", siteValue=" + siteValue + ", capitalImprovedValue=" + capitalImprovedValue
-				+ ", capitalImprovedRate=" + capitalImprovedRate + ", netAnnualValue=" + netAnnualValue 
+		MYFORMAT.setMinimumFractionDigits(2);
+		MYFORMAT.setMaximumFractionDigits(4);
+		return "Property [description=" + description + ", location=" + location + ", area=" + FORMAT_2DP.format(area) 
+				+ ", siteValue=" + FORMAT_2DP.format(siteValue) + ", capitalImprovedValue=" + FORMAT_2DP.format(capitalImprovedValue)
+				+ ", capitalImprovedRate=" + MYFORMAT.format(capitalImprovedRate) + ", netAnnualValue=" + FORMAT_2DP.format(netAnnualValue) 
 				+ ", valuationDate=" + valuationDate + ", owner=" + owner.getName() + "] \n";
 	}
 	

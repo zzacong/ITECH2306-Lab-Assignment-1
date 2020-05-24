@@ -3,6 +3,7 @@
  */
 package operation;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,6 +29,7 @@ public class QueryRatePayer extends FunctionalDialog {
 	private ArrayList<Property> listOfProperties = new ArrayList<Property>();
 	private ArrayList<Property> ownedProperties;
 	private static final int MAX_NO_USER_INPUTS = 1;
+	private static final DecimalFormat FORMAT_2DP = new DecimalFormat("0.00");
 
 	RatePayerManager rManager = new RatePayerManager();
 	PropertyManager pManager = new PropertyManager();
@@ -85,7 +87,7 @@ public class QueryRatePayer extends FunctionalDialog {
 			break;
 		case 1:
 			for(Property p : ownedProperties) {
-				list += i + ". " + p.toString() + "Total Rate Costs: " + p.calculateRates() + "\n\n";
+				list += i + ". " + p.toString() + "Total Rate Costs: " + FORMAT_2DP.format(p.calculateRates()) + "\n\n";
 				i++;
 			}
 			break;
