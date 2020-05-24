@@ -81,19 +81,22 @@ public class RatePayer implements Serializable {
 	}
 
 	public void setPhone(String phone) throws NullPointerException, IllegalArgumentException {
-		if (Validator.validateString("Phone", phone)) {
+		if(Validator.validateString("Phone", phone)) {
 			String[] s = phone.split(" ");
 			String m = "";
 			for(int i  = 0; i < s.length; i++) {
-				if (Validator.validateStringToInt(s[i]) == true) {
-					m += s[i];
+				m += s[i];
+			}
+			if(Validator.validateStringToInt(m)) {
+				if(m.length() == 10) {
+					this.phone = m;
+				}
+				else {
+					throw new IllegalArgumentException("Phone number of Rate Payer must consist of 10 digits. Rejecting this record...");
 				}
 			}
-			if(m.length() == 10) {
-				this.phone = m;
-			}
 			else {
-				throw new IllegalArgumentException("Phone number of Rate Payer must consist of 10 digits. Rejecting this record...");
+				throw new IllegalArgumentException("Phone number must contain numbers only. Rejecting this record...");
 			}
 		}
 		else {

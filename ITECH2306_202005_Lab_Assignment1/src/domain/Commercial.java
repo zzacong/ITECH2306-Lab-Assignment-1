@@ -5,7 +5,7 @@ import utility.Validator;
 /**
  * @author Anush
  * 
- * @version 6.19. Concrete class of abstract class Property. 
+ * @version 6.22. Concrete class of abstract class Property. 
  * We validate all attributes of the property and will throw an exception for the invalid inputs. 
  * Waste Management and Fire Services Levy are charged together with CIV value multiplied by a CIV rate. 
  */
@@ -103,23 +103,23 @@ public class Commercial extends Property {
 	 */
 	
 	public void setAbn(String abn) throws NullPointerException, IllegalArgumentException, NumberFormatException {
-		if (Validator.validateString("ABN", abn)) {
+		if(Validator.validateString("ABN", abn)) {
 			String[] s = abn.split(" ");
 			String m = "";
 			for(int i  = 0; i < s.length; i++) {
-				if (Validator.validateStringToLong(s[i]) == true) {
-					m += s[i];
+				m += s[i];
+			}
+			if(Validator.validateStringToLong(m)) {
+				if(m.length() == 11) {
+					this.abn = m;
 				}
 				else {
-					throw new NumberFormatException("ABN must contain numbers only. Rejecting this record...");
+					throw new IllegalArgumentException("ABN must consist of 11 digits. Rejecting this record...");
 				}
 			}
-			if(m.length() == 11) {
-				this.abn = m;
-			}
 			else {
-				throw new IllegalArgumentException("ABN must consist of 11 digits. Rejecting this record...");
-			}
+				throw new IllegalArgumentException("ABN must contain numbers only. Rejecting this record...");
+			}		
 		}
 		else {
 			throw new NullPointerException("ABN of commercial property is null or empty. Rejecting this record...");
