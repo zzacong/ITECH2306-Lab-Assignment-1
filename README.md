@@ -250,3 +250,7 @@ V6.21 by Anush
 V6.22 by Zac
 - Rewriting throwing of exception in setABN() of Commercial class
 - Rewriting throwing of exception in setPhone() of RatePayer class
+
+V6.23 by Zac
+- Reformat output of doubles to 2 decimal places
+- Modify records of properties in csv file
