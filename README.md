@@ -261,3 +261,7 @@ V6.24 by Zac
 V6.25 by Anush
 - Fixed CommercialTestCase class
 - Changed the version of JavaDoc
+
+V6.26 by Zac
+- Cleaning up code, remove commented out code
+- Changing package-info
