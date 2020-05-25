@@ -190,6 +190,10 @@ public class LoadProperties {
 							System.out.println(property);
 							printRecordCreationMsg(true);
 						}
+						else {
+							System.out.println("Property type is null. Rejecting this record...");
+							printRecordCreationMsg(false);
+						}
 						
 						rowScanner.close();
 					}

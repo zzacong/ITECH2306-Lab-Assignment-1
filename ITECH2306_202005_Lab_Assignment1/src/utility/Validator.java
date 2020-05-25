@@ -60,7 +60,7 @@ public class Validator {
 	
 	public static boolean validateString(String description, String inputString) {
 		if(inputString == null || inputString.isEmpty()) {
-			System.out.println("Input string : " + description + " cannot be null or empty.");
+			System.out.println("Input string: " + description + " cannot be null or empty.");
 			return false;
 		}
 		else {
