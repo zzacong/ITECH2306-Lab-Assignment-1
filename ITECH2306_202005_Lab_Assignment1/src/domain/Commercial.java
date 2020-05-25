@@ -5,7 +5,7 @@ import utility.Validator;
 /**
  * @author Anush
  * 
- * @version 6.22. Concrete class of abstract class Property. 
+ * @version 6.25. Concrete class of abstract class Property. 
  * We validate all attributes of the property and will throw an exception for the invalid inputs. 
  * Waste Management and Fire Services Levy are charged together with CIV value multiplied by a CIV rate. 
  */

@@ -347,7 +347,7 @@ public class CommercialTestCase {
 	}
 	
 	// Test setting up ABN with invalid input which doesn't contain all numbers
-	@Test(expected=NumberFormatException.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testInvalidAbnData() {
 		Commercial commercial = new Commercial();
 		commercial.setAbn("123 456 78A");
