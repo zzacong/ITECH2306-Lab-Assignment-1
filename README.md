@@ -257,3 +257,7 @@ V6.23 by Zac
 
 V6.24 by Zac
 - Use File.seperator to replace hard coded "/" 
+
+V6.25 by Anush
+- Fixed CommercialTestCase class
+- Changed the version of JavaDoc
