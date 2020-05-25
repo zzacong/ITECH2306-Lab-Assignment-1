@@ -100,7 +100,6 @@ public class LoadRatePayers {
 				}
 			}
 			oos.writeObject(listOfRatePayers);
-//			oos.writeObject(null);
 			oos.flush();
 			System.out.println("Number of Rate Payers created: " + listOfRatePayers.size() + "\n");
 			System.out.println("Serializable file \"Load_RatePayers.dat\" is created");

@@ -21,7 +21,6 @@ public class CommercialTestCase {
 		commercial = new Commercial();
 	}
 	
-	
 	// Test setting up description with NULL
 	@Test(expected=NullPointerException.class)
 	public void testNullDescription() {

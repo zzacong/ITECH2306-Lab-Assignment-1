@@ -5,7 +5,7 @@ import utility.Validator;
 /**
  * @author Anush
  * 
- * @version 6.25. Concrete class of abstract class Property. 
+ * @version 6.26. Concrete class of abstract class Property. 
  * We validate all attributes of the property and will throw an exception for the invalid inputs. 
  * Waste Management and Fire Services Levy are charged together with CIV value multiplied by a CIV rate. 
  */
@@ -38,9 +38,10 @@ public class Commercial extends Property {
 	 * @param businessName A string to define the name of the Commercial property
 	 * @param abn A string to define the Australian Business Number(ABN) of the Commercial property
 	 * @throws NullPointerException if any parameter passed in is null or empty
+	 * @throws IllegalArgumentException if any parameter passed in is invalid
 	 */
 	public Commercial(String description, String location, double area, double siteValue, double capitalImprovedValue, double capitalImprovedRate, 
-			   double netAnnualValue, String valuationDate, RatePayer owner, String businessName, String abn) throws NullPointerException {
+			   double netAnnualValue, String valuationDate, RatePayer owner, String businessName, String abn) throws NullPointerException, IllegalArgumentException {
 		super(description, location, area, siteValue, capitalImprovedValue, capitalImprovedRate, netAnnualValue, valuationDate, owner);
 		this.setBusinessName(businessName);
 		this.setAbn(abn);
@@ -87,22 +88,12 @@ public class Commercial extends Property {
 		return abn;
 	}
 	
-//	public void setAbn(String abn) throws NullPointerException {
-//		if (Validator.validateString("ABN", abn)) {
-//			this.abn = abn;
-//		}
-//		else {
-//			throw new NullPointerException("ABN for Commercial property is null or empty. Rejecting this record...");
-//		}
-//	}
-
 	/**
 	 * @param abn assigns the passed in string as the abn of this Commercial property  
 	 * @throws NullPointerException if the abn is null or empty
 	 * @throws IllegalArgumentException if the abn is not 11 digits
 	 */
-	
-	public void setAbn(String abn) throws NullPointerException, IllegalArgumentException, NumberFormatException {
+	public void setAbn(String abn) throws NullPointerException, IllegalArgumentException {
 		if(Validator.validateString("ABN", abn)) {
 			String[] s = abn.split(" ");
 			String m = "";
